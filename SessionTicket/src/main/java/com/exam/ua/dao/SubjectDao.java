@@ -12,5 +12,6 @@ public interface SubjectDao {
     void edit(Subject subject);
     void delete(Subject subject);
     Subject findOne(long id);
+    Subject findOneByName(String name);
     List<Subject> findAll();
 }

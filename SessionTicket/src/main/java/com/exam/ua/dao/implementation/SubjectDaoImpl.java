@@ -38,6 +38,13 @@ public class SubjectDaoImpl implements SubjectDao{
     }
 
     @Transactional
+    public Subject findOneByName(String name) {
+        Object o = entityManager.createQuery("select id from Subject where name like ?1").setParameter(1,name).getSingleResult();
+        long id = Integer.parseInt(o.toString());
+        return findOne(id);
+    }
+
+    @Transactional
     public List<Subject> findAll() {
         return entityManager.createQuery("from Subject").getResultList();
     }

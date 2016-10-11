@@ -24,13 +24,7 @@ public class Teacher {
     @ManyToOne(fetch = FetchType.EAGER)
     private Faculty faculty;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "group_teacher",joinColumns = @JoinColumn(name ="id_teacher"),
-            inverseJoinColumns = @JoinColumn(name = "id_group"))
-    private List<GroupP> groupPs;
-
-
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "teacher_subject",joinColumns = @JoinColumn(name = "id_teacher"),
             inverseJoinColumns = @JoinColumn(name = "id_subject"))
     private List<Subject> subjects;
@@ -100,11 +94,4 @@ public class Teacher {
         this.faculty = faculty;
     }
 
-    public List<GroupP> getGroupPs() {
-        return groupPs;
-    }
-
-    public void setGroupPs(List<GroupP> groupPs) {
-        this.groupPs = groupPs;
-    }
 }

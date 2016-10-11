@@ -14,5 +14,6 @@ public interface SubjectService {
     void edit(long id,String name);
     void delete(long id);
     Subject findOne(long id);
+    Subject findOneByName(String name);
     List<Subject> findAll();
 }

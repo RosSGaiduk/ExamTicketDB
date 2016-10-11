@@ -39,6 +39,11 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @Override
+    public Subject findOneByName(String name) {
+        return subjectDao.findOneByName(name);
+    }
+
+    @Override
     public List<Subject> findAll() {
         return subjectDao.findAll();
     }

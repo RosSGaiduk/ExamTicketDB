@@ -2,8 +2,10 @@ package com.exam.ua.controllers;
 
 import com.exam.ua.entity.Faculty;
 import com.exam.ua.entity.GroupP;
+import com.exam.ua.entity.Subject;
 import com.exam.ua.services.FacultyService;
 import com.exam.ua.services.GroupService;
+import com.exam.ua.services.SubjectService;
 import com.exam.ua.validators.GroupValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,13 +32,17 @@ public class GroupController {
     private FacultyService facultyService;
 
     @Autowired
+    private SubjectService subjectService;
+
+    @Autowired
     private GroupValidator groupValidator;
 
 
     @RequestMapping(value = "/addGroup",method = RequestMethod.GET)
-    public String newGroupPage(Model model,Model modelFaculties){
+    public String newGroupPage(Model model,Model modelFaculties,Model modelSubjects){
         List<Faculty> faculties = facultyService.findAll();
         modelFaculties.addAttribute("faculties",faculties);
+        modelFaculties.addAttribute("subjects",subjectService.findAll());
         model.addAttribute("grouppP",new GroupP());
         return "views-group-new";
     }
@@ -43,22 +50,26 @@ public class GroupController {
     @RequestMapping(value = "/createGroup",method = RequestMethod.POST)
     public String createGroup(@ModelAttribute("grouppP") GroupP grouppP,
                                 @RequestParam("facultySelect")String facultyName,
-                                    Model modelFaculties,
+                                @RequestParam("groupSubject1")String subject1,
+                                @RequestParam("groupSubject2")String subject2,
+                                @RequestParam("groupSubject3")String subject3,
+                                @RequestParam("groupSubject4")String subject4,
+                                    Model modelFaculties,Model modelSubjects,
                                         BindingResult bindingResult
                                             ){
         groupValidator.validate(grouppP,bindingResult);
         if (bindingResult.hasErrors()){
             modelFaculties.addAttribute("faculties",facultyService.findAll());
+            modelSubjects.addAttribute("subjects",subjectService.findAll());
             return "views-group-new";
         }
         else {
-          /*  List<Faculty> faculties = facultyService.findAll();
-            for (Faculty faculty : faculties) {
-                if (faculty.getName().equals(facultyName)) {
-                    grouppP.setFaculty(faculty);
-                    break;
-                }
-            }*/
+            List<Subject> subjects = new ArrayList<>();
+                subjects.add(subjectService.findOneByName(subject1));
+                subjects.add(subjectService.findOneByName(subject2));
+                subjects.add(subjectService.findOneByName(subject3));
+                subjects.add(subjectService.findOneByName(subject4));
+            grouppP.setSubjects(subjects);
             grouppP.setFaculty(facultyService.findOneByName(facultyName));
             groupService.add(grouppP);
         }

@@ -24,6 +24,7 @@ public class Faculty {
     private List<Teacher> teachers;
 
 
+
     public Faculty(){}
 
     public Faculty(String name) {

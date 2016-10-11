@@ -3,6 +3,7 @@ package com.exam.ua;
 import com.exam.ua.entity.Faculty;
 import com.exam.ua.entity.GroupP;
 import com.exam.ua.entity.StudentOfLnu;
+import com.exam.ua.entity.Subject;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.EntityManager;
@@ -58,16 +59,20 @@ public class Main {
         System.out.println(id);*/
 
 
-        Object o =
+       /* Object o =
                 entityManager.createQuery("select id from Faculty where name like ?1").setParameter(1,"Applied mathematics and informatics").getSingleResult();
-        long id = Integer.parseInt(o.toString());
+        long id = Integer.parseInt(o.toString());*/
 
-        List<GroupP> groupPs = entityManager.find(Faculty.class,id).getGroups();
+       /* List<GroupP> groupPs = entityManager.find(Faculty.class,id).getGroups();*/
         /*HashSet<GroupP> groupPs1 = new HashSet<>();
         groupPs1.a*/
-        System.out.println(groupPs.size());
-        for (GroupP groupP:groupPs)
-            System.out.println(groupP.getName()+" "+groupP.getId());
+        /*String str = "Programming";
+        Object o = entityManager.createQuery("select id from Subject where name like ?1").setParameter(1,str).getSingleResult();
+        long id = Integer.parseInt(o.toString());
+        System.out.println(id);
+
+        Subject subject = entityManager.find(Subject.class,id);
+        System.out.println(subject.getName());*/
 
 
         entityManager.getTransaction().commit();

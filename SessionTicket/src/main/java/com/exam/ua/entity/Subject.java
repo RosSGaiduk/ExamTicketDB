@@ -14,10 +14,18 @@ public class Subject {
     private long id;
     @Column
     private String name;
-    @ManyToMany(fetch = FetchType.LAZY)
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "teacher_subject",joinColumns = @JoinColumn(name ="id_subject"),
     inverseJoinColumns = @JoinColumn(name = "id_teacher"))
     private List<Teacher> teachers;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "group_subject",joinColumns = @JoinColumn(name = "id_subject"),
+    inverseJoinColumns = @JoinColumn(name = "id_group")
+    )
+    private List<GroupP> groupPs;
+
 
 
     public Subject(){}
@@ -48,6 +56,14 @@ public class Subject {
 
     public void setTeachers(List<Teacher> teachers) {
         this.teachers = teachers;
+    }
+
+    public List<GroupP> getGroupPs() {
+        return groupPs;
+    }
+
+    public void setGroupPs(List<GroupP> groupPs) {
+        this.groupPs = groupPs;
     }
 
 }

@@ -54,6 +54,14 @@
         </c:forEach>
     </select>
 
+    <p style="clear:left; margin-left: 40%;">Subject:</p>
+    <select name="subjectSelect" style="width:200px;font-size: 18px;  border-radius: 8px;
+                    background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
+        <c:forEach items="${subjects}" var="s">
+            <option>${s.name}</option>
+        </c:forEach>
+    </select>
+
 
     <p style="margin-left: 40%"><form:button style="width:50px; height: 30px;border-radius:20%;">OK</form:button></p>
 </form:form>
