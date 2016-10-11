@@ -1,15 +1,18 @@
 package com.exam.ua;
 
-import com.exam.ua.entity.Faculty;
-import com.exam.ua.entity.GroupP;
-import com.exam.ua.entity.StudentOfLnu;
-import com.exam.ua.entity.Subject;
+import com.exam.ua.entity.*;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.format.datetime.DateFormatter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -73,6 +76,19 @@ public class Main {
 
         Subject subject = entityManager.find(Subject.class,id);
         System.out.println(subject.getName());*/
+
+       /* String testDate = "29/05/2010";
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date date = formatter.parse(testDate);
+            System.out.println(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }*/
+
+
+        Time time = new Time(9,46,33);
+        System.out.println(time);
 
 
         entityManager.getTransaction().commit();

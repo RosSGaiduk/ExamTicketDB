@@ -32,20 +32,15 @@
                     <option>${f.name}</option>
                 </c:forEach>
             </select>
-
-
-
-
+            <%-- And creating 4 subjects for this group(this group will have exam which includes each of this subjects)--%>
             <p style="clear: left"></p>
             <p><h4 style="margin-left: 40%;">Subject1</h4></p>
-           <%-- And creating 4 subjects for this group(this group will have exam which includes each of this subjects)--%>
             <select name="groupSubject1" style="width:250px;font-size: 18px;  border-radius: 8px;
                     background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
                 <c:forEach items="${subjects}" var="s">
                     <option>${s.name}</option>
                 </c:forEach>
             </select>
-
 
             <p style="clear: left"></p>
             <p><h4 style="margin-left: 40%;">Subject2</h4></p>
@@ -56,7 +51,6 @@
                 </c:forEach>
             </select>
             <br>
-
             <p style="clear: left"></p>
             <p><h4 style="margin-left: 40%;">Subject3</h4></p>
             <select name="groupSubject3" style="width:250px;font-size: 18px;  border-radius: 8px;
@@ -65,7 +59,6 @@
                     <option>${s.name}</option>
                 </c:forEach>
             </select>
-
             <p style="clear: left;"></p>
             <p><h4 style="margin-left: 40%;">Subject4</h4></p>
             <select name="groupSubject4" style="width:250px;font-size: 18px;  border-radius: 8px;
@@ -75,11 +68,8 @@
                 </c:forEach>
             </select>
             <br>
-
             <p style="margin-left: 40%"><form:button style="width:50px; height: 30px;border-radius:20%;">OK</form:button></p>
             </form:form>
-
-
     </div>
 </body>
 </html>
