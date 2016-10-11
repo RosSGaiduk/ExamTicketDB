@@ -10,9 +10,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-
+    <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
 </head>
 <body>
+<div class="headForForms">
+</div>
+<div class="forms">
 <p><h3 style="margin-left: 40%; color: darkorchid;">Add a new teacher</h3></p>
 <form:form action="/createTeacher" method="post" modelAttribute="newTeacher">
     <form:label path="name" cssStyle="margin-left: 40%;">Teacher's name: <br></form:label>
@@ -54,5 +57,6 @@
 
     <p style="margin-left: 40%"><form:button style="width:50px; height: 30px;border-radius:20%;">OK</form:button></p>
 </form:form>
+    </div>
 </body>
 </html>

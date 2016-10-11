@@ -14,21 +14,39 @@
 <body>
 <div class = "formenu">
 </div>
-<ul class="main-ul" style="margin-left: 30px;">
-    <li><a href="/addFaculty"><span>New faculty</span></a></li>
-    <li><a href="#"><span>Faculties</span></a>
+
+<ul id="nav" style="margin-left: 20%">
+    <li>
+        <a href="/" title="Home">Home</a>
+    </li>
+    <li>
+        <a href="#" title="Service and information about faculty">Faculty</a>
         <ul>
-            <li><a href="/"><span>Львів</span></a></li>
-            <li><a href="/"><span>Тернопіль</span></a></li>
-            <li><a href="/"><span>Івано-Франківськ</span></a></li>
-            <li><a href="/"><span>Ужгород</span></a></li>
+            <li><a href="/allFaculties">All</a></li>
+            <li><a href="/addFaculty">Add</a></li>
         </ul>
     </li>
-    <li><a href="/addGroup"><span>New group</span></a></li>
-    <li><a href="/addStudent"><span>New student</span></a></li>
-    <li><a href="/addTeacher"><span>New teacher</span></a></li>
-    <li><a href="/"><span>Registration</span></a></li>
+    <li>
+        <a href="#" title="Group service">Group</a>
+        <ul>
+            <li><a href="/addGroup">Add</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#" title="Student service">Student</a>
+        <ul>
+            <li><a href="/">All</a></li>
+            <li><a href="/addStudent">Add</a></li>
+            <li><a href="#">Find student</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#" title="Teacher service">Teacher</a>
+        <ul>
+            <li><a href="/">All</a></li>
+            <li><a href="/addTeacher">Add</a></li>
+        </ul>
+    </li>
 </ul>
-
 </body>
 </html>

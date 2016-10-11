@@ -10,13 +10,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-
+    <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
 </head>
 <body>
-<div style="width: 60%; height: auto;
-margin-left: 20%; margin-top: 50px; margin-bottom: 50px;
-border-radius: 5%; float: left; background-color: cornsilk;
-">
+
+
+<div class="headForForms">
+</div>
+<div class="forms">
 <form:form action="/createStudent" method="post" modelAttribute="student">
     <form:label path="name"><h3 style="margin-left: 40%;">Name: </h3></form:label>
     <font style="color: red"><form:errors path="name" cssStyle="margin-left: 40%"/></font>
@@ -59,7 +60,7 @@ border-radius: 5%; float: left; background-color: cornsilk;
 </form:form>
     </div>
 
-<div style="float: left; width: 25%; height: 600px; background-image: url(/resources/img/student.png);
+<%--<div style="float: left; width: 25%; height: 600px; background-image: url(/resources/img/student.png);
 background-size: 100%; background-repeat: no-repeat; margin-bottom: 300px;">
 </div>
 <div style="width: 60%; height: 600px; float: left">
@@ -109,9 +110,9 @@ background-size: 100%; background-repeat: no-repeat; margin-bottom: 300px;">
         still they persevered including the founding of what is now the American Association of University Women (AAUW) in 1903.
         </p> </font>
 </div>
-<div style="width: 100%; height: 300px; background-color: aquamarine; float: left;">
+<div style="width: 100%; height: 300px; background-color: aquamarine; float: left;">--%>
 
-</div>
+<%--</div>--%>
 
 
 

@@ -10,13 +10,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-
+    <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
 </head>
 <body>
-<div style="width: 60%; height: auto; border: 3px double deeppink;
-margin-left: 20%; margin-top: 50px; margin-bottom: 50px;
-border-radius: 10%;
-">
+<div class="headForForms">
+</div>
+<div class="forms">
 <form:form action="/createStudentFinished" method="post" modelAttribute="studentContinue">
     <form:label path="name"><h3 style="margin-left: 40%;">Name: </h3></form:label>
     <font style="color: red"><form:errors path="name" cssStyle="margin-left: 40%"/></font>

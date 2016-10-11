@@ -38,7 +38,7 @@ public class StudentDaoImpl implements StudentDao{
         return entityManager.find(StudentOfLnu.class,id);
     }
 
-    @Override
+    @Transactional
     public StudentOfLnu findOne(String query) {
         Object o = entityManager.createQuery(query).getSingleResult();
         long i = Integer.parseInt(o.toString());

@@ -21,13 +21,12 @@ public class GroupP {
     @OneToMany(mappedBy = "groupP",fetch = FetchType.LAZY)
     private List<StudentOfLnu> students;
 
-    public List<StudentOfLnu> getStudents() {
-        return students;
-    }
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "group_teacher",joinColumns = @JoinColumn(name = "id_group"),
+                inverseJoinColumns = @JoinColumn(name = "id_teacher")
+    )
+    private List<Teacher>teachers;
 
-    public void setStudents(List<StudentOfLnu> students) {
-        this.students = students;
-    }
 
     public GroupP(){}
 
@@ -57,5 +56,21 @@ public class GroupP {
 
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
+    }
+
+    public List<StudentOfLnu> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<StudentOfLnu> students) {
+        this.students = students;
+    }
+
+    public List<Teacher> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(List<Teacher> teachers) {
+        this.teachers = teachers;
     }
 }

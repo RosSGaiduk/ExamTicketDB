@@ -73,150 +73,133 @@ ul.menu > li:hover > ul.submenu {
     background-repeat: no-repeat;
     float: left;
 }
-ol, ul { list-style: none; }
-.main-ul li {
+#nav{
     float:left;
+    width:100%;
+    list-style:none;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+#nav li{
+    float:left;
+    width:10%;
+    margin-right:10px;
     position:relative;
-    width:16%;
-    text-align:center;
-}
-.main-ul li a {
     display:block;
-    padding-bottom:20px;
-    padding-right:10px;
-    padding-top:10px;
-    padding-left:10px;
+}
+#nav li a{
+    display:block;
+    padding:5px;
+    color:#fff;
+    background:#333;
     text-decoration:none;
-    position: relative;
-    z-index: 100;
-    background-color: rgba(117,18,98,0.8);
-    /*background-color: rgba(164, 164, 164, 0.2);*/
-    -webkit-transition: all 1s;
-    -moz-transition: all 1s;
-    -o-transition: all 1s;
-    transition: all 1s;
+    text-shadow:1px 1px 1px rgba(0,0,0,0.75); /* Тень текста, чтобы приподнять его на немного */
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
 }
-.main-ul li a span{
+#nav li a:hover{
+    color:#fff;
+    background:#6b0c36;
+    background:rgba(107,12,54,0.75); /* Выглядит полупрозрачным */
+    text-decoration:underline;
+}
+
+/*--- ВЫПАДАЮЩИЕ ПУНКТЫ ---*/
+#nav ul{
+    list-style:none;
+    position:absolute;
+    left:-9999px; /* Скрываем за экраном, когда не нужно (данный метод лучше, чем display:none;) */
+    opacity:0; /* Устанавливаем начальное состояние прозрачности */
+    -webkit-transition:0.25s linear opacity; /* В Webkit выпадающие пункты будут проявляться */
+}
+#nav ul li{
+    width:100%;
+    padding-top:1px; /* Вводим отступ между li чтобы создать иллюзию разделенных пунктов меню */
+    float:none;
+    /*background:url(dot.gif);*/
+}
+#nav ul a{
+    white-space:nowrap; /* Останавливаем перенос текста и создаем многострочный выпадающий пункт */
     display:block;
-    padding-top:10px;
-    font-weight:700;
-    font-size: 20px;
-    /*color: rgba(120, 120, 120, 0.9);*/
-    color:white;
-    text-transform:uppercase;
-    font-family: 'Kotta One', serif;
 }
-.main-ul li:hover span{
-    color: #fff;
+#nav li:hover ul{ /* Выводим выпадающий пункт при наведении курсора */
+    left:0; /* Приносим его обратно на экран, когда нужно */
+    opacity:1; /* Делаем непрозрачным */
 }
-.main-ul li:nth-child(1):hover a{
-    background-color: rgba(175,54,55,0.8);
-    -moz-transform: rotate(-3deg);
-    -webkit-transform: rotate(-3deg);
-    -o-transform: rotate(-3deg);
-    transform: rotate(-3deg);
+#nav li:hover a{ /* Устанавливаем стили для верхнего уровня, когда выводится выпадающий список */
+    background:#6b0c36;
+    background:rgba(107,12,54,0.75); /* Выглядит полупрозрачным */
+    text-decoration:underline;
 }
-.main-ul li:nth-child(2):hover a{
-    background-color: rgba(199, 204, 73, 0.8);
-    -moz-transform: rotate(-3deg);
-    -webkit-transform: rotate(-3deg);
-    -o-transform: rotate(-3deg);
-    transform: rotate(-3deg);
+#nav li:hover ul a{ /* Изменяем некоторые стили верхнего уровня при выводе выпадающего пункта */
+    text-decoration:none;
+    -webkit-transition:-webkit-transform 0.075s linear;
 }
-.main-ul li:nth-child(3):hover a{
-    background-color: rgba(213, 135, 11, 0.8);
-    -moz-transform: rotate(3deg);
-    -webkit-transform: rotate(3deg);
-    -o-transform: rotate(3deg);
-    transform: rotate(3deg);
-}
-.main-ul li:nth-child(4):hover a{
-    background-color: rgba(51, 143, 144, 0.8);
-    -moz-transform: rotate(3deg);
-    -webkit-transform: rotate(3deg);
-    -o-transform: rotate(3deg);
-    transform: rotate(3deg);
-}
-.main-ul li:nth-child(5):hover a{
-    background-color: rgba(117,18,98,0.8);
-    -moz-transform: rotate(-3deg);
-    -webkit-transform: rotate(-3deg);
-    -o-transform: rotate(-3deg);
-    transform: rotate(-3deg);
-}
-.main-ul li:nth-child(6):hover a{
-    background-color: rgba(33, 136, 215, 0.8);
-    -moz-transform: rotate(-3deg);
-    -webkit-transform: rotate(-3deg);
-    -o-transform: rotate(-3deg);
-    transform: rotate(-3deg);
-}
-.main-ul li:nth-child(7):hover a{
-    background-color: rgba(109, 109, 109, 0.8);
-    -moz-transform: rotate(3deg);
-    -webkit-transform: rotate(3deg);
-    -o-transform: rotate(3deg);
-    transform: rotate(3deg);
-}
-.main-ul li:nth-child(8):hover a{
-    background-color: rgba(152, 120, 92, 0.8);
-    -moz-transform: rotate(3deg);
-    -webkit-transform: rotate(3deg);
-    -o-transform: rotate(3deg);
-    transform: rotate(3deg);
-}
-.main-ul li:nth-child(2):hover> ul
-{
-    display: block;
-}
-/* Подменю */
-.main-ul ul
-{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: none; /*ця строчка якраз і робить так, щоб внутрішньої меню
-	не було видно
-	*/
-    position: absolute;
-    top: 25px;
-    left: 15px;
-    z-index: 99999;
-    /*  background: #444;
-     background: -moz-linear-gradient(#444, #111);
-     background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #111),color-stop(1, #444));
-     background: -webkit-linear-gradient(#444, #111);
-     background: -o-linear-gradient(#444, #111);
-     background: -ms-linear-gradient(#444, #111);
-     background: linear-gradient(#444, #111);
-     -moz-border-radius: 5px; */
-    /* border-radius: 5px; */
+#nav li:hover ul li a:hover{ /* Устанавливаем стили для выпадающих пунктов, когда курсор наводится на конкретный пункт */
+    background:#333;
+    background:rgba(51,51,51,0.75); /* Будет полупрозрачным */
+    text-decoration:underline;
+    -moz-transform:scale(1.05);
+    -webkit-transform:scale(1.05);
 }
 
 
-*:first-child+html .main-ul ul a /* IE7 */
-{
-    height: 10px;
-    width: 150px;
 
-}
-.main-ul ul li
-{
-    width:150px;
-    float: none;
-    margin: 0;
-    margin-top: 20px;
-    padding: 0;
-    display: block;
-    /* -moz-box-shadow: 0 1px 0 #111111, 0 2px 0 #777777;
-    -webkit-box-shadow: 0 1px 0 #111111, 0 2px 0 #777777;
-    box-shadow: 0 1px 0 #111111, 0 2px 0 #777777; */
+
+
+
+#nav ul{
+    list-style:none;
+    position:absolute;
+    left:-9999px; /* Скрываем за экраном, когда не нужно (данный метод, лучше чем display:none;) */
+    opacity:0; /* Устанавливаем начальное состояние прозрачности */
+    -webkit-transition:0.25s linear opacity; /* В Webkit выпадающие пункты будут проявляться */
 }
 
-#list1 { }
-#list1 ul { list-style:none; text-align:center; border-top:1px solid black;
-    border-bottom:1px solid #eee; padding:10px 0; background-color:black; }
-#list1 ul li { display:inline; text-transform:uppercase; padding:0 10px;
-    letter-spacing:5px; background-color:black; }
-#list1 ul li a { text-decoration:none; color:#eee; }
-#list1 ul li a:hover {  }
+
+#nav ul li{
+    padding-top:1px; /* Вводим отступ между li чтобы создать иллюзию разделенных пунктов меню */
+    float:none;
+    /*background:url(dot.gif);*/
+}
+#nav ul a{
+    white-space:nowrap; /* Останавливаем перенос текста и создаем многострочный выпадающий пункт */
+    display:block;
+}
+#nav li:hover ul{ /* Выводим выпадающий пункт при наведении курсора */
+    left:0; /* Приносим его обратно на экран, когда нужно */
+    opacity:1; /* Делаем непрозрачным */
+}
+#nav li:hover a{ /* Устанавливаем стили для верхнего уровня, когда выводится выпадающий список */
+    background:#6b0c36;
+    background:rgba(107,12,54,0.75); /* Выглядит полупрозрачным */
+    text-decoration:underline;
+}
+
+#nav li:hover ul li a:hover{ /* Устанавливаем стили для выпадающих пунктов, когда курсор наводится на конкретный пункт */
+    background:#333;
+    background:rgba(51,51,51,0.75); /* Будет полупрозрачным */
+    text-decoration:underline;
+    -moz-transform:scale(1.05);
+    -webkit-transform:scale(1.05);
+}
+
+.headForForms{
+    width:60%;
+    height: 150px;
+    margin-left: 20%;
+    background-color: blueviolet;
+    float: left;
+}
+
+.forms{
+    width: 60%;
+    height: auto;
+    margin-left: 20%;
+    margin-bottom: 50px;
+    border: 2px solid blueviolet;
+    border-radius: 0%;
+    float: left;
+    background-color: cornsilk;
+}

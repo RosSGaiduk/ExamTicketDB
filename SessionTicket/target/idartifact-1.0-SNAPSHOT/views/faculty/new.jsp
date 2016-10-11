@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Rostyslav
@@ -9,7 +10,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <div style="width: 60%; height: auto; border: 3px double deeppink; margin-left: 20%; margin-top: 50px; margin-bottom: 50px;">
+    <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div class="headForForms">
+</div>
+<div class="forms">
     <form:form action="/createFaculty" method="post" modelAttribute="newFaculty">
         <form:label path="name" cssStyle="margin-left: 40%;">Name of faculty: <br></form:label>
         <font style="color: red"><form:errors path="name" cssStyle="margin-left: 40%"/></font><br>
@@ -17,9 +23,6 @@
          background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%; " /><br>
         <p style="margin-left: 40%"><form:button>OK</form:button></p>
     </form:form>
-    </div>
-</head>
-<body>
-
+</div>
 </body>
 </html>

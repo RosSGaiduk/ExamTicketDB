@@ -10,8 +10,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
 </head>
 <body>
+<div class="headForForms">
+</div>
+<div class="forms">
         <p><h3 style="margin-left: 40%; color: darkorchid;">Add a new group</h3></p>
         <form:form action="/createGroup" method="post" modelAttribute="grouppP">
             <form:label path="name" cssStyle="margin-left: 40%;">Name of group:<br></form:label>
@@ -29,5 +33,6 @@
             </select>
             <p style="margin-left: 40%"><form:button style="width:50px; height: 30px;border-radius:20%;">OK</form:button></p>
             </form:form>
+    </div>
 </body>
 </html>

@@ -38,10 +38,6 @@ public class StudentOfLnu {
     @ManyToOne(fetch = FetchType.LAZY)
     private GroupP groupP;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "student_teacher",joinColumns = @JoinColumn(name ="id_student"),
-            inverseJoinColumns = @JoinColumn(name = "id_teacher"))
-    private List<Teacher> teachers;
 
     public StudentOfLnu(){}
 
@@ -81,14 +77,6 @@ public class StudentOfLnu {
 
     public void setGroupP(GroupP groupP) {
         this.groupP = groupP;
-    }
-
-    public List<Teacher> getTeachers() {
-        return teachers;
-    }
-
-    public void setTeachers(List<Teacher> teachers) {
-        this.teachers = teachers;
     }
 
     public String getLastName() {

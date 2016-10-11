@@ -38,7 +38,7 @@ public class FacultyDaoImpl implements FacultyDao {
         return entityManager.find(Faculty.class,id);
     }
 
-    @Override
+    @Transactional
     public Faculty findOneByName(String name) {
         Object o = entityManager.createQuery("select id from Faculty where name like ?1").setParameter(1,name).getSingleResult();
         long id = Integer.parseInt(o.toString());
