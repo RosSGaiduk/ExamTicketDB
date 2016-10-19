@@ -1,8 +1,4 @@
 package com.exam.ua.entity;
-
-
-
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -28,9 +24,15 @@ public class ExamForGroup {
     private int hour;
     @Column
     private int minute;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Faculty faculty;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private GroupP groupP;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Subject subject;
 
     public ExamForGroup(){}
-
+    //JavaScript JQuery
     public ExamForGroup(Date date,int hour,int minute) {
         this.date = date;this.hour = hour; this.minute = minute;
     }
@@ -65,5 +67,29 @@ public class ExamForGroup {
 
     public void setMinute(int minute) {
         this.minute = minute;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
+    }
+
+    public GroupP getGroupP() {
+        return groupP;
+    }
+
+    public void setGroupP(GroupP groupP) {
+        this.groupP = groupP;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 }

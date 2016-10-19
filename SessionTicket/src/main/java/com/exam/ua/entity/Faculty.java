@@ -23,7 +23,8 @@ public class Faculty {
     @OneToMany(mappedBy = "faculty",fetch = FetchType.EAGER)
     private List<Teacher> teachers;
 
-
+    @OneToMany(mappedBy = "faculty",fetch = FetchType.LAZY)
+    private List<ExamForGroup> examForGroupList;
 
     public Faculty(){}
 
@@ -70,4 +71,11 @@ public class Faculty {
         this.urlImage = urlImage;
     }
 
+    public List<ExamForGroup> getExamForGroupList() {
+        return examForGroupList;
+    }
+
+    public void setExamForGroupList(List<ExamForGroup> examForGroupList) {
+        this.examForGroupList = examForGroupList;
+    }
 }

@@ -26,7 +26,8 @@ public class GroupP {
             inverseJoinColumns = @JoinColumn(name = "id_subject")
     )
     private List<Subject> subjects;
-
+    @OneToMany(mappedBy = "groupP",fetch = FetchType.LAZY)
+    private List<ExamForGroup> examForGroupList;
 
     public GroupP(){}
 
@@ -72,5 +73,13 @@ public class GroupP {
 
     public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
+    }
+
+    public List<ExamForGroup> getExamForGroupList() {
+        return examForGroupList;
+    }
+
+    public void setExamForGroupList(List<ExamForGroup> examForGroupList) {
+        this.examForGroupList = examForGroupList;
     }
 }

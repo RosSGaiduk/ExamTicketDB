@@ -1,6 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%--
   Created by IntelliJ IDEA.
   User: Rostyslav
@@ -14,6 +17,25 @@
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
 </head>
 <body>
+<sql:setDataSource var="mysrc" driver="com.mysql.jdbc.Driver"
+                   url="jdbc:mysql://localhost:3306/examlnu"
+                   user="root"  password="123456root"/>
+
+<sql:query dataSource="${mysrc}" var="result">
+    select * from studentoflnu;
+</sql:query>
+
+<c:forEach var="row" items="${result.rows}">
+    <div style = "width:60%; height: auto; margin-left: 20%; border: 1px solid orange; float: left;">
+    <tr>
+        <td><c:out value="${row.id}"/></td>
+        <td><c:out value="${row.name}"/></td>
+        <td><c:out value="${row.lastname}"/></td>
+        <td><c:out value="${row.form}"/></td>
+    </tr>
+    </div>
+</c:forEach>
+
 <div class="headForForms">
 </div>
 <div class="forms">
@@ -31,7 +53,7 @@
          background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%; "/>
         <form:label path="minute" cssStyle="margin-left: 40%;">Minute:<br></form:label>
         <form:input path="minute" cssStyle="font-size: 18px;  border-radius: 8px;
-         background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%; "/>
+         background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;"/>
         <p style="margin-left: 40%"><form:button style="width:50px; height: 30px;border-radius:20%;">OK</form:button></p>
     </form:form>
 </div>

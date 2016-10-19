@@ -26,6 +26,8 @@ public class Subject {
     )
     private List<GroupP> groupPs;
 
+    @OneToMany(mappedBy = "subject",fetch = FetchType.LAZY)
+    private List<ExamForGroup> examForGroupList;
 
 
     public Subject(){}
@@ -66,4 +68,11 @@ public class Subject {
         this.groupPs = groupPs;
     }
 
+    public List<ExamForGroup> getExamForGroupList() {
+        return examForGroupList;
+    }
+
+    public void setExamForGroupList(List<ExamForGroup> examForGroupList) {
+        this.examForGroupList = examForGroupList;
+    }
 }

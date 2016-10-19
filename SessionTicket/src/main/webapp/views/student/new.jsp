@@ -11,6 +11,7 @@
 <html>
 <head>
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 </head>
 <body>
 
@@ -44,12 +45,12 @@
     <form:input path="form" cssStyle="font-size: 18px;  border-radius: 8px;
          background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%; " /><br>
     <label><h3 style="margin-left: 40%;">Faculty: </h3></label>
-    <select name="facultySelect" style="width:250px;font-size: 18px;  border-radius: 8px;
+    <select id = "select" name="facultySelect" style="width:250px;font-size: 18px;  border-radius: 8px;
                     background: #F6F6f6; padding: 6px 0 4px 10px;margin-left: 40%;">
             <%--<option>Пункт 1</option>
             <option>Пункт 2</option>--%>
         <c:forEach items="${faculties}" var="f">
-            <option>${f.name}</option>
+            <option id = "facultyId">${f.name}</option>
         </c:forEach>
     </select>
 
