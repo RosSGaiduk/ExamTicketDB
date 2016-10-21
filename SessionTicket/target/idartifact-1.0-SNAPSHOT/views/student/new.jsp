@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%--
   Created by IntelliJ IDEA.
   User: Rostyslav
@@ -15,13 +16,45 @@
 </head>
 <body>
 
+<sql:setDataSource var="mysrc" driver="com.mysql.jdbc.Driver"
+                   url="jdbc:mysql://localhost:3306/examlnu"
+                   user="root"  password="123456root"/>
+
+<script>
+    function checked3(id){
+        var text = $('#select option:selected').text();
+        alert(text);
+
+       <sql:query var="groups" dataSource="${mysrc}"
+                sql="select * from groupp where nameFacultyPattern like ?">
+        <sql:param value="Biologic" />
+        </sql:query>
+            /*if (text == "Biologic") {
+            <%--<sql:query dataSource="${mysrc}" var="groups">--%>
+                select * from
+                groupp
+                where
+                nameFacultyPattern
+                like
+                'Biologic'
+            <%--</sql:query>--%>
+            return;
+            }
+            */
+    }
+
+</script>
 
 <div class="headForForms">
 </div>
+
+<p>${$query = "SELECT MAX(id) FROM groupp"}</p>
 <div class="forms">
 <form:form action="/createStudent" method="post" modelAttribute="student">
+
     <form:label path="name"><h3 style="margin-left: 40%;">Name: </h3></form:label>
     <font style="color: red"><form:errors path="name" cssStyle="margin-left: 40%"/></font>
+
     <form:input path="name" cssStyle="font-size: 18px;  border-radius: 8px;
          background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%; " /><br>
 
@@ -44,23 +77,27 @@
      <font style="color: red"><form:errors path="form" cssStyle="margin-left: 40%"/></font>
     <form:input path="form" cssStyle="font-size: 18px;  border-radius: 8px;
          background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%; " /><br>
+
     <label><h3 style="margin-left: 40%;">Faculty: </h3></label>
-    <select id = "select" name="facultySelect" style="width:250px;font-size: 18px;  border-radius: 8px;
+
+    <select id = "select" name="facultySelect" onchange="checked3('select')" style="width:250px;font-size: 18px;  border-radius: 8px;
                     background: #F6F6f6; padding: 6px 0 4px 10px;margin-left: 40%;">
-            <%--<option>Пункт 1</option>
-            <option>Пункт 2</option>--%>
         <c:forEach items="${faculties}" var="f">
             <option id = "facultyId">${f.name}</option>
         </c:forEach>
     </select>
 
-<%--    <form:label path="groupP" cssStyle="margin-left: 40%;">Form of study: <br></form:label>
-    <form:input path="groupP" cssStyle="font-size: 18px;  border-radius: 8px;
-         background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%; " /><br>--%>
-    <p style="margin-left: 40%"><form:button style="width:50px; height: 30px;border-radius:20%;">NEXT</form:button></p>
-</form:form>
-    </div>
+    <label><h3 style="margin-left: 40%;">Group: </h3></label>
 
+    <select id = "selectGroup" name="groupSelect" style="width:250px;font-size: 18px;  border-radius: 8px;
+                    background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
+        <c:forEach items="${groups.rows}" var="g">
+            <option>${g.name}</option>
+        </c:forEach>
+    </select>
+    <p style="margin-left: 40%"><form:button style="width:50px; height: 30px;border-radius:20%;">NEXT</form:button></p>
+    </form:form>
+    </div>
 <%--<div style="float: left; width: 25%; height: 600px; background-image: url(/resources/img/student.png);
 background-size: 100%; background-repeat: no-repeat; margin-bottom: 300px;">
 </div>
@@ -112,10 +149,6 @@ background-size: 100%; background-repeat: no-repeat; margin-bottom: 300px;">
         </p> </font>
 </div>
 <div style="width: 100%; height: 300px; background-color: aquamarine; float: left;">--%>
-
 <%--</div>--%>
-
-
-
 </body>
 </html>

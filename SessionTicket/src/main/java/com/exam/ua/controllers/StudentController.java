@@ -89,4 +89,12 @@ public class StudentController {
         studentService.edit(studentOfLnu);
         return "redirect:/";
     }
+
+    public GroupService getGroupService() {
+        return groupService;
+    }
+
+    public void setGroupService(GroupService groupService) {
+        this.groupService = groupService;
+    }
 }

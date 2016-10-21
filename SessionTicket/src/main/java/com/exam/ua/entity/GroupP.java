@@ -15,6 +15,8 @@ public class GroupP {
     @Column
     private String name;
 
+    @Column
+    private String nameFacultyPattern;
     @ManyToOne(fetch = FetchType.EAGER)
     private Faculty faculty;
 
@@ -57,6 +59,7 @@ public class GroupP {
 
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
+        setNameFacultyPattern(faculty.getName());
     }
 
     public List<StudentOfLnu> getStudents() {
@@ -81,5 +84,13 @@ public class GroupP {
 
     public void setExamForGroupList(List<ExamForGroup> examForGroupList) {
         this.examForGroupList = examForGroupList;
+    }
+
+    public String getNameFacultyPattern() {
+        return nameFacultyPattern;
+    }
+
+    public void setNameFacultyPattern(String nameFacultyPattern) {
+        this.nameFacultyPattern = nameFacultyPattern;
     }
 }
