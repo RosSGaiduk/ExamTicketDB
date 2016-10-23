@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -89,6 +86,63 @@ public class StudentController {
         studentService.edit(studentOfLnu);
         return "redirect:/";
     }
+
+    @RequestMapping(value = "/tryingStudent",method = RequestMethod.GET)
+    public String goTry(Model model,Model model1)
+    {
+        model.addAttribute("faculties",facultyService.findAll());
+        /*model1.addAttribute("groups",groupService.findAll());*/
+        return "views-base-groupFacultyTrying";
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   /* @RequestMapping(value = "/updateSearchGroup",method = RequestMethod.GET, produces = {"text/html; charset=UTF-8" })
+    public @ResponseBody
+    String updateGroupResult(@RequestParam String nameFaculty,Model model){
+        model.addAttribute("groups",groupService.findAllByNameFaculty(nameFaculty));
+
+
+        //model.addAttribute("groups",groupService.findAll());
+        //return "views-base-groupFacultyTrying";
+        //return "redirect:/tryingStudent";
+
+
+        return nameFaculty;
+    }*/
+
+
+    /*@RequestMapping(value = "/updateSearchGroup",method = RequestMethod.GET, produces = {"text/html; charset=UTF-8" })
+    public @ResponseBody
+    List<GroupP> updateGroupResult(@RequestParam String nameFaculty,Model model){
+        //model.addAttribute("groups",groupService.findAllByNameFaculty(nameFaculty));
+        //model.addAttribute("groups",groupService.findAll());
+        //return "views-base-groupFacultyTrying";
+        //return "redirect:/tryingStudent";
+        return groupService.findAll();
+    }*/
+
+
+    @RequestMapping(value = "/updateSearchGroup",method = RequestMethod.GET, produces = {"text/html; charset=UTF-8" })
+    public @ResponseBody
+    String updateGroupResult(@RequestParam String nameFaculty,Model model){
+        List<GroupP> groupPs = groupService.findAllByNameFaculty(nameFaculty);
+        String groups = "";
+        for (int i = 0; i < groupPs.size(); i++){
+            groups += groupPs.get(i).getName()+"-";
+        }
+        /*model.addAttribute("count",groupPs.size());*/
+        return groups;
+        /*String groupP = groupService.findAllByNameFaculty(nameFaculty).get(0).getName();
+        return groupP;*/
+    }
+
 
     public GroupService getGroupService() {
         return groupService;

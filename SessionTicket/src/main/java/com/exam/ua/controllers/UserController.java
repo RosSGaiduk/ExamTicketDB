@@ -5,10 +5,7 @@ import com.exam.ua.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -22,6 +19,11 @@ import java.util.Date;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    private static final int WEAK_STRENGTH = 1;
+    private static final int FEAR_STRENGTH = 5;
+    private static final int STRONG_STRENGTH = 7;
+
 
     @RequestMapping(value = "/addUser",method = RequestMethod.GET)
     public String addUserPage(Model model){
@@ -41,4 +43,25 @@ public class UserController {
         userService.add(newUser);
         return "redirect:/";
     }
+
+    @RequestMapping(value = "/userLogin",method = RequestMethod.GET)
+    public String goLogin(Model model){
+        model.addAttribute("user",new User());
+        return "views-user-login";
+    }
+
+    @RequestMapping(value = "/checkStrength",method = RequestMethod.GET, produces = {"text/html; charset=UTF-8" })
+    public @ResponseBody
+    String checkLength(@RequestParam String password){
+        if (password.length()>=WEAK_STRENGTH && password.length()<FEAR_STRENGTH){
+            return "Weak";
+        } else if (password.length()>=FEAR_STRENGTH && password.length()<STRONG_STRENGTH){
+            return "Fear";
+        } else if (password.length()>=STRONG_STRENGTH) {
+            return "Strong";
+        }
+        return "";
+    }
+
+
 }

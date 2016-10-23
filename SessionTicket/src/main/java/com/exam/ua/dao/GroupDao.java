@@ -13,5 +13,6 @@ public interface GroupDao {
     void edit(GroupP groupP);
     void delete(GroupP groupP);
     GroupP findOne(long id);
+    List<GroupP> findAllByNamefaculty(String name);
     List<GroupP> findAll();
 }

@@ -47,4 +47,9 @@ public class GroupServiceImpl implements GroupService{
     public List<GroupP> findAll() {
         return groupDao.findAll();
     }
+
+    @Override
+    public List<GroupP> findAllByNameFaculty(String name) {
+        return groupDao.findAllByNamefaculty(name);
+    }
 }

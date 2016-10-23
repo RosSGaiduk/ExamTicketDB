@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Rostyslav
@@ -13,6 +14,15 @@
 <head>
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
+    <script type="text/javascript">
+        function doStudentAjax(){
+            $.ajax({
+                url: '/updateSearchGroup',
+                data: ({nameFaculty: $('#nameFaculty').val()})
+            });
+        }
+    </script>
 </head>
 <body>
 
@@ -20,7 +30,7 @@
                    url="jdbc:mysql://localhost:3306/examlnu"
                    user="root"  password="123456root"/>
 
-<script>
+<%--<script>
     function checked3(id){
         var text = $('#select option:selected').text();
         alert(text);
@@ -30,20 +40,19 @@
         <sql:param value="Biologic" />
         </sql:query>
             /*if (text == "Biologic") {
-            <%--<sql:query dataSource="${mysrc}" var="groups">--%>
+            &lt;%&ndash;<sql:query dataSource="${mysrc}" var="groups">&ndash;%&gt;
                 select * from
                 groupp
                 where
                 nameFacultyPattern
                 like
                 'Biologic'
-            <%--</sql:query>--%>
+            &lt;%&ndash;</sql:query>&ndash;%&gt;
             return;
             }
             */
     }
-
-</script>
+</script>--%>
 
 <div class="headForForms">
 </div>
@@ -80,7 +89,7 @@
 
     <label><h3 style="margin-left: 40%;">Faculty: </h3></label>
 
-    <select id = "select" name="facultySelect" onchange="checked3('select')" style="width:250px;font-size: 18px;  border-radius: 8px;
+    <select id = "nameFaculty" name="facultySelect" onchange="doStudentAjax()" style="width:250px;font-size: 18px;  border-radius: 8px;
                     background: #F6F6f6; padding: 6px 0 4px 10px;margin-left: 40%;">
         <c:forEach items="${faculties}" var="f">
             <option id = "facultyId">${f.name}</option>
@@ -91,7 +100,7 @@
 
     <select id = "selectGroup" name="groupSelect" style="width:250px;font-size: 18px;  border-radius: 8px;
                     background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
-        <c:forEach items="${groups.rows}" var="g">
+        <c:forEach items="${groups}" var="g">
             <option>${g.name}</option>
         </c:forEach>
     </select>
