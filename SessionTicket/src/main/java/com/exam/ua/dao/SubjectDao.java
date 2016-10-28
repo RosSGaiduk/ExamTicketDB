@@ -13,5 +13,6 @@ public interface SubjectDao {
     void delete(Subject subject);
     Subject findOne(long id);
     Subject findOneByName(String name);
+    List<Subject> findAllByGroupId(long groupId);
     List<Subject> findAll();
 }

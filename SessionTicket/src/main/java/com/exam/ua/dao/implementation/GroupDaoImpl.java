@@ -39,6 +39,12 @@ public class GroupDaoImpl implements GroupDao{
     }
 
     @Transactional
+    public GroupP findOneByName(String name) {
+        Object o = entityManager.createQuery("from GroupP where name like ?1").setParameter(1,name).getSingleResult();
+        return (GroupP)o;
+    }
+
+    @Transactional
     public List<GroupP>findAllByNamefaculty(String name) {
         List<GroupP> groupPs = entityManager.createQuery("FROM GroupP where nameFacultyPattern like ?1").setParameter(1,name).getResultList();
         return groupPs;

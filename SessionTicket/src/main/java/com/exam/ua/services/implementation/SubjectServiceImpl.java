@@ -44,6 +44,11 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @Override
+    public List<Subject> findAllByGroupId(long groupId) {
+        return subjectDao.findAllByGroupId(groupId);
+    }
+
+    @Override
     public List<Subject> findAll() {
         return subjectDao.findAll();
     }

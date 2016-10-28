@@ -23,7 +23,7 @@ public class Faculty {
     @OneToMany(mappedBy = "faculty",fetch = FetchType.EAGER)
     private List<Teacher> teachers;
 
-    @OneToMany(mappedBy = "faculty",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "faculty",fetch = FetchType.EAGER)
     private List<ExamForGroup> examForGroupList;
 
     public Faculty(){}

@@ -20,13 +20,13 @@ public class Subject {
     inverseJoinColumns = @JoinColumn(name = "id_teacher"))
     private List<Teacher> teachers;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "group_subject",joinColumns = @JoinColumn(name = "id_subject"),
     inverseJoinColumns = @JoinColumn(name = "id_group")
     )
     private List<GroupP> groupPs;
 
-    @OneToMany(mappedBy = "subject",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "subject",fetch = FetchType.EAGER)
     private List<ExamForGroup> examForGroupList;
 
 

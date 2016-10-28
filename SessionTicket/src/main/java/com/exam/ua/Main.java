@@ -48,7 +48,7 @@ public class Main {
         entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
 
-        String [] faculties = {"Biologic","Geographic","Geologic","Economical","Electronics","Foreign languages",
+       /* String [] faculties = {"Biologic","Geographic","Geologic","Economical","Electronics","Foreign languages",
             "Historical","Art and Culture", "Mechanics and mathematics","International relations",
             "Teacher's education","Applied mathematics and informatics","Management of finances and business",
                 "Physical","Philological","Philosophical","Chemical","Juridical"
@@ -107,7 +107,9 @@ public class Main {
             entityManager.persist(examForGroup);
             char c = scanner.next().charAt(0);
             if (c == 'e') filled = true;
-        }
+        }*/
+
+
 
         entityManager.getTransaction().commit();
         entityManager.close();

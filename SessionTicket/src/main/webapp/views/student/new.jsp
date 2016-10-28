@@ -15,14 +15,6 @@
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
-    <script type="text/javascript">
-        function doStudentAjax(){
-            $.ajax({
-                url: '/updateSearchGroup',
-                data: ({nameFaculty: $('#nameFaculty').val()})
-            });
-        }
-    </script>
 </head>
 <body>
 
@@ -30,33 +22,9 @@
                    url="jdbc:mysql://localhost:3306/examlnu"
                    user="root"  password="123456root"/>
 
-<%--<script>
-    function checked3(id){
-        var text = $('#select option:selected').text();
-        alert(text);
-
-       <sql:query var="groups" dataSource="${mysrc}"
-                sql="select * from groupp where nameFacultyPattern like ?">
-        <sql:param value="Biologic" />
-        </sql:query>
-            /*if (text == "Biologic") {
-            &lt;%&ndash;<sql:query dataSource="${mysrc}" var="groups">&ndash;%&gt;
-                select * from
-                groupp
-                where
-                nameFacultyPattern
-                like
-                'Biologic'
-            &lt;%&ndash;</sql:query>&ndash;%&gt;
-            return;
-            }
-            */
-    }
-</script>--%>
 
 <div class="headForForms">
 </div>
-
 <p>${$query = "SELECT MAX(id) FROM groupp"}</p>
 <div class="forms">
 <form:form action="/createStudent" method="post" modelAttribute="student">
@@ -97,16 +65,49 @@
     </select>
 
     <label><h3 style="margin-left: 40%;">Group: </h3></label>
-
     <select id = "selectGroup" name="groupSelect" style="width:250px;font-size: 18px;  border-radius: 8px;
                     background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
-        <c:forEach items="${groups}" var="g">
-            <option>${g.name}</option>
-        </c:forEach>
     </select>
     <p style="margin-left: 40%"><form:button style="width:50px; height: 30px;border-radius:20%;">NEXT</form:button></p>
     </form:form>
     </div>
+
+<script type="text/javascript">
+    var groupsArray;
+    function doStudentAjax(){
+        $("#selectGroup option").remove();
+        $.ajax({
+            url: '/updateSearchGroup',
+            data: ({nameFaculty: $('#nameFaculty').val()}),
+            async: false,
+            success: function(data){
+                groupsArray = data.split('-');
+                for (var i = 0; i < groupsArray.length; i++) {
+                    var option = document.createElement("option");
+                    var stringId = "nameFacultyP" + i;
+                    option.setAttribute("id", stringId);
+                    document.getElementById("selectGroup").appendChild(option);
+
+                }
+
+                for (var i = 0; i < groupsArray.length; i++){
+                    $('#nameFacultyP'+i).html(groupsArray[i]);
+                    console.log(groupsArray[i]);
+                }
+                /*$('#nameFacultyP0').html(data.split('-')[0]);
+                 $('#nameFacultyP1').html(data.split('-')[1]);
+                 $('#nameFacultyP2').html(data.split('-')[2]);*/
+                /*$('#nameFacultyP').html(data.length); ПРАЦЮЄ, ПОВЕРНЕ ДОВЖИНУ СТРІЧКИ(ЯКЩО МИ ПОВЕРНУЛИ СТРІЧКУ)*/
+                /*$('#nameFacultyP').html(data[0]); ПРАЦЮЄ, ПОВЕРНЕ ПЕРШУ БУКВУ СТРІЧКИ (ЯКЩО МИ ПОВЕРНУЛИ СТРІЧКУ)*/
+                //за цьою id в тег присвоїться значення data
+                /* dataGlobal = data;*/
+            }
+        });
+    }
+</script>
+
+
+
 <%--<div style="float: left; width: 25%; height: 600px; background-image: url(/resources/img/student.png);
 background-size: 100%; background-repeat: no-repeat; margin-bottom: 300px;">
 </div>

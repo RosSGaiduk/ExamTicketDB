@@ -44,6 +44,11 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
+    public GroupP findOneByName(String name) {
+        return groupDao.findOneByName(name);
+    }
+
+    @Override
     public List<GroupP> findAll() {
         return groupDao.findAll();
     }

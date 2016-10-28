@@ -45,6 +45,7 @@ public class StudentController {
     @RequestMapping(value = "/createStudent",method = RequestMethod.POST)
     public String createStudent(@ModelAttribute("student") StudentOfLnu student,
                                 @RequestParam("facultySelect")String facultyName,
+                                @RequestParam("groupSelect")String groupName,
                                 Model modelFaculty,
                                 BindingResult bindingResult){
 
@@ -54,38 +55,12 @@ public class StudentController {
           return "views-student-new";
       } else {
           student.setNameFaculty(facultyName);
+          student.setGroupP(groupService.findOneByName(groupName));
           studentService.add(student);
-          return "redirect:/newContinue";
+          return "redirect:/";
       }
     }
 
-    @RequestMapping(value = "/newContinue",method = RequestMethod.GET)
-    public String createStudentContinue(Model model,Model modelGroups){
-        StudentOfLnu studentOfLnu = studentService.findOne("select max(id) from StudentOfLnu");
-        model.addAttribute("studentContinue",studentOfLnu);
-        Faculty faculty = facultyService.findOneByName(studentOfLnu.getNameFaculty());
-        Set<GroupP> groupPSet = new HashSet<>(); //не знаю чого але чомусь faculty.getGroups().size()==12???
-        for (GroupP groupP:faculty.getGroups())
-            groupPSet.add(groupP);
-        modelGroups.addAttribute("groups",groupPSet);
-        return "views-student-newContinue";
-    }
-
-    @RequestMapping(value = "/createStudentFinished",method = RequestMethod.POST)
-    public String createStudentFinished(@ModelAttribute StudentOfLnu studentContinue,
-                                        @RequestParam("groupSelect")String groupName
-                                        ){
-        StudentOfLnu studentOfLnu = studentService.findOne("select max(id) from StudentOfLnu");
-        studentOfLnu.copyField(studentContinue);
-        List<GroupP> groupPs = groupService.findAll();
-        for (GroupP groupP: groupPs)
-        if (groupP.getName().equals(groupName)){
-            studentOfLnu.setGroupP(groupP);
-            break;
-        }
-        studentService.edit(studentOfLnu);
-        return "redirect:/";
-    }
 
     @RequestMapping(value = "/tryingStudent",method = RequestMethod.GET)
     public String goTry(Model model,Model model1)
@@ -134,9 +109,10 @@ public class StudentController {
     String updateGroupResult(@RequestParam String nameFaculty,Model model){
         List<GroupP> groupPs = groupService.findAllByNameFaculty(nameFaculty);
         String groups = "";
-        for (int i = 0; i < groupPs.size(); i++){
+        for (int i = 0; i < groupPs.size()-1; i++){
             groups += groupPs.get(i).getName()+"-";
         }
+        groups += groupPs.get(groupPs.size()-1).getName();
         /*model.addAttribute("count",groupPs.size());*/
         return groups;
         /*String groupP = groupService.findAllByNameFaculty(nameFaculty).get(0).getName();

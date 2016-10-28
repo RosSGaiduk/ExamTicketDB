@@ -12,6 +12,7 @@ public interface GroupService {
     void edit(long id,String name);
     void delete(long id);
     GroupP findOne(long id);
+    GroupP findOneByName(String name);
     List<GroupP> findAll();
     List<GroupP> findAllByNameFaculty(String name);
 }

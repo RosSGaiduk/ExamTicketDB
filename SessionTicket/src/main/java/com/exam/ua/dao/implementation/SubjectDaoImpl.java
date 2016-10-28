@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +44,17 @@ public class SubjectDaoImpl implements SubjectDao{
         long id = Integer.parseInt(o.toString());
         return findOne(id);
     }
+    //Цей метод не працює
+    @Transactional
+    public List<Subject> findAllByGroupId(long groupId) {
+        List<Long> idSubjects = entityManager.createQuery("select id_subject from group_subject where id_group like ?1").setParameter(1,groupId).getResultList();
+        List<Subject> subjects = new ArrayList<>();
+        for (int i = 0; i < idSubjects.size(); i++){
+            subjects.add(findOne(idSubjects.get(i)));
+        }
+        return subjects;
+    }
+
 
     @Transactional
     public List<Subject> findAll() {

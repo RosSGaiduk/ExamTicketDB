@@ -35,7 +35,7 @@ public class StudentOfLnu {
     @Column
     private boolean hasStudentSalary; //стипендія
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private GroupP groupP;
 
 

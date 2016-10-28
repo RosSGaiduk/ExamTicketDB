@@ -20,15 +20,15 @@ public class GroupP {
     @ManyToOne(fetch = FetchType.EAGER)
     private Faculty faculty;
 
-    @OneToMany(mappedBy = "groupP",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "groupP",fetch = FetchType.EAGER)
     private List<StudentOfLnu> students;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "group_subject",joinColumns = @JoinColumn(name = "id_group"),
             inverseJoinColumns = @JoinColumn(name = "id_subject")
     )
     private List<Subject> subjects;
-    @OneToMany(mappedBy = "groupP",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "groupP",fetch = FetchType.EAGER)
     private List<ExamForGroup> examForGroupList;
 
     public GroupP(){}

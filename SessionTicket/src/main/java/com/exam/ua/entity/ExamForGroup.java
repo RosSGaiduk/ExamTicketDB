@@ -24,11 +24,11 @@ public class ExamForGroup {
     private int hour;
     @Column
     private int minute;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Faculty faculty;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private GroupP groupP;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Subject subject;
 
     public ExamForGroup(){}
