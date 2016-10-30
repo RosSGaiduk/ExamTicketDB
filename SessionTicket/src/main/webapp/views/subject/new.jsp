@@ -18,7 +18,14 @@
 <div class="forms">
     <p><h3 style="margin-left: 40%; color: darkorchid;">Add a new group</h3></p>
     <form:form action="/createSubject" method="post" modelAttribute="subject">
-        <form:label path="name" cssStyle="margin-left: 40%;">Name of subject:<br></form:label>
+        <label><h3 style="margin-left: 40%;">Faculty: </h3></label>
+        <select id = "nameFaculty" name="facultySelect" style="width:250px;font-size: 18px;  border-radius: 8px;
+                    background: #F6F6f6; padding: 6px 0 4px 10px;margin-left: 40%;">
+            <c:forEach items="${faculties}" var="f">
+                <option id = "facultyId">${f.name}</option>
+            </c:forEach>
+        </select>
+        <form:label path="name" cssStyle="margin-left: 40%;"><h3 style="margin-left: 40%;">Name of subject:</h3><br></form:label>
         <font style="color: red"><form:errors path="name" cssStyle="margin-left: 40%"/></font><br>
         <form:input path="name" cssStyle="font-size: 18px;  border-radius: 8px;
              background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;" /><br>

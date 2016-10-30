@@ -17,6 +17,12 @@ public class Faculty {
     @Column
     private String urlImage;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "faculty_subject",joinColumns = @JoinColumn(name = "id_faculty"),
+        inverseJoinColumns = @JoinColumn(name = "id_subject")
+    )
+    private List<Subject> subjects;
+
     @OneToMany(mappedBy = "faculty",fetch = FetchType.EAGER)
     private List<GroupP> groups;
 
@@ -77,5 +83,13 @@ public class Faculty {
 
     public void setExamForGroupList(List<ExamForGroup> examForGroupList) {
         this.examForGroupList = examForGroupList;
+    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
     }
 }

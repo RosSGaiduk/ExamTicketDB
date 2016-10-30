@@ -26,6 +26,13 @@ public class Subject {
     )
     private List<GroupP> groupPs;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "faculty_subject",joinColumns = @JoinColumn(name = "id_subject"),
+    inverseJoinColumns = @JoinColumn(name = "id_faculty")
+    )
+    private List<Faculty> faculties;
+
+
     @OneToMany(mappedBy = "subject",fetch = FetchType.EAGER)
     private List<ExamForGroup> examForGroupList;
 
@@ -74,5 +81,13 @@ public class Subject {
 
     public void setExamForGroupList(List<ExamForGroup> examForGroupList) {
         this.examForGroupList = examForGroupList;
+    }
+
+    public List<Faculty> getFaculties() {
+        return faculties;
+    }
+
+    public void setFaculties(List<Faculty> faculties) {
+        this.faculties = faculties;
     }
 }

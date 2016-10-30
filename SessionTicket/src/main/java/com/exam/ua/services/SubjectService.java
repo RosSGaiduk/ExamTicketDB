@@ -11,6 +11,7 @@ import java.util.List;
  */
 public interface SubjectService {
     void add(String name);
+    void add(Subject subject);
     void edit(long id,String name);
     void delete(long id);
     Subject findOne(long id);

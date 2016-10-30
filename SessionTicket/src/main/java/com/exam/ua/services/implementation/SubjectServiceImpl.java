@@ -22,6 +22,11 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @Override
+    public void add(Subject subject) {
+        subjectDao.add(subject);
+    }
+
+    @Override
     public void edit(long id, String name) {
         Subject subject = subjectDao.findOne(id);
         subject.setName(name);

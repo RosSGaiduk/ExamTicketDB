@@ -23,7 +23,13 @@
             <li><a href="/addFaculty">Add</a></li>
         </ul>
     </li>
-
+    <li>
+        <a href="#" title="Exam service">Exam</a>
+        <ul>
+            <li><a href="/addExam">Add</a></li>
+            <li><a href="/allExams">All</a></li>
+        </ul>
+    </li>
 
     <li>
         <a href="#" title="Group service">Group</a>

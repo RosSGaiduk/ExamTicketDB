@@ -98,7 +98,6 @@ public class GroupController {
         String result = "";
         for (int i = 0; i < subjectsStr.length()-1; i++)
             result+=subjectsStr.charAt(i);
-
         return result;
     }
 }

@@ -17,4 +17,5 @@ public interface ExamService {
     void delete(long id);
     ExamForGroup findOne(long id);
     List<ExamForGroup> findAll();
+    List<ExamForGroup> findAllByFacultyId(long id);
 }

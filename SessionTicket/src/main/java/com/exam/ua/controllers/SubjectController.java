@@ -1,6 +1,9 @@
 package com.exam.ua.controllers;
 
+import com.exam.ua.entity.Faculty;
+import com.exam.ua.entity.GroupP;
 import com.exam.ua.entity.Subject;
+import com.exam.ua.services.FacultyService;
 import com.exam.ua.services.SubjectService;
 import com.exam.ua.validators.SubjectValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Rostyslav on 11.10.2016.
@@ -20,6 +27,8 @@ public class SubjectController {
     private SubjectService subjectService;
     @Autowired
     private SubjectValidator subjectValidator;
+    @Autowired
+    private FacultyService facultyService;
 
     @RequestMapping(value = "/allSubjects",method = RequestMethod.GET)
     public String subjectsAllPage(Model model){
@@ -28,18 +37,24 @@ public class SubjectController {
     }
 
     @RequestMapping(value = "/addSubject",method = RequestMethod.GET)
-    public String newSubjectPage(Model model){
+    public String newSubjectPage(Model model,Model model1){
+        model1.addAttribute("faculties",facultyService.findAll());
         model.addAttribute("subject",new Subject());
         return "views-subject-new";
     }
 
     @RequestMapping(value = "/createSubject",method = RequestMethod.POST)
-    public String createSubject(@ModelAttribute("subject") Subject subject, BindingResult bindingResult){
+    public String createSubject(@ModelAttribute("subject") Subject subject,
+                                @RequestParam("facultySelect") String facultyName,
+                                BindingResult bindingResult){
         subjectValidator.validate(subject,bindingResult);
         if (bindingResult.hasErrors()){
             return "views-subject-new";
         }
-        subjectService.add(subject.getName());
+            List<Faculty> faculties = new ArrayList<>();
+            faculties.add(facultyService.findOneByName(facultyName));
+            subject.setFaculties(faculties);
+        subjectService.add(subject);
         return "redirect:/allSubjects";
     }
 }

@@ -1,6 +1,7 @@
 package com.exam.ua.controllers;
 
 import com.exam.ua.entity.ExamForGroup;
+import com.exam.ua.entity.Faculty;
 import com.exam.ua.services.ExamService;
 import com.exam.ua.services.FacultyService;
 import com.exam.ua.services.GroupService;
@@ -9,16 +10,14 @@ import org.jboss.logging.annotations.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Rostyslav on 11.10.2016.
@@ -59,5 +58,38 @@ public class ExamController {
         }
         examService.add(examForGroup);
         return "redirect:/";
+    }
+
+    //модель не передаватиму, бо зроблю через input та ajax
+    @RequestMapping(value = "/allExams",method = RequestMethod.GET)
+    public String allExams(){
+        return "views-exam-all";
+    }
+
+    @RequestMapping(value = "/searchExamByCriterion",method = RequestMethod.GET)
+    @ResponseBody
+    public String allExamsByFaculty(@RequestParam String facultyName){
+        Faculty faculty = null;
+        List<ExamForGroup> examForGroupList = null;
+        if (facultyName.equals("")) {
+            examForGroupList = examService.findAll();
+        }
+        else {
+            faculty = facultyService.findOneByName(facultyName);
+            examForGroupList = examService.findAllByFacultyId(faculty.getId());
+        }
+
+        String str = "";
+        int count = 0;
+        for (ExamForGroup exam: examForGroupList){
+            if (count>0) str+="|";
+            str+="Group: "+exam.getGroupP().getName()+"\n";
+            str+="Subject: "+exam.getSubject().getName()+"\n";
+            str+="Date: "+exam.getDate()+"\n";
+            str+="Hour: "+exam.getHour()+"\n";
+            str+="Minute: "+exam.getMinute()+"\n";
+            count++;
+        }
+        return str;
     }
 }

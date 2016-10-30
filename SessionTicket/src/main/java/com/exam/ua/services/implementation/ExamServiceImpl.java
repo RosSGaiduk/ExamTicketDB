@@ -55,4 +55,9 @@ public class ExamServiceImpl implements ExamService {
     public List<ExamForGroup> findAll() {
         return examDao.findAll();
     }
+
+    @Override
+    public List<ExamForGroup> findAllByFacultyId(long id) {
+        return examDao.findAllByFacultyId(id);
+    }
 }

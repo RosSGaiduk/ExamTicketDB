@@ -42,4 +42,9 @@ public class ExamDaoImpl implements ExamDao{
     public List<ExamForGroup> findAll() {
         return entityManager.createQuery("from ExamForGroup").getResultList();
     }
+
+    @Transactional
+    public List<ExamForGroup> findAllByFacultyId(long id) {
+        return entityManager.createQuery("from ExamForGroup where faculty_id like ?1").setParameter(1,id).getResultList();
+    }
 }

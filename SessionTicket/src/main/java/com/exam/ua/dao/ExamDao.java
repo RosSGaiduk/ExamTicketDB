@@ -14,4 +14,5 @@ public interface ExamDao {
     void delete(ExamForGroup examForGroup);
     ExamForGroup findOne(long id);
     List<ExamForGroup> findAll();
+    List<ExamForGroup> findAllByFacultyId(long id);
 }
