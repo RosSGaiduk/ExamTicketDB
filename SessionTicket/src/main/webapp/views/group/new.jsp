@@ -18,8 +18,8 @@
 <div class="forms">
         <p><h3 style="margin-left: 40%; color: darkorchid;">Add a new group</h3></p>
         <form:form action="/createGroup" method="post" modelAttribute="grouppP">
-            <form:label path="name" cssStyle="margin-left: 40%;">Name of group:<br></form:label>
-            <font style="color: red"><form:errors path="name" cssStyle="margin-left: 40%"/></font><br>
+            <form:label path="name"><h4 style="margin-left: 40%;">Name of group:</h4></form:label>
+            <font style="color: red"><form:errors path="name" cssStyle="margin-left: 40%"/></font>
             <form:input path="name" cssStyle="font-size: 18px;  border-radius: 8px;
              background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;" /><br>
             <p style="clear: left"></p>

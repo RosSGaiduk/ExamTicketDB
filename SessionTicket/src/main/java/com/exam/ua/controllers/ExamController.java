@@ -62,7 +62,8 @@ public class ExamController {
 
     //модель не передаватиму, бо зроблю через input та ajax
     @RequestMapping(value = "/allExams",method = RequestMethod.GET)
-    public String allExams(){
+    public String allExams(Model model){
+        model.addAttribute("faculties",facultyService.findAll());
         return "views-exam-all";
     }
 
@@ -71,14 +72,13 @@ public class ExamController {
     public String allExamsByFaculty(@RequestParam String facultyName){
         Faculty faculty = null;
         List<ExamForGroup> examForGroupList = null;
-        if (facultyName.equals("")) {
+        if (facultyName.equals("*")) {
             examForGroupList = examService.findAll();
         }
         else {
             faculty = facultyService.findOneByName(facultyName);
             examForGroupList = examService.findAllByFacultyId(faculty.getId());
         }
-
         String str = "";
         int count = 0;
         for (ExamForGroup exam: examForGroupList){

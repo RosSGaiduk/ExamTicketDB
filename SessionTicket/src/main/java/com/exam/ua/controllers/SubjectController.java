@@ -46,9 +46,11 @@ public class SubjectController {
     @RequestMapping(value = "/createSubject",method = RequestMethod.POST)
     public String createSubject(@ModelAttribute("subject") Subject subject,
                                 @RequestParam("facultySelect") String facultyName,
+                                Model model1,
                                 BindingResult bindingResult){
         subjectValidator.validate(subject,bindingResult);
         if (bindingResult.hasErrors()){
+            model1.addAttribute("faculties",facultyService.findAll());
             return "views-subject-new";
         }
             List<Faculty> faculties = new ArrayList<>();

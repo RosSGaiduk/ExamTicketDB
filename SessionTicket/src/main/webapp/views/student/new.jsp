@@ -25,7 +25,6 @@
 
 <div class="headForForms">
 </div>
-<p>${$query = "SELECT MAX(id) FROM groupp"}</p>
 <div class="forms">
 <form:form action="/createStudent" method="post" modelAttribute="student">
 
@@ -106,7 +105,9 @@
     }
 </script>
 
-
+<script>
+    doStudentAjax();
+</script>
 
 <%--<div style="float: left; width: 25%; height: 600px; background-image: url(/resources/img/student.png);
 background-size: 100%; background-repeat: no-repeat; margin-bottom: 300px;">

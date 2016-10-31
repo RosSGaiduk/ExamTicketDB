@@ -25,30 +25,38 @@
     <h4>Here there are some inputs.You can use input or some of them to select criterion by which you want to
     get all the exams.
     </h4>
-    <h3>Enter faculty: </h3>
-
-<input style="font-size: 18px;  border-radius: 8px; width: 20%; margin-bottom: 30px;
-         background: #F6F6f6; padding: 6px 0 4px 10px;" id = "facultyName" type="text" onkeyup="doAjax()">
+    <h3 style="float: left;">Check faculty </h3>
+    <br>
+    <br>
+    <br>
+<select style="font-size: 18px;  border-radius: 8px; width: 20%; margin-bottom: 30px;
+         background: #F6F6f6; padding: 6px 0 4px 10px; float: left;" id = "facultyName" type="text" onchange="doAjax()">
+    <option>*</option>
+    <c:forEach items="${faculties}" var="f">
+    <option>${f.name}</option>
+</c:forEach>
+</select>
+    <h3 id = "found" style="color: navy; float: left; margin-left: 10%;"></h3>
 </div>
 <div id = "divs" style="width: 100%; height: auto; float: left;"></div>
 <script>
     function doAjax(){
         var el = document.getElementById('divs');
         while ( el.firstChild ) el.removeChild( el.firstChild );
+        $('#found').html("Found: 0 exams");
         $.ajax({
             url: '/searchExamByCriterion',
             data: ({facultyName: $('#facultyName').val()}),
             async: false,
             success: function(data){
                 allData = data.split("|");
-
-               for (var i = 0; i < allData.length; i++) {
+                $('#found').html("Found: "+allData.length+" exams");
+                for (var i = 0; i < allData.length; i++) {
                    var myDivStyle = document.createElement("div");
                    var stringId1 = "divId" + i;
                    myDivStyle.setAttribute("id",stringId1);
-                   myDivStyle.style = "width:60%;height: 150px;margin-left: 20%;background-color: blueviolet;float: left;";
+                   myDivStyle.style = "width:60%;height:150px;margin-left: 20%;background-color: blueviolet;float: left;";
                    document.getElementById("divs").appendChild(myDivStyle);
-
 
                     var myDiv = document.createElement("div");
                     var stringId = "information" + i;

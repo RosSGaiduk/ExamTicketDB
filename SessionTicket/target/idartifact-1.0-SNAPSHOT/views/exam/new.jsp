@@ -60,7 +60,6 @@
         <form:input path="minute" cssStyle="font-size: 18px;  border-radius: 8px;
          background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;"/>
 
-
         <p style="margin-left: 40%"><form:button style="width:50px; height: 30px;border-radius:20%;">OK</form:button></p>
     </form:form>
 </div>
@@ -91,7 +90,6 @@
         doSubjectAjax();
     }
 </script>
-
 
 <script type="text/javascript">
     var subjectsArray;

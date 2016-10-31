@@ -23,7 +23,7 @@
                 <li><a href=#>Select teachers</a></li>
             </ul>
         </li>
-        <li style = "margin-left:2%;"><p><a href = "#" style="color:white; text-decoration:none; font-size:14px;">registration</a></p></li>
+        <li style = "margin-left:2%;"><p><a href = "/addUser" style="color:white; text-decoration:none; font-size:14px;">registration</a></p></li>
         <li style = "margin-left:2%;"><p><a href = "/loginpage" style="color:white; text-decoration:none; font-size:14px;">login</a></p></li>
         <li style = "margin-left:2%;"><p><a href = "#" style="color:white; text-decoration:none; font-size:14px;">about</a></p></li>
     </ul>
