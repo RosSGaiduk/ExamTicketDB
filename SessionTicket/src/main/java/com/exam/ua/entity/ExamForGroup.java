@@ -28,6 +28,8 @@ public class ExamForGroup {
     private GroupP groupP;
     @ManyToOne(fetch = FetchType.EAGER)
     private Subject subject;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private SessionOfGroup sessionOfGroup;
 
     public ExamForGroup(){}
     //JavaScript JQuery
@@ -82,5 +84,13 @@ public class ExamForGroup {
 
     public void setExamTime(Time examTime) {
         this.examTime = examTime;
+    }
+
+    public SessionOfGroup getSessionOfGroup() {
+        return sessionOfGroup;
+    }
+
+    public void setSessionOfGroup(SessionOfGroup sessionOfGroup) {
+        this.sessionOfGroup = sessionOfGroup;
     }
 }

@@ -17,6 +17,8 @@ import java.util.*;
  * Created by Rostyslav on 08.10.2016.
  */
 public class Main {
+
+
     private static Date stringToDate(String str){
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date date = null;
@@ -41,8 +43,10 @@ public class Main {
 
         entityManager.remove(entityManager.find(Faculty.class,id));
     }
+
     private static EntityManagerFactory entityManagerFactory;
     private static EntityManager entityManager;
+
     public static void main(String[] args) {
         entityManagerFactory = Persistence.createEntityManagerFactory("Main");
         entityManager = entityManagerFactory.createEntityManager();
