@@ -21,9 +21,7 @@ public class ExamForGroup {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date date;
     @Column
-    private int hour;
-    @Column
-    private int minute;
+    private Time examTime;
     @ManyToOne(fetch = FetchType.EAGER)
     private Faculty faculty;
     @ManyToOne(fetch = FetchType.EAGER)
@@ -33,8 +31,8 @@ public class ExamForGroup {
 
     public ExamForGroup(){}
     //JavaScript JQuery
-    public ExamForGroup(Date date,int hour,int minute) {
-        this.date = date;this.hour = hour; this.minute = minute;
+    public ExamForGroup(Date date,Time time) {
+        this.date = date; this.examTime = time;
     }
 
     public long getId() {
@@ -53,21 +51,6 @@ public class ExamForGroup {
         this.date = date;
     }
 
-    public int getHour() {
-        return hour;
-    }
-
-    public void setHour(int hour) {
-        this.hour = hour;
-    }
-
-    public int getMinute() {
-        return minute;
-    }
-
-    public void setMinute(int minute) {
-        this.minute = minute;
-    }
 
     public Faculty getFaculty() {
         return faculty;
@@ -91,5 +74,13 @@ public class ExamForGroup {
 
     public void setSubject(Subject subject) {
         this.subject = subject;
+    }
+
+    public Time getExamTime() {
+        return examTime;
+    }
+
+    public void setExamTime(Time examTime) {
+        this.examTime = examTime;
     }
 }

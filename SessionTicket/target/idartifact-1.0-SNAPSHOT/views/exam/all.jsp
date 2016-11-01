@@ -25,17 +25,24 @@
     <h4>Here there are some inputs.You can use input or some of them to select criterion by which you want to
     get all the exams.
     </h4>
-    <h3 style="float: left;">Check faculty </h3>
-    <br>
-    <br>
-    <br>
-<select style="font-size: 18px;  border-radius: 8px; width: 20%; margin-bottom: 30px;
+
+    <h3>Check faculty</h3>
+    <select style="font-size: 18px;  border-radius: 8px; margin-bottom: 30px;
          background: #F6F6f6; padding: 6px 0 4px 10px; float: left;" id = "facultyName" type="text" onchange="doAjax()">
     <option>*</option>
     <c:forEach items="${faculties}" var="f">
     <option>${f.name}</option>
-</c:forEach>
-</select>
+    </c:forEach>
+    </select>
+    <br>
+    <br>
+    <br>
+    <h3>Group: </h3>
+    <select id = "selectGroup" onchange="doAjax2()" name="groupSelect" style="width:20%;font-size: 18px;  border-radius: 8px;
+                    background: #F6F6f6; padding: 6px 0 4px 10px;float: left">
+    </select>
+
+
     <h3 id = "found" style="color: navy; float: left; margin-left: 10%;"></h3>
 </div>
 <div id = "divs" style="width: 100%; height: auto; float: left;"></div>
@@ -78,7 +85,75 @@
                 }
             }
         });
+
+        $("#selectGroup option").remove();
+        $.ajax({
+            url: '/updateSearchGroup',
+            data: ({nameFaculty: $('#facultyName').val()}),
+            async: false,
+            success: function(data){
+                groupsArray = data.split('-');
+                var option = document.createElement("option");
+                var stringId = "all";
+                option.setAttribute("id", stringId);
+                option.innerHTML = "*";
+                document.getElementById("selectGroup").appendChild(option);
+
+                for (var i = 0; i < groupsArray.length; i++) {
+                    var option = document.createElement("option");
+                    var stringId = "nameFacultyP" + i;
+                    option.setAttribute("id", stringId);
+                    document.getElementById("selectGroup").appendChild(option);
+                }
+                for (var i = 0; i < groupsArray.length; i++){
+                    $('#nameFacultyP'+i).html(groupsArray[i]);
+                    console.log(groupsArray[i]);
+                }
+            }
+        });
     }
+
+    function doAjax2(){
+        var el = document.getElementById('divs');
+        while ( el.firstChild ) el.removeChild( el.firstChild );
+         $.ajax({
+         url: '/findExamsByGroup',
+         data: ({
+         nameFaculty: $('#facultyName').val(),
+         groupSelected: $('#selectGroup').val()}),
+         async: false,
+         success: function(data){
+         allData = data.split("|");
+         $('#found').html("Found: "+allData.length+" exams");
+         for (var i = 0; i < allData.length; i++) {
+         var myDivStyle = document.createElement("div");
+         var stringId1 = "divId" + i;
+         myDivStyle.setAttribute("id",stringId1);
+         myDivStyle.style = "width:60%;height:150px;margin-left: 20%;background-color: blueviolet;float: left;";
+         document.getElementById("divs").appendChild(myDivStyle);
+
+         var myDiv = document.createElement("div");
+         var stringId = "information" + i;
+         myDiv.setAttribute("id", stringId);
+         myDiv.style = "width: 60%;height: auto;margin-left: 20%;margin-bottom: 50px;border: 2px solid blueviolet;border-radius: 0%;float: left;background-color: cornsilk;";
+         document.getElementById("divs").appendChild(myDiv);
+         }
+
+         for (var i = 0; i < allData.length; i++){
+         myarr = allData[i].split("\n");
+         var lines = "<h3>"+myarr[0]+"<br>"+
+         "<br>"+myarr[1]+"<br>"+
+         "<br>"+myarr[2]+"<br>"+
+         "<br>"+myarr[3]+"<br>"+
+         "<br>"+myarr[4]+"<br>"+
+         "</h3>";
+         $('#information'+i).html(lines);
+         console.log(allData[i]);
+         }
+         }
+         });
+    }
+
 </script>
 
 <script>

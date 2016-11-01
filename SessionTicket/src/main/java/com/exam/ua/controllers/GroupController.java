@@ -74,30 +74,4 @@ public class GroupController {
         }
         return "redirect:/";
     }
-
-    @RequestMapping(value = "/updateSearchSubject",method = RequestMethod.GET, produces = {"text/html; charset=UTF-8" })
-    public @ResponseBody
-    String updateGroupResult(@RequestParam String nameGroup){
-        List<Subject> subjects = subjectService.findAll();
-
-        /*List<Subject> subjects = subjectService.findAll();*/
-
-
-
-        String subjectsStr = "";
-        for (int i = 0; i < subjects.size(); i++) {
-            List<GroupP> groupPs = subjects.get(i).getGroupPs();
-            for (GroupP group: groupPs){
-                if (group.getName().equals(nameGroup)){
-                    subjectsStr += subjects.get(i).getName() + "-";
-                    break;
-                }
-            }
-        }
-
-        String result = "";
-        for (int i = 0; i < subjectsStr.length()-1; i++)
-            result+=subjectsStr.charAt(i);
-        return result;
-    }
 }

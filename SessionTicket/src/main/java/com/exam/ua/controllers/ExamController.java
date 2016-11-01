@@ -16,6 +16,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,8 +36,8 @@ public class ExamController {
 
     @RequestMapping(value = "/addExam",method = RequestMethod.GET)
     public String newExamPage(Model model,Model model1){
-        model1.addAttribute("faculties",facultyService.findAll());
         model.addAttribute("newExam",new ExamForGroup());
+        model1.addAttribute("faculties",facultyService.findAll());
         return "views-exam-new";
     }
 
@@ -45,7 +46,8 @@ public class ExamController {
                              @RequestParam("facultySelect") String faculty,
                              @RequestParam("groupSelect") String group,
                              @RequestParam("subjectSelect") String subjectName,
-                             @RequestParam("dateCalendar")String dateCalendar){
+                             @RequestParam("dateCalendar")String dateCalendar,
+                             @RequestParam("timeForExam")String timeForExam){
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date date = formatter.parse(dateCalendar);
@@ -56,6 +58,16 @@ public class ExamController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+        long ms = 0;
+        try {
+            ms = sdf.parse(timeForExam).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Time time = new Time(ms);
+        examForGroup.setExamTime(time);
         examService.add(examForGroup);
         return "redirect:/";
     }
@@ -65,31 +77,5 @@ public class ExamController {
     public String allExams(Model model){
         model.addAttribute("faculties",facultyService.findAll());
         return "views-exam-all";
-    }
-
-    @RequestMapping(value = "/searchExamByCriterion",method = RequestMethod.GET)
-    @ResponseBody
-    public String allExamsByFaculty(@RequestParam String facultyName){
-        Faculty faculty = null;
-        List<ExamForGroup> examForGroupList = null;
-        if (facultyName.equals("*")) {
-            examForGroupList = examService.findAll();
-        }
-        else {
-            faculty = facultyService.findOneByName(facultyName);
-            examForGroupList = examService.findAllByFacultyId(faculty.getId());
-        }
-        String str = "";
-        int count = 0;
-        for (ExamForGroup exam: examForGroupList){
-            if (count>0) str+="|";
-            str+="Group: "+exam.getGroupP().getName()+"\n";
-            str+="Subject: "+exam.getSubject().getName()+"\n";
-            str+="Date: "+exam.getDate()+"\n";
-            str+="Hour: "+exam.getHour()+"\n";
-            str+="Minute: "+exam.getMinute()+"\n";
-            count++;
-        }
-        return str;
     }
 }

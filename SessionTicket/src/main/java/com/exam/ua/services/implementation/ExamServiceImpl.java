@@ -19,8 +19,8 @@ public class ExamServiceImpl implements ExamService {
     private ExamDao examDao;
 
     @Override
-    public void add(Date date, int hour, int minute) {
-        ExamForGroup examForGroup = new ExamForGroup(date,hour,minute);
+    public void add(Date date, Time time) {
+        ExamForGroup examForGroup = new ExamForGroup(date,time);
         examDao.add(examForGroup);
     }
 
@@ -59,5 +59,10 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public List<ExamForGroup> findAllByFacultyId(long id) {
         return examDao.findAllByFacultyId(id);
+    }
+
+    @Override
+    public List<ExamForGroup> findAllByGroupId(long id) {
+        return examDao.findAllByGroupId(id);
     }
 }

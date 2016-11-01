@@ -53,11 +53,10 @@
         height: 35px; font-size: 18px;border-radius: 3px;
         padding: 0 3px;"/>
         <br>
-        <form:label path="hour" cssStyle="margin-left: 40%;"><h3 style="margin-left: 40%;">Hour:</h3><br></form:label>
-        <form:input path="hour" cssStyle="font-size: 18px;  border-radius: 8px;
-         background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%; "/>
-        <form:label path="minute" cssStyle="margin-left: 40%;"><h3 style="margin-left: 40%;">Minute:</h3><br></form:label>
-        <form:input path="minute" cssStyle="font-size: 18px;  border-radius: 8px;
+
+
+        <label><h3 style="margin-left: 40%">Time:</h3></label>
+        <input type="time" name="timeForExam"  style="font-size: 18px;  border-radius: 8px;
          background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;"/>
 
         <p style="margin-left: 40%"><form:button style="width:50px; height: 30px;border-radius:20%;">OK</form:button></p>

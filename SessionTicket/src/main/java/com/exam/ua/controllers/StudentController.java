@@ -104,22 +104,6 @@ public class StudentController {
     }*/
 
 
-    @RequestMapping(value = "/updateSearchGroup",method = RequestMethod.GET, produces = {"text/html; charset=UTF-8" })
-    public @ResponseBody
-    String updateGroupResult(@RequestParam String nameFaculty,Model model){
-        List<GroupP> groupPs = groupService.findAllByNameFaculty(nameFaculty);
-        String groups = "";
-        for (int i = 0; i < groupPs.size()-1; i++){
-            groups += groupPs.get(i).getName()+"-";
-        }
-        groups += groupPs.get(groupPs.size()-1).getName();
-        /*model.addAttribute("count",groupPs.size());*/
-        return groups;
-        /*String groupP = groupService.findAllByNameFaculty(nameFaculty).get(0).getName();
-        return groupP;*/
-    }
-
-
     public GroupService getGroupService() {
         return groupService;
     }

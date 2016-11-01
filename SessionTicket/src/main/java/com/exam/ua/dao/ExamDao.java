@@ -15,4 +15,5 @@ public interface ExamDao {
     ExamForGroup findOne(long id);
     List<ExamForGroup> findAll();
     List<ExamForGroup> findAllByFacultyId(long id);
+    List<ExamForGroup> findAllByGroupId(long id);
 }

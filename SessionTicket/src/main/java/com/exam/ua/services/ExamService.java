@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Rostyslav on 11.10.2016.
  */
 public interface ExamService {
-    void add(Date date, int hour, int minute);
+    void add(Date date, Time time);
     void add(ExamForGroup examForGroup);
     void edit(long id,Date date);
     void edit(ExamForGroup examForGroup);
@@ -18,4 +18,5 @@ public interface ExamService {
     ExamForGroup findOne(long id);
     List<ExamForGroup> findAll();
     List<ExamForGroup> findAllByFacultyId(long id);
+    List<ExamForGroup> findAllByGroupId(long id);
 }

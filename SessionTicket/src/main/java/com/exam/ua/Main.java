@@ -110,6 +110,16 @@ public class Main {
         }*/
 
 
+        String s = "23:59";
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+        long ms = 0;
+        try {
+            ms = sdf.parse(s).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Time time = new Time(ms);
+        System.out.println(time);
 
         entityManager.getTransaction().commit();
         entityManager.close();
