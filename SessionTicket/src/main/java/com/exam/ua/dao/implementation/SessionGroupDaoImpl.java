@@ -26,7 +26,7 @@ public class SessionGroupDaoImpl implements SessionGroupDao {
 
     @Transactional
     public void edit(SessionOfGroup session) {
-
+        entityManager.merge(session);
     }
 
     @Transactional

@@ -18,7 +18,7 @@
         </li>
         <li style = "margin-left:2%;"><p><a href = "#" style="color:white; text-decoration:none; font-size:14px;">categories</a></p>
             <ul class="submenu">
-                <li><a href="/">Create exam task</a></li>
+                <li><a href="/newSession">Create session</a></li>
                 <li><a href=#>Select faculty</a></li>
                 <li><a href=#>Select teachers</a></li>
             </ul>

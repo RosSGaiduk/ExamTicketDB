@@ -114,7 +114,7 @@ public class Main {
         }*/
 
 
-        String s = "23:59";
+      /*  String s = "23:59";
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
         long ms = 0;
         try {
@@ -123,8 +123,17 @@ public class Main {
             e.printStackTrace();
         }
         Time time = new Time(ms);
-        System.out.println(time);
+        System.out.println(time);*/
 
+
+       /* SessionOfGroup session = entityManager.find(SessionOfGroup.class,19l);
+        ExamForGroup examForGroup = entityManager.find(ExamForGroup.class,53l);
+        examForGroup.setSessionOfGroup(session);
+        entityManager.merge(examForGroup);
+        entityManager.merge(session);*/
+        /*System.out.println(entityManager.find(SessionOfGroup.class,18l).getExams().size());*/
+
+        System.out.println(entityManager.find(SessionOfGroup.class,38l).getExams().size());
         entityManager.getTransaction().commit();
         entityManager.close();
         entityManagerFactory.close();

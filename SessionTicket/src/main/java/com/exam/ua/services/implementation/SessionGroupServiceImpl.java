@@ -35,7 +35,7 @@ public class SessionGroupServiceImpl implements SessionGroupService {
 
     @Override
     public void edit(long id) {
-        sessionDao.delete(id);
+        sessionDao.edit(findOne(id));
     }
 
     @Override

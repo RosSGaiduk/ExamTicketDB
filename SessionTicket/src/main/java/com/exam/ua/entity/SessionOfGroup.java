@@ -1,6 +1,7 @@
 package com.exam.ua.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ public class SessionOfGroup {
     @Column
     private long id;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "sessionOfGroup")
-    private List<ExamForGroup> exams;
+    private List<ExamForGroup> exams = new ArrayList<>();
 
     public SessionOfGroup(){}
 

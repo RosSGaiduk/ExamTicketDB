@@ -15,7 +15,7 @@
 <div class = "formenu">
 </div>
 
-<ul id="nav" style="margin-left: 20%">
+<ul id="nav" style="margin-left: 12%">
     <li>
         <a href="#" title="Service and information about faculty">Faculty</a>
         <ul>
@@ -23,6 +23,16 @@
             <li><a href="/addFaculty">Add</a></li>
         </ul>
     </li>
+
+    <li>
+        <a href="#" title="Service and information about faculty">Session</a>
+        <ul>
+            <li><a href="/allSessions">All</a></li>
+            <li><a href="/newSession">Add</a></li>
+        </ul>
+    </li>
+
+
     <li>
         <a href="#" title="Exam service">Exam</a>
         <ul>
