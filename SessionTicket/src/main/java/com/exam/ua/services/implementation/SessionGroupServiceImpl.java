@@ -47,4 +47,9 @@ public class SessionGroupServiceImpl implements SessionGroupService {
     public List<SessionOfGroup> findAll() {
         return sessionDao.findAll();
     }
+
+    @Override
+    public List<SessionOfGroup> findAllByFacultyId(long facultyId) {
+        return sessionDao.findAllByFacultyId(facultyId);
+    }
 }

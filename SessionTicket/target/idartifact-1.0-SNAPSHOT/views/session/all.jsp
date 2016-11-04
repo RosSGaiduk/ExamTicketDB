@@ -19,9 +19,16 @@ To change this template use File | Settings | File Templates.
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
 </head>
 
-
 <body>
-    <c:forEach items="${sessions}" var="s">
+<select id="facultyName" onchange="doAjax()" style="font-size: 18px;  border-radius: 8px; margin-bottom: 30px;
+         background: #F6F6f6; padding: 6px 0 4px 10px; float: left;">
+<c:forEach items="${faculties}" var="f">
+    <option>${f.name}</option>
+</c:forEach>
+</select>
+
+<div id = "divs" style="width: 60%; height: auto; margin-left: 20%; float: left;"></div>
+<%--    <c:forEach items="${sessions}" var="s">
             <c:forEach items="${s.exams}" var="e">
                 <div style="width: 23%; height: auto; margin-left: 10px; float: left; border: 1px solid crimson; margin-bottom: 10px;">
                     <h3>${e.faculty.name}</h3>
@@ -31,8 +38,56 @@ To change this template use File | Settings | File Templates.
                     <h3>${e.examTime}</h3>
                 </div>
             </c:forEach>
-        <%--<p style="clear: left"></p>--%>
+        &lt;%&ndash;<p style="clear: left"></p>&ndash;%&gt;
         <div style="width:100%; float: left"></div>
-    </c:forEach>
+    </c:forEach>--%>
+
+<script>
+    function doAjax(){
+        var el = document.getElementById('divs');
+        while ( el.firstChild ) el.removeChild( el.firstChild );
+        $.ajax({
+            dataType: "json",
+            url: "/sessionsByFaculty",
+            async: false,
+            data: {facultyName: $('#facultyName').val()},
+            success: function (json) {
+                var htmlStr = '';
+                var count = 0;
+                var countExams = 0;
+                var countSessions = 0;
+                $.each(json, function(k, v){
+                    count++;
+                    var myDiv = document.createElement("div");
+                    var stringId = "information" + count;
+                    myDiv.setAttribute("id", stringId);
+                    myDiv.style = "width: 20%;height: auto;margin-left: 10px;margin-bottom: 50px;border: 2px solid blueviolet;border-radius: 0%;float: left;background-color: cornsilk;";
+                    document.getElementById("divs").appendChild(myDiv);
+
+                    if (countExams < v.count) {
+                        var lines = "<h3>" + v.groupp + "<br>" +
+                                "<br>" + v.subject + "<br>" +
+                                "<br>" + v.date + "<br>" +
+                                "<br>" + v.time + "<br>" +
+                                "</h3>";
+                        countExams++;
+                    }
+                        $('#information'+count).html(lines);
+                    if (countExams >= v.count){
+                        countExams = 0;
+                        countSessions++;
+                        var myDiv = document.createElement("div");
+                        myDiv.style = "width: 100%;height: auto;margin-left: 0%;margin-bottom: 50px;border: 2px solid blueviolet;border-radius: 0%;float: left;background-color: cornsilk;";
+                        document.getElementById("divs").appendChild(myDiv);
+                        myDiv.innerHTML = "Session: "+countSessions;
+                    }
+                });
+            }
+        });
+    }
+</script>
+
+
+
 </body>
 </html>

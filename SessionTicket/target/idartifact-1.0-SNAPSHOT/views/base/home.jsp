@@ -44,6 +44,7 @@
             </font><br>
             <a href="/addUser">Add user</a><br>
             <a href="/userLogin">User login</a><br>
+            <a href="/jsonPage">Json page</a><br>
             </p>
         </div>
 

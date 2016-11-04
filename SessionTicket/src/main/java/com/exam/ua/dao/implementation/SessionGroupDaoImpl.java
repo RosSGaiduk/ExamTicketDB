@@ -1,12 +1,15 @@
 package com.exam.ua.dao.implementation;
 
 import com.exam.ua.dao.SessionGroupDao;
+import com.exam.ua.entity.ExamForGroup;
 import com.exam.ua.entity.SessionOfGroup;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -42,5 +45,19 @@ public class SessionGroupDaoImpl implements SessionGroupDao {
     @Transactional
     public List<SessionOfGroup> findAll() {
         return entityManager.createQuery("from SessionOfGroup").getResultList();
+    }
+
+    @Transactional
+    public List<SessionOfGroup> findAllByFacultyId(long facultyId) {
+        List<ExamForGroup> exams = entityManager.createQuery("from ExamForGroup where faculty_id like ?1").setParameter(1,facultyId).getResultList();
+        Set<Long> sessionsIds = new HashSet<>();
+        for (ExamForGroup exam:exams){
+            sessionsIds.add(exam.getSessionOfGroup().getId());
+        }
+        List<SessionOfGroup> sessionOfGroups = new ArrayList<>();
+        for (Long id: sessionsIds){
+            sessionOfGroups.add(entityManager.find(SessionOfGroup.class,id));
+        }
+        return sessionOfGroups;
     }
 }

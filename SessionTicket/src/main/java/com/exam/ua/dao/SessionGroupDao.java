@@ -14,4 +14,5 @@ public interface SessionGroupDao {
     void delete(long id);
     SessionOfGroup findOne(long id);
     List<SessionOfGroup> findAll();
+    List<SessionOfGroup> findAllByFacultyId(long facultyId);
 }

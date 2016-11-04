@@ -16,4 +16,5 @@ public interface SessionGroupService {
     void edit(long id);
     SessionOfGroup findOne(long id);
     List<SessionOfGroup> findAll();
+    List<SessionOfGroup> findAllByFacultyId(long facultyId);
 }

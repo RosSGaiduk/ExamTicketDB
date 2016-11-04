@@ -133,7 +133,8 @@ public class Main {
         entityManager.merge(session);*/
         /*System.out.println(entityManager.find(SessionOfGroup.class,18l).getExams().size());*/
 
-        System.out.println(entityManager.find(SessionOfGroup.class,38l).getExams().size());
+        System.out.println(entityManager.find(SessionOfGroup.class,44l).getExams().size());
+        System.out.println(entityManager.find(ExamForGroup.class,52l).getSessionOfGroup().getId());
         entityManager.getTransaction().commit();
         entityManager.close();
         entityManagerFactory.close();
