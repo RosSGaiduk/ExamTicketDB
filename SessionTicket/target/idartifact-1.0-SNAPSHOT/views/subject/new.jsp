@@ -32,5 +32,9 @@
         <p style="margin-left: 40%"><form:button style="width:50px; height: 30px;border-radius:20%;">OK</form:button></p>
     </form:form>
 </div>
+
+<script>
+    window.scrollTo(0,500);
+</script>
 </body>
 </html>

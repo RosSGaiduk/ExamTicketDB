@@ -169,5 +169,8 @@
     doAjax();
 </script>
 
+<script>
+    window.scrollTo(0,500);
+</script>
 </body>
 </html>

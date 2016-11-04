@@ -28,20 +28,6 @@ To change this template use File | Settings | File Templates.
 </select>
 
 <div id = "divs" style="width: 60%; height: auto; margin-left: 20%; float: left;"></div>
-<%--    <c:forEach items="${sessions}" var="s">
-            <c:forEach items="${s.exams}" var="e">
-                <div style="width: 23%; height: auto; margin-left: 10px; float: left; border: 1px solid crimson; margin-bottom: 10px;">
-                    <h3>${e.faculty.name}</h3>
-                    <h3>${e.groupP.name}</h3>
-                    <h3>${e.subject.name}</h3>
-                    <h3>${e.date}</h3>
-                    <h3>${e.examTime}</h3>
-                </div>
-            </c:forEach>
-        &lt;%&ndash;<p style="clear: left"></p>&ndash;%&gt;
-        <div style="width:100%; float: left"></div>
-    </c:forEach>--%>
-
 <script>
     function doAjax(){
         var el = document.getElementById('divs');
@@ -87,7 +73,8 @@ To change this template use File | Settings | File Templates.
     }
 </script>
 
-
-
+<script>
+    window.scrollTo(0,500);
+</script>
 </body>
 </html>

@@ -109,6 +109,10 @@
     doStudentAjax();
 </script>
 
+
+<script>
+    window.scrollTo(0,500);
+</script>
 <%--<div style="float: left; width: 25%; height: 600px; background-image: url(/resources/img/student.png);
 background-size: 100%; background-repeat: no-repeat; margin-bottom: 300px;">
 </div>

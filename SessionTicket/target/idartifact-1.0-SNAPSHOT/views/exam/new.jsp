@@ -16,7 +16,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
 </head>
-<body>
+<body id = "body">
 <sql:setDataSource var="mysrc" driver="com.mysql.jdbc.Driver"
                    url="jdbc:mysql://localhost:3306/examlnu"
                    user="root"  password="123456root"/>
@@ -63,6 +63,7 @@
     </form:form>
 </div>
 
+<p id = "offsetY"></p>
 
 <script type="text/javascript">
     var groupsArray;
@@ -89,6 +90,7 @@
         doSubjectAjax();
     }
 </script>
+
 
 <script type="text/javascript">
     var subjectsArray;
@@ -117,5 +119,27 @@
 <script>
     doStudentAjax();
 </script>
+
+
+
+<script>
+    var was = false;
+</script>
+
+<script>
+      var count = 0;
+      function myFunct_1(){
+          /*document.write("<p>"+counter+"</p>");*/
+          if (window.pageYOffset.valueOf()<550 && !was) {
+              count++;
+              $(window).scrollTop(2 * count);
+              /*$('#offsetY').html(window.pageYOffset);*/
+          } else {
+              was = true;
+          }
+      }
+          var id = setInterval("myFunct_1()", 5);
+</script>
+
 </body>
 </html>

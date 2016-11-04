@@ -9,7 +9,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-
+    <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
 </head>
 <body>
     <c:forEach items="${faculties}" var="f">
@@ -20,5 +22,9 @@
         </div>
     </c:forEach>
 <p style="clear: left;"></p>
+
+    <script>
+        window.scrollTo(0,500);
+    </script>
 </body>
 </html>

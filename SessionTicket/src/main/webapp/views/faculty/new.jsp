@@ -11,6 +11,8 @@
 <html>
 <head>
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
 </head>
 <body>
 <div class="headForForms">
@@ -24,5 +26,9 @@
         <p style="margin-left: 40%"><form:button>OK</form:button></p>
     </form:form>
 </div>
+
+<script>
+    window.scrollTo(0,500);
+</script>
 </body>
 </html>
