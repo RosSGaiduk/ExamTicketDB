@@ -10,6 +10,7 @@
 <html>
 <head>
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/headerStyle.css"/>" type="text/css" rel="stylesheet">
 </head>
 <body>
 <div class="forheader">

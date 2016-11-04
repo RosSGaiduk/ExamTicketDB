@@ -13,8 +13,10 @@
 <html>
 <head>
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/formsStyle.css"/>" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
+    <script src="/resources/scripts/autoScrollDown.js"></script>
 </head>
 <body>
 
@@ -110,9 +112,9 @@
 </script>
 
 
-<script>
+<%--<script>
     window.scrollTo(0,500);
-</script>
+</script>--%>
 <%--<div style="float: left; width: 25%; height: 600px; background-image: url(/resources/img/student.png);
 background-size: 100%; background-repeat: no-repeat; margin-bottom: 300px;">
 </div>

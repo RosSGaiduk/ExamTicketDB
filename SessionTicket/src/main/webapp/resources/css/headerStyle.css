@@ -1,0 +1,9 @@
+.forheader{
+    position: fixed;
+    width:100%;
+    height: 100px;
+    background-color: blueviolet;
+    float: left;
+    margin-top: -10px;
+    z-index:1000; /*для того, щоб header був ПІД менюшкою при скролінгу*/
+}

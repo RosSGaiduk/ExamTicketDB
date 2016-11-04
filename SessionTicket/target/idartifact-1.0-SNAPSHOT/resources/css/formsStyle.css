@@ -1,0 +1,19 @@
+.headForForms{
+    width:60%;
+    height: 150px;
+    margin-left: 20%;
+    background-color: blueviolet;
+    float: left;
+    border: 2px solid blueviolet;
+}
+
+.forms{
+    width: 60%;
+    height: auto;
+    margin-left: 20%;
+    margin-bottom: 50px;
+    border: 2px solid blueviolet;
+    border-radius: 0%;
+    float: left;
+    background-color: cornsilk;
+}
