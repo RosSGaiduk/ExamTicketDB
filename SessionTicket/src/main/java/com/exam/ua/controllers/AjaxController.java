@@ -1,10 +1,9 @@
 package com.exam.ua.controllers;
 
-import com.exam.ua.entity.ExamForGroup;
-import com.exam.ua.entity.Faculty;
-import com.exam.ua.entity.GroupP;
-import com.exam.ua.entity.Subject;
+import com.exam.ua.entity.*;
 import com.exam.ua.services.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Rostyslav on 01.11.2016.
@@ -30,6 +31,8 @@ public class AjaxController {
     private StudentService studentService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private TeacherService teacherService;
     @Autowired
     private SubjectService subjectService;
 
@@ -152,5 +155,27 @@ public class AjaxController {
             count++;
         }
         return str;
+    }
+
+
+    @RequestMapping(value = "/findTeachersBySubject",method = RequestMethod.GET)
+    @ResponseBody
+    public String findTeachers(@RequestParam String nameSubject){
+        Subject subject = subjectService.findOneByName(nameSubject);
+        Set<Teacher> teachers = subject.getTeachers();
+        System.out.println(teachers.size());
+        JSONArray jsonArray = new JSONArray();
+
+        List<Teacher> teachers1 = new ArrayList<>(teachers);
+        for (int i = 0; i < teachers1.size(); i++){
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.putOnce("name",teachers1.get(i).getName());
+            jsonObject.putOnce("lastName",teachers1.get(i).getLastName());
+            jsonObject.putOnce("age",teachers1.get(i).getAge());
+            jsonObject.putOnce("seat",teachers1.get(i).getSeat());
+            jsonArray.put(jsonObject);
+        }
+
+        return jsonArray.toString();
     }
 }

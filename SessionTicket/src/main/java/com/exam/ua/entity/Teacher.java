@@ -1,6 +1,7 @@
 package com.exam.ua.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class Teacher {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "teacher_subject",joinColumns = @JoinColumn(name = "id_teacher"),
             inverseJoinColumns = @JoinColumn(name = "id_subject"))
-    private List<Subject> subjects;
+    private List<Subject> subjects = new ArrayList<>();
 
 
     public Teacher(){}

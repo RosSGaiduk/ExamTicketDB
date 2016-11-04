@@ -32,7 +32,7 @@
         <label><h3 style="margin-left: 40%;">Faculty: </h3></label>
         <%--<font style="color: red"><form:errors path="name" cssStyle="margin-left: 40%"/></font><br>--%>
         <%--<form:input path="date" cssStyle="margin-left: 40%;"/>--%>
-        <select id = "nameFaculty" name="facultySelect" onchange="doStudentAjax()" style="width:250px;font-size: 18px;  border-radius: 8px;
+        <select id = "nameFaculty" name="facultySelect" onchange="doGroupAjax()" style="width:250px;font-size: 18px;  border-radius: 8px;
                     background: #F6F6f6; padding: 6px 0 4px 10px;margin-left: 40%;">
             <c:forEach items="${faculties}" var="f">
                 <option id = "facultyId">${f.name}</option>
@@ -45,7 +45,12 @@
         </select>
 
         <label><h3 style="margin-left: 40%;">Subject: </h3></label>
-        <select id = "selectSubject" name="subjectSelect" style="width:250px;font-size: 18px;  border-radius: 8px;
+        <select id = "selectSubject" name="subjectSelect" onchange="doTeacherAjax()" style="width:250px;font-size: 18px;  border-radius: 8px;
+                    background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
+        </select>
+
+        <label><h3 style="margin-left: 40%;">Teacher: </h3></label>
+        <select id = "selectTeacher" name="teachers" style="width:250px;font-size: 18px;  border-radius: 8px;
                     background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
         </select>
 
@@ -68,7 +73,7 @@
 
 <script type="text/javascript">
     var groupsArray;
-    function doStudentAjax(){
+    function doGroupAjax(){
         $("#selectGroup option").remove();
         $.ajax({
             url: '/updateSearchGroup',
@@ -115,10 +120,37 @@
                 }
             }
         });
+        doTeacherAjax();
     }
 </script>
+
 <script>
-    doStudentAjax();
+    function doTeacherAjax(){
+        $("#selectTeacher option").remove();
+        $.ajax({
+            dataType: "json",
+            url: "/findTeachersBySubject",
+            async: false,
+            data: ({nameSubject: $('#selectSubject').val()}),
+            success: function(json){
+                var count = 0;
+                $.each(json, function(k, v) {
+                    count++;
+                    var option = document.createElement("option");
+                    var stringId = "id" + count;
+                    option.setAttribute("id", stringId);
+                    option.innerHTML = v.name+" " + v.lastName + " " + v.age + " " + v.seat;
+                    document.getElementById("selectTeacher").appendChild(option);
+                });
+            }
+
+        });
+    }
+</script>
+
+
+<script>
+    doGroupAjax();
 </script>
 
 
@@ -136,6 +168,8 @@
       }
           var id = setInterval("myFunct_1()", 5);
 </script>--%>
+
+
 
 
 </body>

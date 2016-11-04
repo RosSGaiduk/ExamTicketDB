@@ -55,9 +55,10 @@ public class TeacherController {
             return "views-teacher-new";
         } else {
             newTeacher.setFaculty(facultyService.findOneByName(nameFaculty));
-            List<Subject> subjects = new ArrayList<>();
-            subjects.add(subjectService.findOneByName(nameSubject));
-            newTeacher.setSubjects(subjects);
+            /*List<Subject> subjects = new ArrayList<>();
+            subjects.add(subjectService.findOneByName(nameSubject));*/
+            /*newTeacher.setSubjects(subjects);*/
+            newTeacher.getSubjects().add(subjectService.findOneByName(nameSubject));
             //newTeacher.getSubjects().add(subjectService.findOneByName(nameSubject));
             teacherService.add(newTeacher);
             return "redirect:/";

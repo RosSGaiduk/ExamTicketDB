@@ -1,7 +1,10 @@
 package com.exam.ua.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Rostyslav on 08.10.2016.
@@ -18,7 +21,7 @@ public class Subject {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "teacher_subject",joinColumns = @JoinColumn(name ="id_subject"),
     inverseJoinColumns = @JoinColumn(name = "id_teacher"))
-    private List<Teacher> teachers;
+    private Set<Teacher> teachers = new LinkedHashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "group_subject",joinColumns = @JoinColumn(name = "id_subject"),
@@ -59,11 +62,19 @@ public class Subject {
         this.name = name;
     }
 
-    public List<Teacher> getTeachers() {
+   /* public List<Teacher> getTeachers() {
         return teachers;
     }
 
     public void setTeachers(List<Teacher> teachers) {
+        this.teachers = teachers;
+    }*/
+
+    public Set<Teacher> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(Set<Teacher> teachers) {
         this.teachers = teachers;
     }
 
