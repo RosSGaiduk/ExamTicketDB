@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Rostyslav on 08.10.2016.
  */
 @Entity
-public class StudentOfLnu {
+public class StudentOfLnu implements Comparable<StudentOfLnu> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -39,14 +39,15 @@ public class StudentOfLnu {
     private GroupP groupP;
 
 
-    public StudentOfLnu(){}
+    public StudentOfLnu() {
+    }
 
     public StudentOfLnu(String name) {
         this.name = name;
     }
 
     public StudentOfLnu(String name, String lastName, int age, int course,
-                        String form,String nameFaculty) {
+                        String form, String nameFaculty) {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
@@ -159,10 +160,28 @@ public class StudentOfLnu {
         this.nameFaculty = nameFaculty;
     }
 
-    public void copyField(StudentOfLnu studentOfLnu){
-        this.age = studentOfLnu.getAge(); this.name = studentOfLnu.getName();
-        this.lastName = studentOfLnu.getLastName(); this.course = studentOfLnu.getCourse();
-        this.form = studentOfLnu.getForm(); this.groupP = studentOfLnu.getGroupP();
+    public void copyField(StudentOfLnu studentOfLnu) {
+        this.age = studentOfLnu.getAge();
+        this.name = studentOfLnu.getName();
+        this.lastName = studentOfLnu.getLastName();
+        this.course = studentOfLnu.getCourse();
+        this.form = studentOfLnu.getForm();
+        this.groupP = studentOfLnu.getGroupP();
         //this.nameFaculty = studentOfLnu.getNameFaculty();
     }
+
+    @Override
+    public int compareTo(StudentOfLnu o) {
+        int compare = this.lastName.compareTo(o.getLastName());
+        if (compare == 0) {
+            compare = this.name.compareTo(o.getName());
+            if (compare == 0) {
+                compare = this.age - o.getAge();
+                if (compare == 0)
+                    compare = this.getGroupP().getName().compareTo(o.getGroupP().getName());
+            }
+        }
+    return compare;
+    }
 }
+

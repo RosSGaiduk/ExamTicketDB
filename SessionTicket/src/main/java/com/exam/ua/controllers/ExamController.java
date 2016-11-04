@@ -2,10 +2,8 @@ package com.exam.ua.controllers;
 
 import com.exam.ua.entity.ExamForGroup;
 import com.exam.ua.entity.Faculty;
-import com.exam.ua.services.ExamService;
-import com.exam.ua.services.FacultyService;
-import com.exam.ua.services.GroupService;
-import com.exam.ua.services.SubjectService;
+import com.exam.ua.entity.Teacher;
+import com.exam.ua.services.*;
 import org.jboss.logging.annotations.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Rostyslav on 11.10.2016.
@@ -33,6 +32,8 @@ public class ExamController {
     private GroupService groupService;
     @Autowired
     private SubjectService subjectService;
+    @Autowired
+    private TeacherService teacherService;
 
     @RequestMapping(value = "/addExam",method = RequestMethod.GET)
     public String newExamPage(Model model,Model model1){
@@ -46,12 +47,22 @@ public class ExamController {
                              @RequestParam("facultySelect") String faculty,
                              @RequestParam("groupSelect") String group,
                              @RequestParam("subjectSelect") String subjectName,
+                             @RequestParam("teachers") String teacher,
                              @RequestParam("dateCalendar")String dateCalendar,
                              @RequestParam("timeForExam")String timeForExam){
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date date = formatter.parse(dateCalendar);
             examForGroup.setDate(date);
+            String[]teachersIdentifications = teacher.split(" ");
+            List<Teacher> teachers = teacherService.findAll();
+            Teacher teacher1 = new Teacher(teachersIdentifications[0],teachersIdentifications[1],Integer.parseInt(teachersIdentifications[2]),teachersIdentifications[3]);
+            for (int i = 0; i < teachers.size(); i++){
+                if (teachers.get(i).compareTo(teacher1) == 0){
+                    examForGroup.setTeacher(teachers.get(i));
+                    break;
+                }
+            }
             examForGroup.setGroupP(groupService.findOneByName(group));
             examForGroup.setFaculty(facultyService.findOneByName(faculty));
             examForGroup.setSubject(subjectService.findOneByName(subjectName));

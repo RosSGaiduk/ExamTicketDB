@@ -1,9 +1,7 @@
 package com.exam.ua.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Rostyslav on 01.11.2016.
@@ -15,11 +13,11 @@ public class SessionOfGroup {
     @Column
     private long id;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "sessionOfGroup")
-    private List<ExamForGroup> exams = new ArrayList<>();
+    private Set<ExamForGroup> exams = new TreeSet<>();
 
     public SessionOfGroup(){}
 
-    public SessionOfGroup(List<ExamForGroup> exams) {
+    public SessionOfGroup(Set<ExamForGroup> exams) {
         this.exams = exams;
     }
 
@@ -31,11 +29,11 @@ public class SessionOfGroup {
         this.id = id;
     }
 
-    public List<ExamForGroup> getExams() {
+    public Set<ExamForGroup> getExams() {
         return exams;
     }
 
-    public void setExams(List<ExamForGroup> exams) {
+    public void setExams(Set<ExamForGroup> exams) {
         this.exams = exams;
     }
 }

@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Rostyslav on 11.10.2016.
@@ -53,7 +55,7 @@ public class SubjectController {
             model1.addAttribute("faculties",facultyService.findAll());
             return "views-subject-new";
         }
-            List<Faculty> faculties = new ArrayList<>();
+            Set<Faculty> faculties = new LinkedHashSet<>();
             faculties.add(facultyService.findOneByName(facultyName));
             subject.setFaculties(faculties);
         subjectService.add(subject);

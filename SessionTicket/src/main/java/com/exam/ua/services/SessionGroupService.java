@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public interface SessionGroupService {
     void add(SessionOfGroup session);
-    void add(List<ExamForGroup> exams);
+    void add(Set<ExamForGroup> exams);
     void delete(long id);
     void edit(long id);
     SessionOfGroup findOne(long id);

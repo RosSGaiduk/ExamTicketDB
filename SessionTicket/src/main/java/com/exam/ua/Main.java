@@ -34,9 +34,9 @@ public class Main {
     public static void deleteFaculty(long id){
         List<GroupP> groupPs = entityManager.find(Faculty.class,id).getGroups();
         for (GroupP groupP: groupPs){
-            List<StudentOfLnu> studentOfLnus = groupP.getStudents();
-            for (int j = 0; j < studentOfLnus.size(); j++){
-                entityManager.remove(entityManager.find(StudentOfLnu.class,studentOfLnus.get(j).getId()));
+            Set<StudentOfLnu> studentOfLnus = groupP.getStudents();
+            for (StudentOfLnu studentOfLnu: studentOfLnus){
+                entityManager.remove(entityManager.find(StudentOfLnu.class,studentOfLnu.getId()));
             }
             entityManager.remove(groupP);
         }
@@ -137,12 +137,12 @@ public class Main {
         System.out.println(entityManager.find(ExamForGroup.class,52l).getSessionOfGroup().getId());*/
 
 
-
+/*
         Subject subject = entityManager.find(Subject.class,2l);
         System.out.println(subject.getTeachers().size());
 
         Teacher teacher = entityManager.find(Teacher.class,25l);
-        System.out.println(teacher.getSubjects().size());
+        System.out.println(teacher.getSubjects().size());*/
 
         entityManager.getTransaction().commit();
         entityManager.close();

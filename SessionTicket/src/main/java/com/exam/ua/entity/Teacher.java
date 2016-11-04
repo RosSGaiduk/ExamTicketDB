@@ -1,14 +1,13 @@
 package com.exam.ua.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Rostyslav on 08.10.2016.
  */
 @Entity
-public class Teacher {
+public class Teacher implements Comparable<Teacher>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -28,8 +27,10 @@ public class Teacher {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "teacher_subject",joinColumns = @JoinColumn(name = "id_teacher"),
             inverseJoinColumns = @JoinColumn(name = "id_subject"))
-    private List<Subject> subjects = new ArrayList<>();
+    private Set<Subject> subjects = new TreeSet<>();
 
+    @OneToMany(mappedBy = "teacher",fetch = FetchType.EAGER)
+    private Set<ExamForGroup> exams = new TreeSet<>();
 
     public Teacher(){}
 
@@ -80,11 +81,19 @@ public class Teacher {
         this.seat = seat;
     }
 
-    public List<Subject> getSubjects() {
+/*    public List<Subject> getSubjects() {
         return subjects;
     }
 
     public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
+    }*/
+
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
         this.subjects = subjects;
     }
 
@@ -95,4 +104,26 @@ public class Teacher {
         this.faculty = faculty;
     }
 
+    public Set<ExamForGroup> getExams() {
+        return exams;
+    }
+
+    public void setExams(Set<ExamForGroup> exams) {
+        this.exams = exams;
+    }
+
+    @Override
+    public int compareTo(Teacher o) {
+        int compare = this.lastName.compareTo(o.getLastName());
+        if (compare == 0){
+            compare = this.name.compareTo(o.getName());
+            if (compare == 0){
+                compare = this.seat.compareTo(o.getSeat());
+                if (compare == 0){
+                    compare = this.age - o.getAge();
+                }
+            }
+        }
+        return compare;
+    }
 }

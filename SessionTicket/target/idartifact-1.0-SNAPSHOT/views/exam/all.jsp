@@ -81,6 +81,7 @@
                             "<br>"+myarr[2]+"<br>"+
                             "<br>"+myarr[3]+"<br>"+
                             "<br>"+myarr[4]+"<br>"+
+                            "<br>"+myarr[5]+"<br>"+
                             "</h3>";
                     $('#information'+i).html(lines);
                     console.log(allData[i]);
@@ -148,6 +149,7 @@
          "<br>"+myarr[2]+"<br>"+
          "<br>"+myarr[3]+"<br>"+
          "<br>"+myarr[4]+"<br>"+
+         "<br>"+myarr[5]+"<br>"+
          "</h3>";
          $('#information'+i).html(lines);
          console.log(allData[i]);

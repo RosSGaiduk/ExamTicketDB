@@ -11,7 +11,7 @@ import java.util.Date;
  * Created by Rostyslav on 11.10.2016.
  */
 @Entity
-public class ExamForGroup {
+public class ExamForGroup implements Comparable<ExamForGroup>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -30,6 +30,8 @@ public class ExamForGroup {
     private Subject subject;
     @ManyToOne(fetch = FetchType.EAGER)
     private SessionOfGroup sessionOfGroup;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Teacher teacher;
 
     public ExamForGroup(){}
     //JavaScript JQuery
@@ -92,5 +94,22 @@ public class ExamForGroup {
 
     public void setSessionOfGroup(SessionOfGroup sessionOfGroup) {
         this.sessionOfGroup = sessionOfGroup;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    @Override
+    public int compareTo(ExamForGroup o) {
+        int compare = this.date.compareTo(o.date);
+        if (compare == 0){
+            return this.examTime.compareTo(o.examTime);
+        }
+        return compare;
     }
 }

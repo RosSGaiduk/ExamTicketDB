@@ -13,10 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Rostyslav on 09.10.2016.
@@ -63,12 +60,16 @@ public class GroupController {
             return "views-group-new";
         }
         else {
-            List<Subject> subjects = new ArrayList<>();
+            /*Set<Subject> subjects = new TreeSet<>();
                 subjects.add(subjectService.findOneByName(subject1));
                 subjects.add(subjectService.findOneByName(subject2));
                 subjects.add(subjectService.findOneByName(subject3));
                 subjects.add(subjectService.findOneByName(subject4));
-            grouppP.setSubjects(subjects);
+            grouppP.setSubjects(subjects);*/
+            grouppP.getSubjects().add(subjectService.findOneByName(subject1));
+            grouppP.getSubjects().add(subjectService.findOneByName(subject2));
+            grouppP.getSubjects().add(subjectService.findOneByName(subject3));
+            grouppP.getSubjects().add(subjectService.findOneByName(subject4));
             grouppP.setFaculty(facultyService.findOneByName(facultyName));
             groupService.add(grouppP);
         }

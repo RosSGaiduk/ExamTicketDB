@@ -1,16 +1,13 @@
 package com.exam.ua.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Rostyslav on 08.10.2016.
  */
 @Entity
-public class Subject {
+public class Subject implements Comparable<Subject>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -27,13 +24,13 @@ public class Subject {
     @JoinTable(name = "group_subject",joinColumns = @JoinColumn(name = "id_subject"),
     inverseJoinColumns = @JoinColumn(name = "id_group")
     )
-    private List<GroupP> groupPs;
+    private Set<GroupP> groupPs = new LinkedHashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "faculty_subject",joinColumns = @JoinColumn(name = "id_subject"),
     inverseJoinColumns = @JoinColumn(name = "id_faculty")
     )
-    private List<Faculty> faculties;
+    private Set<Faculty> faculties = new TreeSet<>();
 
 
     @OneToMany(mappedBy = "subject",fetch = FetchType.EAGER)
@@ -78,13 +75,13 @@ public class Subject {
         this.teachers = teachers;
     }
 
-    public List<GroupP> getGroupPs() {
+  /*  public List<GroupP> getGroupPs() {
         return groupPs;
     }
 
     public void setGroupPs(List<GroupP> groupPs) {
         this.groupPs = groupPs;
-    }
+    }*/
 
     public List<ExamForGroup> getExamForGroupList() {
         return examForGroupList;
@@ -94,11 +91,33 @@ public class Subject {
         this.examForGroupList = examForGroupList;
     }
 
-    public List<Faculty> getFaculties() {
+/*    public List<Faculty> getFaculties() {
         return faculties;
     }
 
     public void setFaculties(List<Faculty> faculties) {
         this.faculties = faculties;
+    }*/
+
+    public Set<GroupP> getGroupPs() {
+        return groupPs;
+    }
+
+    public void setGroupPs(Set<GroupP> groupPs) {
+        this.groupPs = groupPs;
+    }
+
+    public Set<Faculty> getFaculties() {
+        return faculties;
+    }
+
+    public void setFaculties(Set<Faculty> faculties) {
+        this.faculties = faculties;
+    }
+
+    @Override
+    public int compareTo(Subject o) {
+        int compare = this.name.compareTo(o.getName());
+        return compare;
     }
 }

@@ -59,6 +59,9 @@ public class AjaxController {
             if (count>0) str+="|";
             str+="Group: "+exam.getGroupP().getName()+"\n";
             str+="Subject: "+exam.getSubject().getName()+"\n";
+            if (exam.getTeacher()!=null)
+                str+="Teacher: "+exam.getTeacher().getLastName()+" "+exam.getTeacher().getName()+"\n";
+            else str+="Teacher: "+"\n";
             str+="Date: "+exam.getDate()+"\n";
             str+="Time: "+exam.getExamTime()+"\n";
             count++;
@@ -73,7 +76,7 @@ public class AjaxController {
 
         String subjectsStr = "";
         for (int i = 0; i < subjects.size(); i++) {
-            List<GroupP> groupPs = subjects.get(i).getGroupPs();
+            Set<GroupP> groupPs = subjects.get(i).getGroupPs();
             for (GroupP group: groupPs){
                 if (group.getName().equals(nameGroup)){
                     subjectsStr += subjects.get(i).getName() + "-";
@@ -150,6 +153,9 @@ public class AjaxController {
             if (count>0) str+="|";
             str+="Group: "+exam.getGroupP().getName()+"\n";
             str+="Subject: "+exam.getSubject().getName()+"\n";
+            if (exam.getTeacher()!=null)
+                str+="Teacher: "+exam.getTeacher().getLastName()+" "+exam.getTeacher().getName()+"\n";
+            else str+="Teacher: "+"\n";
             str+="Date: "+exam.getDate()+"\n";
             str+="Time: "+exam.getExamTime()+"\n";
             count++;
@@ -175,7 +181,6 @@ public class AjaxController {
             jsonObject.putOnce("seat",teachers1.get(i).getSeat());
             jsonArray.put(jsonObject);
         }
-
         return jsonArray.toString();
     }
 }

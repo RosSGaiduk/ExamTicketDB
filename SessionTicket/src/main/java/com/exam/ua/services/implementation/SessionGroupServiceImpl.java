@@ -24,7 +24,7 @@ public class SessionGroupServiceImpl implements SessionGroupService {
     }
 
     @Override
-    public void add(List<ExamForGroup> exams) {
+    public void add(Set<ExamForGroup> exams) {
         sessionDao.add(new SessionOfGroup(exams));
     }
 

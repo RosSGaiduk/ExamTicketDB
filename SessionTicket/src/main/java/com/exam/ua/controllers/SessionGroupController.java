@@ -22,6 +22,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Rostyslav on 02.11.2016.
@@ -92,14 +93,14 @@ public class SessionGroupController {
         List<SessionOfGroup> sessionOfGroups = sessionService.findAllByFacultyId(faculty.getId());
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < sessionOfGroups.size(); i++){
-            List<ExamForGroup> exams = sessionOfGroups.get(i).getExams();
-            for (int j = 0; j < exams.size(); j++) {
+            Set<ExamForGroup> exams = sessionOfGroups.get(i).getExams();
+            for (ExamForGroup examForGroup: exams) {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.putOnce("count",exams.size());
-                jsonObject.putOnce("groupp",exams.get(j).getGroupP().getName());
-                jsonObject.putOnce("subject",exams.get(j).getSubject().getName());
-                jsonObject.putOnce("date",exams.get(j).getDate());
-                jsonObject.putOnce("time",exams.get(j).getExamTime());
+                jsonObject.putOnce("groupp",examForGroup.getGroupP().getName());
+                jsonObject.putOnce("subject",examForGroup.getSubject().getName());
+                jsonObject.putOnce("date",examForGroup.getDate());
+                jsonObject.putOnce("time",examForGroup.getExamTime());
                 jsonArray.put(jsonObject);
             }
         }
