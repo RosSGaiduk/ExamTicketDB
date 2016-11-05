@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.io.UnsupportedEncodingException;
+
 
 /**
  * Created by Rostyslav on 09.10.2016.
  */
 @Controller
-public class FacultyController {
+public class FacultyController extends BaseMethods{
     @Autowired
     private FacultyService facultyService;
 
@@ -31,6 +33,8 @@ public class FacultyController {
 
     @RequestMapping(value = "/createFaculty",method = RequestMethod.POST)
     public String createFaculty(@ModelAttribute("newFaculty") Faculty newFaculty, BindingResult bindingResult){
+
+        newFaculty.setName(stringUTF_8Encode(newFaculty.getName()));
         facultyValidator.validate(newFaculty,bindingResult);
         if (bindingResult.hasErrors()){
             return "views-faculty-new";

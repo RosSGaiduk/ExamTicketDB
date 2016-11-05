@@ -15,16 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 
 /**
  * Created by Rostyslav on 11.10.2016.
  */
 @Controller
-public class SubjectController {
+public class SubjectController extends BaseMethods{
     @Autowired
     private SubjectService subjectService;
     @Autowired
@@ -50,14 +48,18 @@ public class SubjectController {
                                 @RequestParam("facultySelect") String facultyName,
                                 Model model1,
                                 BindingResult bindingResult){
+        try {
+            subject.setName(new String(subject.getName().getBytes("ISO-8859-1"),"UTF8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         subjectValidator.validate(subject,bindingResult);
         if (bindingResult.hasErrors()){
             model1.addAttribute("faculties",facultyService.findAll());
             return "views-subject-new";
         }
-            Set<Faculty> faculties = new LinkedHashSet<>();
-            faculties.add(facultyService.findOneByName(facultyName));
-            subject.setFaculties(faculties);
+        facultyName = stringUTF_8Encode(facultyName);
+        subject.getFaculties().add(facultyService.findOneByName(facultyName));
         subjectService.add(subject);
         return "redirect:/allSubjects";
     }

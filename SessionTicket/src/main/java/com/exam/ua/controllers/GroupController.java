@@ -19,7 +19,7 @@ import java.util.*;
  * Created by Rostyslav on 09.10.2016.
  */
 @Controller
-public class GroupController {
+public class GroupController extends BaseMethods{
 
     @Autowired
     private GroupService groupService;
@@ -53,6 +53,13 @@ public class GroupController {
                                     Model modelFaculties,Model modelSubjects,
                                         BindingResult bindingResult
                                             ){
+        grouppP.setName(stringUTF_8Encode(grouppP.getName()));
+        facultyName = stringUTF_8Encode(facultyName);
+        subject1 = stringUTF_8Encode(subject1);
+        subject2 = stringUTF_8Encode(subject2);
+        subject3 = stringUTF_8Encode(subject3);
+        subject4 = stringUTF_8Encode(subject4);
+
         groupValidator.validate(grouppP,bindingResult);
         if (bindingResult.hasErrors()){
             modelFaculties.addAttribute("faculties",facultyService.findAll());
@@ -60,12 +67,6 @@ public class GroupController {
             return "views-group-new";
         }
         else {
-            /*Set<Subject> subjects = new TreeSet<>();
-                subjects.add(subjectService.findOneByName(subject1));
-                subjects.add(subjectService.findOneByName(subject2));
-                subjects.add(subjectService.findOneByName(subject3));
-                subjects.add(subjectService.findOneByName(subject4));
-            grouppP.setSubjects(subjects);*/
             grouppP.getSubjects().add(subjectService.findOneByName(subject1));
             grouppP.getSubjects().add(subjectService.findOneByName(subject2));
             grouppP.getSubjects().add(subjectService.findOneByName(subject3));

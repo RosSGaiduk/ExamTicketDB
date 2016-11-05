@@ -28,7 +28,7 @@ import java.util.Set;
  * Created by Rostyslav on 02.11.2016.
  */
 @Controller
-public class SessionGroupController {
+public class SessionGroupController extends BaseMethods{
 
     @Autowired
     private SessionGroupService sessionService;
@@ -49,6 +49,7 @@ public class SessionGroupController {
     @RequestMapping(value = "/createSession",method = RequestMethod.POST)
     public String createSession(@RequestParam String groupSelect,@RequestParam String countSelect){
         long count = Long.parseLong(countSelect);
+        groupSelect = stringUTF_8Encode(groupSelect);
         GroupP groupP = groupService.findOneByName(groupSelect);
         List<ExamForGroup> exams = new ArrayList<>();
         for (int i = 0; i < count; i++)
@@ -75,7 +76,7 @@ public class SessionGroupController {
         return "views-session-all";
     }
 
-    @RequestMapping(value = "/sessionsByFaculty",method = RequestMethod.GET)
+    @RequestMapping(value = "/sessionsByFaculty",method = RequestMethod.GET,produces = {"text/html; charset=UTF-8" })
     @ResponseBody
     public String sessionsByFaculty(@RequestParam String facultyName){
         Faculty faculty = facultyService.findOneByName(facultyName);

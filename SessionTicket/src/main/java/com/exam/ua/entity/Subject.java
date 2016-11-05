@@ -18,13 +18,13 @@ public class Subject implements Comparable<Subject>{
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "teacher_subject",joinColumns = @JoinColumn(name ="id_subject"),
     inverseJoinColumns = @JoinColumn(name = "id_teacher"))
-    private Set<Teacher> teachers = new LinkedHashSet<>();
+    private Set<Teacher> teachers = new TreeSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "group_subject",joinColumns = @JoinColumn(name = "id_subject"),
     inverseJoinColumns = @JoinColumn(name = "id_group")
     )
-    private Set<GroupP> groupPs = new LinkedHashSet<>();
+    private Set<GroupP> groupPs = new TreeSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "faculty_subject",joinColumns = @JoinColumn(name = "id_subject"),

@@ -23,7 +23,7 @@ import java.util.Set;
  * Created by Rostyslav on 11.10.2016.
  */
 @Controller
-public class ExamController {
+public class ExamController extends BaseMethods {
     @Autowired
     private ExamService examService;
     @Autowired
@@ -50,6 +50,12 @@ public class ExamController {
                              @RequestParam("teachers") String teacher,
                              @RequestParam("dateCalendar")String dateCalendar,
                              @RequestParam("timeForExam")String timeForExam){
+
+        faculty = stringUTF_8Encode(faculty);
+        group = stringUTF_8Encode(group);
+        subjectName = stringUTF_8Encode(subjectName);
+        teacher = stringUTF_8Encode(teacher);
+
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date date = formatter.parse(dateCalendar);

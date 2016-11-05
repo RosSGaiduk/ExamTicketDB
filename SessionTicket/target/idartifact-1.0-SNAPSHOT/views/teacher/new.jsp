@@ -41,9 +41,9 @@
     <form:label path="seat"><h3 style="margin-left: 40%;">Teacher's seat:</h3></form:label>
     <form:select path="seat" cssStyle="width:200px;font-size: 18px;  border-radius: 8px;
                     background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
-        <form:option value="aspirant">aspirant</form:option>
-        <form:option value="docent">docent</form:option>
-        <form:option value="professor">professor</form:option>
+        <form:option value="аспірант">аспірант</form:option>
+        <form:option value="доцент">доцент</form:option>
+        <form:option value="професор">професор</form:option>
     </form:select>
 
 

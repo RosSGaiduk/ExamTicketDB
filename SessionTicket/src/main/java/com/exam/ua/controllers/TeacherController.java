@@ -22,7 +22,7 @@ import java.util.List;
  * Created by Rostyslav on 10.10.2016.
  */
 @Controller
-public class TeacherController {
+public class TeacherController extends BaseMethods{
     @Autowired
     private TeacherService teacherService;
     @Autowired
@@ -48,18 +48,21 @@ public class TeacherController {
                                 Model modelFaculty,Model modelSubject,
                                 BindingResult bindingResult
                                 ){
+        newTeacher.setName(stringUTF_8Encode(newTeacher.getName()));
+        newTeacher.setLastName(stringUTF_8Encode(newTeacher.getLastName()));
+        newTeacher.setSeat(stringUTF_8Encode(newTeacher.getSeat()));
+        nameFaculty = stringUTF_8Encode(nameFaculty);
+        nameSubject = stringUTF_8Encode(nameSubject);
+
         teacherValidator.validate(newTeacher,bindingResult);
+
         if (bindingResult.hasErrors()){
             modelFaculty.addAttribute("faculties",facultyService.findAll());
             modelSubject.addAttribute("subjects",subjectService.findAll());
             return "views-teacher-new";
         } else {
             newTeacher.setFaculty(facultyService.findOneByName(nameFaculty));
-            /*List<Subject> subjects = new ArrayList<>();
-            subjects.add(subjectService.findOneByName(nameSubject));*/
-            /*newTeacher.setSubjects(subjects);*/
             newTeacher.getSubjects().add(subjectService.findOneByName(nameSubject));
-            //newTeacher.getSubjects().add(subjectService.findOneByName(nameSubject));
             teacherService.add(newTeacher);
             return "redirect:/";
         }

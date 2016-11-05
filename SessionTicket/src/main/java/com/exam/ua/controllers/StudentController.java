@@ -23,7 +23,7 @@ import java.util.Set;
  * Created by Rostyslav on 10.10.2016.
  */
 @Controller
-public class StudentController {
+public class StudentController extends BaseMethods{
     @Autowired
     private StudentService studentService;
     @Autowired
@@ -48,6 +48,12 @@ public class StudentController {
                                 @RequestParam("groupSelect")String groupName,
                                 Model modelFaculty,
                                 BindingResult bindingResult){
+
+        student.setName(stringUTF_8Encode(student.getName()));
+        student.setLastName(stringUTF_8Encode(student.getLastName()));
+        student.setForm(stringUTF_8Encode(student.getForm()));
+        facultyName = stringUTF_8Encode(facultyName);
+        groupName = stringUTF_8Encode(groupName);
 
         studentValidator.validate(student,bindingResult);
       if (bindingResult.hasErrors()) {

@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by Rostyslav on 03.11.2016.
  */
 @Controller
-public class JSONController {
+public class JSONController extends BaseMethods{
 
-    @RequestMapping(value = "/jsonPage",method = RequestMethod.GET)
+    @RequestMapping(value = "/jsonPage",method = RequestMethod.GET,produces = {"text/html; charset=UTF-8" })
     public String goJsonPage(){
        /* JSONObject jsonObject = new JSONObject();
         jsonObject.putOnce("name","Rostyk");
@@ -31,7 +31,7 @@ public class JSONController {
     }
 
 
-    @RequestMapping(value = "/jsonTry",method = RequestMethod.GET)
+    @RequestMapping(value = "/jsonTry",method = RequestMethod.GET,produces = {"text/html; charset=UTF-8" })
     @ResponseBody
     public String tryJson(@RequestParam String name){
 

@@ -143,7 +143,12 @@ public class Main {
 
         Teacher teacher = entityManager.find(Teacher.class,25l);
         System.out.println(teacher.getSubjects().size());*/
-
+        /*Faculty faculty = entityManager.find(Faculty.class,3l);*/
+        /*System.out.println(faculty.getName());*/
+        List<Teacher> teachers = entityManager.createQuery("from Teacher").getResultList();
+        for (Teacher teacher:teachers){
+            System.out.println("Last name: "+teacher.getLastName()+", name: "+teacher.getName()+", seat: "+teacher.getSeat());
+        }
         entityManager.getTransaction().commit();
         entityManager.close();
         entityManagerFactory.close();

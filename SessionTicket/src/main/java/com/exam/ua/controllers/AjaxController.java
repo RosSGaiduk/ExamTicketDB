@@ -21,7 +21,7 @@ import java.util.TreeSet;
  * Created by Rostyslav on 01.11.2016.
  */
 @Controller
-public class AjaxController {
+public class AjaxController extends BaseMethods{
     @Autowired
     private ExamService examService;
     @Autowired
@@ -42,7 +42,7 @@ public class AjaxController {
     private static final int STRONG_STRENGTH = 7;
 
 
-    @RequestMapping(value = "/searchExamByCriterion",method = RequestMethod.GET)
+    @RequestMapping(value = "/searchExamByCriterion",method = RequestMethod.GET,produces = {"text/html; charset=UTF-8" })
     @ResponseBody
     public String allExamsByFaculty(@RequestParam String facultyName){
         Faculty faculty = null;
@@ -76,7 +76,6 @@ public class AjaxController {
     public @ResponseBody
     String updateGroupResult(@RequestParam String nameGroup){
         List<Subject> subjects = subjectService.findAll();
-
         String subjectsStr = "";
         for (int i = 0; i < subjects.size(); i++) {
             Set<GroupP> groupPs = subjects.get(i).getGroupPs();
@@ -131,7 +130,7 @@ public class AjaxController {
         return "";
     }
 
-    @RequestMapping(value = "/levelPassword",method = RequestMethod.GET)
+    @RequestMapping(value = "/levelPassword",method = RequestMethod.GET,produces = {"text/html; charset=UTF-8" })
     @ResponseBody
     public String levelPassword(@RequestParam String userPassword){
         if (userPassword.length()<6) return "weak red";
@@ -139,8 +138,7 @@ public class AjaxController {
         else return "strong rgb(124,252,0)";
     }
 
-
-    @RequestMapping(value = "/findExamsByGroup",method = RequestMethod.GET)
+    @RequestMapping(value = "/findExamsByGroup",method = RequestMethod.GET,produces = {"text/html; charset=UTF-8" })
     @ResponseBody
     public String examsFound(@RequestParam String nameFaculty,@RequestParam String groupSelected){
        List<ExamForGroup> exams = null;
@@ -164,6 +162,8 @@ public class AjaxController {
         int count = 0;
         for (ExamForGroup exam: exams){
             if (count>0) str+="|";
+            str+="Id:"+exam.getId()+"\n"; //обов'язково без пробіла після Id:, тому, що буде помилка в PathVariable-методі
+            // в ExamCntroller
             str+="Group: "+exam.getGroupP().getName()+"\n";
             str+="Subject: "+exam.getSubject().getName()+"\n";
             if (exam.getTeacher()!=null)
@@ -176,8 +176,7 @@ public class AjaxController {
         return str;
     }
 
-
-    @RequestMapping(value = "/findTeachersBySubject",method = RequestMethod.GET)
+    @RequestMapping(value = "/findTeachersBySubject",method = RequestMethod.GET,produces = {"text/html; charset=UTF-8" })
     @ResponseBody
     public String findTeachers(@RequestParam String nameFaculty,@RequestParam String nameSubject){
         Subject subject = subjectService.findOneByName(nameSubject);
@@ -188,7 +187,6 @@ public class AjaxController {
             if (teacher.getFaculty().getName().equals(nameFaculty))
                 teachersOfFaculty.add(teacher);
         }
-
 
         JSONArray jsonArray = new JSONArray();
 

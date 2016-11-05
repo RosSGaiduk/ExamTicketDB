@@ -18,7 +18,7 @@ import java.util.Date;
  * Created by Rostyslav on 21.10.2016.
  */
 @Controller
-public class UserController {
+public class UserController extends BaseMethods{
     @Autowired
     private UserService userService;
     @Autowired
