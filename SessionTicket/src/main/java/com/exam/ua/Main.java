@@ -145,10 +145,13 @@ public class Main {
         System.out.println(teacher.getSubjects().size());*/
         /*Faculty faculty = entityManager.find(Faculty.class,3l);*/
         /*System.out.println(faculty.getName());*/
-        List<Teacher> teachers = entityManager.createQuery("from Teacher").getResultList();
-        for (Teacher teacher:teachers){
-            System.out.println("Last name: "+teacher.getLastName()+", name: "+teacher.getName()+", seat: "+teacher.getSeat());
+        SessionOfGroup sessionOfGroup = entityManager.find(SessionOfGroup.class,5l);
+        Set<ExamForGroup> exams = sessionOfGroup.getExams();
+        for (ExamForGroup exam:exams){
+            System.out.println(exam.getDate()+" "+exam.getExamTime()+" "+exam.getSubject().getName());
         }
+
+
         entityManager.getTransaction().commit();
         entityManager.close();
         entityManagerFactory.close();

@@ -65,7 +65,7 @@
         <input type="time" name="timeForExam"  style="font-size: 18px;  border-radius: 8px;
          background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;"/>
 
-        <p style="margin-left: 40%"><form:button style="width:50px; height: 30px;border-radius:20%;">OK</form:button></p>
+        <p style="margin-left: 40%"><button type="submit" id = "buttonSend" style="width:50px; height: 30px;border-radius:20%;">OK</button></p>
     </form:form>
 </div>
 
@@ -115,11 +115,20 @@
                     document.getElementById("selectSubject").appendChild(option);
                 }
                 for (var i = 0; i < subjectsArray.length; i++){
-                    if (subjectsArray.length == 1 && subjectsArray[0] == "")
-                        $('#nameOfSubject'+i).html("exams is ready for this group");
-                    else
-                    $('#nameOfSubject'+i).html(subjectsArray[i]);
-                    console.log(subjectsArray[i]);
+                    if (subjectsArray.length == 1 && subjectsArray[0] == "") {
+                        $('#nameOfSubject' + i).html("exams are ready for this group");
+                        alert("All exams are prepared for this group, you can select " +
+                                "one of the existed exams and edit it or delete "+
+                                $('#buttonSend').val()+" "+$('#buttonSend').html()+" ");
+
+                       /* $('#buttonSend').html("adsad");*/
+                        document.getElementById('buttonSend').disabled = true;
+                    }
+                    else {
+                        $('#nameOfSubject' + i).html(subjectsArray[i]);
+                        document.getElementById('buttonSend').disabled = false;
+                        console.log(subjectsArray[i]);
+                    }
                 }
             }
         });

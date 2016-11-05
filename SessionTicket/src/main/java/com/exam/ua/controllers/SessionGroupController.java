@@ -23,6 +23,7 @@ import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by Rostyslav on 02.11.2016.
@@ -51,9 +52,13 @@ public class SessionGroupController extends BaseMethods{
         long count = Long.parseLong(countSelect);
         groupSelect = stringUTF_8Encode(groupSelect);
         GroupP groupP = groupService.findOneByName(groupSelect);
-        List<ExamForGroup> exams = new ArrayList<>();
+        Set<ExamForGroup> exams = new TreeSet<>();
         for (int i = 0; i < count; i++)
          exams.add(examService.findAllByGroupId(groupP.getId()).get(i));
+
+        for (ExamForGroup exam:exams){
+            System.out.println(exam.getDate()+" "+exam.getExamTime()+" "+exam.getSubject().getName());
+        }
 
         System.out.println(exams.size());
 

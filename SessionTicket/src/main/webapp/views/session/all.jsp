@@ -76,6 +76,7 @@ To change this template use File | Settings | File Templates.
 
 <script>
     window.scrollTo(0,500);
+    doAjax();
 </script>
 </body>
 </html>
