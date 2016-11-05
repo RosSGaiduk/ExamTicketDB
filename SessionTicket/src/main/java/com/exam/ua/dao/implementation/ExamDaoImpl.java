@@ -30,7 +30,11 @@ public class ExamDaoImpl implements ExamDao{
 
     @Transactional
     public void delete(ExamForGroup examForGroup) {
-        entityManager.remove(examForGroup);
+        /*entityManager.remove(examForGroup);*/
+        //entityManager.remove(examForGroup); - не працювало
+        //трапилась помилка: java.lang.IllegalArgumentException: Removing a detached instance ...;
+        //тому подивився на StackOverflow вирішення
+        entityManager.remove(entityManager.contains(examForGroup) ? examForGroup : entityManager.merge(examForGroup));
     }
 
     @Transactional

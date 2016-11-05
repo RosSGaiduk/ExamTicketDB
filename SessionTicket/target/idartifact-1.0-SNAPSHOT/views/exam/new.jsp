@@ -115,6 +115,9 @@
                     document.getElementById("selectSubject").appendChild(option);
                 }
                 for (var i = 0; i < subjectsArray.length; i++){
+                    if (subjectsArray.length == 1 && subjectsArray[0] == "")
+                        $('#nameOfSubject'+i).html("exams is ready for this group");
+                    else
                     $('#nameOfSubject'+i).html(subjectsArray[i]);
                     console.log(subjectsArray[i]);
                 }
@@ -131,7 +134,9 @@
             dataType: "json",
             url: "/findTeachersBySubject",
             async: false,
-            data: ({nameSubject: $('#selectSubject').val()}),
+            data: ({
+                nameFaculty: $('#nameFaculty').val(),
+                nameSubject: $('#selectSubject').val()}),
             success: function(json){
                 var count = 0;
                 $.each(json, function(k, v) {

@@ -89,4 +89,19 @@ public class ExamController {
         model.addAttribute("faculties",facultyService.findAll());
         return "views-exam-all";
     }
+
+
+    @RequestMapping(value = "/exam/{id}",method = RequestMethod.GET)
+    public String editExam(@PathVariable String id,Model model){
+        String[] idLongs = id.split(":");
+        model.addAttribute("examSelected",examService.findOne(Long.parseLong(idLongs[1])));
+        return "views-exam-selected";
+    }
+
+    @RequestMapping(value = "/deleteExam",method = RequestMethod.POST)
+    public String deleteExam(@RequestParam String idExam){
+        examService.delete(Long.parseLong(idExam));
+        /*examService.delete(52l);*/
+        return "redirect:/";
+    }
 }

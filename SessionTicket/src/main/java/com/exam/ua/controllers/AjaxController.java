@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by Rostyslav on 01.11.2016.
@@ -57,6 +58,8 @@ public class AjaxController {
         int count = 0;
         for (ExamForGroup exam: examForGroupList){
             if (count>0) str+="|";
+            str+="Id:"+exam.getId()+"\n"; //обов'язково без пробіла після Id:, тому, що буде помилка в PathVariable-методі
+            // в ExamCntroller
             str+="Group: "+exam.getGroupP().getName()+"\n";
             str+="Subject: "+exam.getSubject().getName()+"\n";
             if (exam.getTeacher()!=null)
@@ -79,8 +82,18 @@ public class AjaxController {
             Set<GroupP> groupPs = subjects.get(i).getGroupPs();
             for (GroupP group: groupPs){
                 if (group.getName().equals(nameGroup)){
-                    subjectsStr += subjects.get(i).getName() + "-";
-                    break;
+                    Set<ExamForGroup> exams = group.getExamForGroupSet();
+                    boolean groupAlreadyHasThisSubject = false;
+                        for (ExamForGroup exam:exams){
+                            if (exam.getSubject().getName().equals(subjects.get(i).getName())){
+                                groupAlreadyHasThisSubject = true;
+                                break;
+                            }
+                        }
+                    if (!groupAlreadyHasThisSubject) {
+                        subjectsStr += subjects.get(i).getName() + "-";
+                        break;
+                    }
                 }
             }
         }
@@ -166,13 +179,20 @@ public class AjaxController {
 
     @RequestMapping(value = "/findTeachersBySubject",method = RequestMethod.GET)
     @ResponseBody
-    public String findTeachers(@RequestParam String nameSubject){
+    public String findTeachers(@RequestParam String nameFaculty,@RequestParam String nameSubject){
         Subject subject = subjectService.findOneByName(nameSubject);
         Set<Teacher> teachers = subject.getTeachers();
         System.out.println(teachers.size());
+        Set<Teacher> teachersOfFaculty = new TreeSet<>();
+        for (Teacher teacher: teachers){
+            if (teacher.getFaculty().getName().equals(nameFaculty))
+                teachersOfFaculty.add(teacher);
+        }
+
+
         JSONArray jsonArray = new JSONArray();
 
-        List<Teacher> teachers1 = new ArrayList<>(teachers);
+        List<Teacher> teachers1 = new ArrayList<>(teachersOfFaculty);
         for (int i = 0; i < teachers1.size(); i++){
             JSONObject jsonObject = new JSONObject();
             jsonObject.putOnce("name",teachers1.get(i).getName());

@@ -44,7 +44,6 @@
                     background: #F6F6f6; padding: 6px 0 4px 10px;float: left">
     </select>
 
-
     <h3 id = "found" style="color: navy; float: left; margin-left: 10%;"></h3>
 </div>
 <div id = "divs" style="width: 100%; height: auto; float: left;"></div>
@@ -67,21 +66,29 @@
                    myDivStyle.style = "width:60%;height:150px;margin-left: 20%;background-color: blueviolet;float: left;";
                    document.getElementById("divs").appendChild(myDivStyle);
 
+
+                    var aElem = document.createElement("a");
+                    aElem.setAttribute("id","a"+i);
+                    aElem.href = "/exam/"+allData[i].split("\n")[0];
+                    document.getElementById("divs").appendChild(aElem);
+
                     var myDiv = document.createElement("div");
                     var stringId = "information" + i;
                     myDiv.setAttribute("id", stringId);
-                    myDiv.style = "width: 60%;height: auto;margin-left: 20%;margin-bottom: 50px;border: 2px solid blueviolet;border-radius: 0%;float: left;background-color: cornsilk;";
-                    document.getElementById("divs").appendChild(myDiv);
+                    myDiv.style = "width: 60%;height: auto;margin-left: 20%;margin-bottom: 50px;border: 2px solid blueviolet;border-radius: 0%;float: left;background-color: cornsilk; color:black;";
+                    document.getElementById("a"+i).appendChild(myDiv);
                 }
 
                 for (var i = 0; i < allData.length; i++){
                     myarr = allData[i].split("\n");
-                    var lines = "<h3>"+myarr[0]+"<br>"+
+                    var lines = "<h3>"+
+                            /*myarr[0]+"<br>"+*/
                             "<br>"+myarr[1]+"<br>"+
                             "<br>"+myarr[2]+"<br>"+
                             "<br>"+myarr[3]+"<br>"+
                             "<br>"+myarr[4]+"<br>"+
                             "<br>"+myarr[5]+"<br>"+
+                            "<br>"+myarr[6]+"<br>"+
                             "</h3>";
                     $('#information'+i).html(lines);
                     console.log(allData[i]);
@@ -129,22 +136,31 @@
          allData = data.split("|");
          $('#found').html("Found: "+allData.length+" exams");
          for (var i = 0; i < allData.length; i++) {
+
          var myDivStyle = document.createElement("div");
          var stringId1 = "divId" + i;
          myDivStyle.setAttribute("id",stringId1);
          myDivStyle.style = "width:60%;height:150px;margin-left: 20%;background-color: blueviolet;float: left;";
          document.getElementById("divs").appendChild(myDivStyle);
 
-         var myDiv = document.createElement("div");
-         var stringId = "information" + i;
-         myDiv.setAttribute("id", stringId);
-         myDiv.style = "width: 60%;height: auto;margin-left: 20%;margin-bottom: 50px;border: 2px solid blueviolet;border-radius: 0%;float: left;background-color: cornsilk;";
-         document.getElementById("divs").appendChild(myDiv);
+             var aElem = document.createElement("a");
+             aElem.setAttribute("id","a"+i);
+             aElem.href = "/exam"+allData[i].split("\n")[0];
+             document.getElementById("divs").appendChild(aElem);
+
+             var myDiv = document.createElement("div");
+             var stringId = "information" + i;
+             myDiv.setAttribute("id", stringId);
+             myDiv.style = "width: 60%;height: auto;margin-left: 20%;margin-bottom: 50px;border: 2px solid blueviolet;border-radius: 0%;float: left;background-color: cornsilk; color:black;";
+             document.getElementById("a"+i).appendChild(myDiv);
+
+
          }
 
          for (var i = 0; i < allData.length; i++){
          myarr = allData[i].split("\n");
-         var lines = "<h3>"+myarr[0]+"<br>"+
+         var lines = "<h3>"
+                 +myarr[0]+"<br>"+
          "<br>"+myarr[1]+"<br>"+
          "<br>"+myarr[2]+"<br>"+
          "<br>"+myarr[3]+"<br>"+
