@@ -1,5 +1,6 @@
 package com.exam.ua.dao;
 
+import com.exam.ua.entity.Faculty;
 import com.exam.ua.entity.Subject;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 public interface SubjectDao {
     void add(Subject subject);
     void edit(Subject subject);
+    void addFacultyToSubject(Subject subject, Faculty faculty);
     void delete(Subject subject);
     Subject findOne(long id);
     Subject findOneByName(String name);

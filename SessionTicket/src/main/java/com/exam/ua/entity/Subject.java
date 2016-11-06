@@ -59,14 +59,6 @@ public class Subject implements Comparable<Subject>{
         this.name = name;
     }
 
-   /* public List<Teacher> getTeachers() {
-        return teachers;
-    }
-
-    public void setTeachers(List<Teacher> teachers) {
-        this.teachers = teachers;
-    }*/
-
     public Set<Teacher> getTeachers() {
         return teachers;
     }
@@ -75,14 +67,6 @@ public class Subject implements Comparable<Subject>{
         this.teachers = teachers;
     }
 
-  /*  public List<GroupP> getGroupPs() {
-        return groupPs;
-    }
-
-    public void setGroupPs(List<GroupP> groupPs) {
-        this.groupPs = groupPs;
-    }*/
-
     public List<ExamForGroup> getExamForGroupList() {
         return examForGroupList;
     }
@@ -90,14 +74,6 @@ public class Subject implements Comparable<Subject>{
     public void setExamForGroupList(List<ExamForGroup> examForGroupList) {
         this.examForGroupList = examForGroupList;
     }
-
-/*    public List<Faculty> getFaculties() {
-        return faculties;
-    }
-
-    public void setFaculties(List<Faculty> faculties) {
-        this.faculties = faculties;
-    }*/
 
     public Set<GroupP> getGroupPs() {
         return groupPs;

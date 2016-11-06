@@ -1,6 +1,7 @@
 package com.exam.ua.services.implementation;
 
 import com.exam.ua.dao.SubjectDao;
+import com.exam.ua.entity.Faculty;
 import com.exam.ua.entity.Subject;
 import com.exam.ua.services.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,16 @@ public class SubjectServiceImpl implements SubjectService{
         Subject subject = subjectDao.findOne(id);
         subject.setName(name);
         subjectDao.edit(subject);
+    }
+
+    @Override
+    public void edit(Subject subject) {
+        subjectDao.add(subject);
+    }
+
+    @Override
+    public void addFacultyToSubject(Subject subject, Faculty faculty) {
+        subjectDao.addFacultyToSubject(subject,faculty);
     }
 
     @Override

@@ -1,4 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%--
   Created by IntelliJ IDEA.
   User: Rostyslav
@@ -14,7 +17,14 @@
 </head>
 <body>
         <c:forEach items="${subjects}" var="s">
-            <p>Name of subject: ${s.name}</p>
+            <a href="/subject/${s.id}">
+            <div style="width: 20%; height: auto; float: left; border: 1px solid black; margin-left: 4%; color: black; margin-top: 20px; margin-bottom: 20px;">
+            <h4>Предмет: ${s.name}</h4>
+                <c:forEach items="${s.faculties}" var="f">
+                <h4>Факультет: ${f.name}</h4>
+                </c:forEach>
+            </div>
+            </a>
         </c:forEach>
 </body>
 </html>

@@ -65,14 +65,6 @@ public class Faculty implements Comparable<Faculty>{
         this.groups = groups;
     }
 
-/*    public List<Teacher> getTeachers() {
-        return teachers;
-    }
-
-    public void setTeachers(List<Teacher> teachers) {
-        this.teachers = teachers;
-    }*/
-
     public Set<Teacher> getTeachers() {
         return teachers;
     }
@@ -96,23 +88,6 @@ public class Faculty implements Comparable<Faculty>{
     public void setExamForGroupSet(Set<ExamForGroup> examForGroupList) {
         this.examForGroupSet = examForGroupList;
     }
-
-
-    /*    public List<ExamForGroup> getExamForGroupList() {
-        return examForGroupList;
-    }
-
-    public void setExamForGroupList(List<ExamForGroup> examForGroupList) {
-        this.examForGroupList = examForGroupList;
-    }*/
-
-/*    public List<Subject> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<Subject> subjects) {
-        this.subjects = subjects;
-    }*/
 
     public Set<Subject> getSubjects() {
         return subjects;

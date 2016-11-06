@@ -1,6 +1,7 @@
 package com.exam.ua.dao.implementation;
 
 import com.exam.ua.dao.SubjectDao;
+import com.exam.ua.entity.Faculty;
 import com.exam.ua.entity.Subject;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +27,11 @@ public class SubjectDaoImpl implements SubjectDao{
     @Transactional
     public void edit(Subject subject) {
         entityManager.merge(subject);
+    }
+
+    @Transactional
+    public void addFacultyToSubject(Subject subject, Faculty faculty) {
+        entityManager.find(Subject.class,subject.getId()).getFaculties().add(faculty);
     }
 
     @Transactional

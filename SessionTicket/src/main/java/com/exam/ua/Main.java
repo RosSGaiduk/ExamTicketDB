@@ -145,12 +145,22 @@ public class Main {
         System.out.println(teacher.getSubjects().size());*/
         /*Faculty faculty = entityManager.find(Faculty.class,3l);*/
         /*System.out.println(faculty.getName());*/
-        SessionOfGroup sessionOfGroup = entityManager.find(SessionOfGroup.class,5l);
+      /*  SessionOfGroup sessionOfGroup = entityManager.find(SessionOfGroup.class,5l);
         Set<ExamForGroup> exams = sessionOfGroup.getExams();
         for (ExamForGroup exam:exams){
             System.out.println(exam.getDate()+" "+exam.getExamTime()+" "+exam.getSubject().getName());
-        }
+        }*/
 
+       /* Subject subject = entityManager.find(Subject.class,2l);
+        *//*subject.getFaculties().add(entityManager.find(Faculty.class,2l));
+        entityManager.merge(subject);*//*
+        System.out.println(subject.getFaculties().size());*/
+
+        Set<Faculty> faculties = new TreeSet<>();
+        faculties.add(entityManager.find(Faculty.class,1l));
+        faculties.add(entityManager.find(Faculty.class,2l));
+        faculties.add(entityManager.find(Faculty.class,2l));
+        System.out.println(faculties.size());
 
         entityManager.getTransaction().commit();
         entityManager.close();
