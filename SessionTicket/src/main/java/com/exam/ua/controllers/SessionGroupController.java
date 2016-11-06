@@ -86,16 +86,6 @@ public class SessionGroupController extends BaseMethods{
     public String sessionsByFaculty(@RequestParam String facultyName){
         Faculty faculty = facultyService.findOneByName(facultyName);
 
-
-        /*JSONObject jsonObject1 = new JSONObject();
-        jsonObject1.putOnce("name","Rostyk1");
-        jsonObject1.putOnce("age",191);
-        jsonObject1.putOnce("alive",true);
-
-        JSONArray jsonArray = new JSONArray();
-        jsonArray.put(jsonObject1);*/
-
-
         List<SessionOfGroup> sessionOfGroups = sessionService.findAllByFacultyId(faculty.getId());
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < sessionOfGroups.size(); i++){

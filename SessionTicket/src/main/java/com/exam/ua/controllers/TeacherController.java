@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,11 +47,19 @@ public class TeacherController extends BaseMethods{
 
     @RequestMapping(value = "/createTeacher",method = RequestMethod.POST)
     public String createTeacher(@ModelAttribute("newTeacher") Teacher newTeacher,
+                                @RequestParam("birthDate")String date,
                                 @RequestParam("facultySelect")String nameFaculty,
                                 @RequestParam("subjectSelect")String nameSubject,
                                 Model modelFaculty,Model modelSubject,
                                 BindingResult bindingResult
                                 ){
+       DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date birth = formatter.parse(date);
+            newTeacher.setBirth(birth);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         newTeacher.setName(stringUTF_8Encode(newTeacher.getName()));
         newTeacher.setLastName(stringUTF_8Encode(newTeacher.getLastName()));
         newTeacher.setSeat(stringUTF_8Encode(newTeacher.getSeat()));

@@ -23,7 +23,6 @@ public class StudentValidator implements Validator{
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"name","name.studentEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"lastName","lastName.studentEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"age","age.studentEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"course","course.studentEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"form","form.studentEmpty");
         /*ValidationUtils.rejectIfEmptyOrWhitespace(errors,"nameFaculty","nameFaculty.studentEmpty");*/

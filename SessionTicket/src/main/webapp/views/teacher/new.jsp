@@ -12,6 +12,9 @@
 <head>
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
     <link href="<c:url value="/resources/css/formsStyle.css"/>" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
+    <script src="/resources/scripts/autoScrollDown.js"></script>
 </head>
 <body>
 <div class="headForForms">
@@ -32,10 +35,9 @@
              background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;" /><br>
 
 
-    <form:label path="age"><h3 style="margin-left: 40%">Teacher's age:</h3></form:label>
-    <font style="color: red"><form:errors path="age" cssStyle="margin-left: 40%"/></font>
-    <form:input path="age" cssStyle="width:200px;font-size: 18px;  border-radius: 8px;
-             background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;" /><br>
+    <label><h3 style="margin-left: 40%;">Birth date: </h3></label>
+    <input type="date" name="birthDate" style="font-size: 18px;  border-radius: 8px;
+         background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;"><br>
 
 
     <form:label path="seat"><h3 style="margin-left: 40%;">Teacher's seat:</h3></form:label>

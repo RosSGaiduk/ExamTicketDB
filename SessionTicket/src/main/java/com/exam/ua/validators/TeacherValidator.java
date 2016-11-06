@@ -22,7 +22,6 @@ public class TeacherValidator implements Validator{
     public void validate(Object o, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"name","name.teacherEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"lastName","lastName.teacherEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"age","age.teacherEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"seat","seat.teacherEmpty");
     }
 }

@@ -1,6 +1,7 @@
 package com.exam.ua.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class StudentOfLnu implements Comparable<StudentOfLnu> {
     @Column
     private String lastName;
     @Column
-    private int age;
+    private Date birthDate;
     @Column
     private int course;
     @Column
@@ -46,11 +47,11 @@ public class StudentOfLnu implements Comparable<StudentOfLnu> {
         this.name = name;
     }
 
-    public StudentOfLnu(String name, String lastName, int age, int course,
+    public StudentOfLnu(String name, String lastName, Date birthDate, int course,
                         String form, String nameFaculty) {
         this.name = name;
         this.lastName = lastName;
-        this.age = age;
+        this.birthDate = birthDate;
         this.course = course;
         this.form = form;
         this.nameFaculty = nameFaculty;
@@ -88,12 +89,12 @@ public class StudentOfLnu implements Comparable<StudentOfLnu> {
         this.lastName = lastName;
     }
 
-    public int getAge() {
-        return age;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     public int getCourse() {
@@ -161,7 +162,7 @@ public class StudentOfLnu implements Comparable<StudentOfLnu> {
     }
 
     public void copyField(StudentOfLnu studentOfLnu) {
-        this.age = studentOfLnu.getAge();
+        this.birthDate = studentOfLnu.getBirthDate();
         this.name = studentOfLnu.getName();
         this.lastName = studentOfLnu.getLastName();
         this.course = studentOfLnu.getCourse();
@@ -176,7 +177,7 @@ public class StudentOfLnu implements Comparable<StudentOfLnu> {
         if (compare == 0) {
             compare = this.name.compareTo(o.getName());
             if (compare == 0) {
-                compare = this.age - o.getAge();
+                compare = this.birthDate.compareTo(o.getBirthDate());
                 if (compare == 0)
                     compare = this.getGroupP().getName().compareTo(o.getGroupP().getName());
             }

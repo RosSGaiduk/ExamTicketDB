@@ -14,10 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by Rostyslav on 10.10.2016.
@@ -44,11 +44,19 @@ public class StudentController extends BaseMethods{
 
     @RequestMapping(value = "/createStudent",method = RequestMethod.POST)
     public String createStudent(@ModelAttribute("student") StudentOfLnu student,
+                                @RequestParam("birth") String date,
                                 @RequestParam("facultySelect")String facultyName,
                                 @RequestParam("groupSelect")String groupName,
                                 Model modelFaculty,
                                 BindingResult bindingResult){
 
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date birth = formatter.parse(date);
+            student.setBirthDate(birth);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         student.setName(stringUTF_8Encode(student.getName()));
         student.setLastName(stringUTF_8Encode(student.getLastName()));
         student.setForm(stringUTF_8Encode(student.getForm()));

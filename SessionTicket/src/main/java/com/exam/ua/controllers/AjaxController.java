@@ -195,7 +195,7 @@ public class AjaxController extends BaseMethods{
             JSONObject jsonObject = new JSONObject();
             jsonObject.putOnce("name",teachers1.get(i).getName());
             jsonObject.putOnce("lastName",teachers1.get(i).getLastName());
-            jsonObject.putOnce("age",teachers1.get(i).getAge());
+            /*jsonObject.putOnce("age",teachers1.get(i).getAge());*/
             jsonObject.putOnce("seat",teachers1.get(i).getSeat());
             jsonArray.put(jsonObject);
         }

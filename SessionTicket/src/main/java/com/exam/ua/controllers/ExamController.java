@@ -62,7 +62,11 @@ public class ExamController extends BaseMethods {
             examForGroup.setDate(date);
             String[]teachersIdentifications = teacher.split(" ");
             List<Teacher> teachers = teacherService.findAll();
-            Teacher teacher1 = new Teacher(teachersIdentifications[0],teachersIdentifications[1],Integer.parseInt(teachersIdentifications[2]),teachersIdentifications[3]);
+            Teacher teacher1 = new Teacher();
+            teacher1.setName(teachersIdentifications[0]);
+            teacher1.setLastName(teachersIdentifications[1]);
+            teacher1.setSeat(teachersIdentifications[2]);
+
             for (int i = 0; i < teachers.size(); i++){
                 if (teachers.get(i).compareTo(teacher1) == 0){
                     examForGroup.setTeacher(teachers.get(i));

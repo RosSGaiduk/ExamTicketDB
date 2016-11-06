@@ -17,7 +17,7 @@ public class Teacher implements Comparable<Teacher>{
     @Column
     private String lastName;
     @Column
-    private int age;
+    private Date birth;
     @Column
     private String seat; //посада
 
@@ -34,10 +34,10 @@ public class Teacher implements Comparable<Teacher>{
 
     public Teacher(){}
 
-    public Teacher(String name, String lastName, int age, String seat) {
+    public Teacher(String name, String lastName, Date birth, String seat) {
         this.name = name;
         this.lastName = lastName;
-        this.age = age;
+        this.birth = birth;
         this.seat = seat;
     }
 
@@ -65,12 +65,12 @@ public class Teacher implements Comparable<Teacher>{
         this.lastName = lastName;
     }
 
-    public int getAge() {
-        return age;
+    public Date getBirth() {
+        return birth;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setBirth(Date birth) {
+        this.birth = birth;
     }
 
     public String getSeat() {
@@ -119,9 +119,9 @@ public class Teacher implements Comparable<Teacher>{
             compare = this.name.compareTo(o.getName());
             if (compare == 0){
                 compare = this.seat.compareTo(o.getSeat());
-                if (compare == 0){
-                    compare = this.age - o.getAge();
-                }
+                /*if (compare == 0){
+                    compare = this.birth.compareTo(o.getBirth());
+                }*/
             }
         }
         return compare;

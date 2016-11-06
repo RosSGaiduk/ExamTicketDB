@@ -43,7 +43,8 @@ public class UserController extends BaseMethods{
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+        newUser.setFirstName(stringUTF_8Encode(newUser.getFirstName()));
+        newUser.setLastName(stringUTF_8Encode(newUser.getLastName()));
         userValidator.validate(newUser,bindingResult);
         if (bindingResult.hasErrors()){
             return "views-user-new";

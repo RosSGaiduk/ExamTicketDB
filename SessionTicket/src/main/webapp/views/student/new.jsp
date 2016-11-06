@@ -41,10 +41,9 @@
     <form:input path="lastName" cssStyle="font-size: 18px;  border-radius: 8px;
          background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%; " /><br>
 
-    <form:label path="age"><h3 style="margin-left: 40%;">Age: </h3></form:label>
-     <font style="color: red"><form:errors path="age" cssStyle="margin-left: 40%"/></font>
-    <form:input path="age" cssStyle="font-size: 18px;  border-radius: 8px;
-         background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%; " /><br>
+    <label><h3 style="margin-left: 40%;">Birth date: </h3></label>
+    <input type="date" name="birth" style="font-size: 18px;  border-radius: 8px;
+         background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;"><br>
 
     <form:label path="course"><h3 style="margin-left: 40%;">Course: </h3></form:label>
      <font style="color: red"><form:errors path="course" cssStyle="margin-left: 40%"/></font>

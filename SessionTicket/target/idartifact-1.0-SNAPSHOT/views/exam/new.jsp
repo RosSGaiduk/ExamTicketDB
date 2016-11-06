@@ -153,7 +153,7 @@
                     var option = document.createElement("option");
                     var stringId = "id" + count;
                     option.setAttribute("id", stringId);
-                    option.innerHTML = v.name+" " + v.lastName + " " + v.age + " " + v.seat;
+                    option.innerHTML = v.name+" " + v.lastName + " " + v.seat;
                     document.getElementById("selectTeacher").appendChild(option);
                 });
             }

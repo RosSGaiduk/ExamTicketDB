@@ -6,6 +6,7 @@ import com.exam.ua.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,8 +18,8 @@ public class StudentServiceImpl implements StudentService{
     private StudentDao studentDao;
 
     @Override
-    public void add(String name, String lastName, int age, int course, String form,String facultyName) {
-        studentDao.add(new StudentOfLnu(name,lastName,age,course,form,facultyName));
+    public void add(String name, String lastName, Date birth, int course, String form, String facultyName) {
+        studentDao.add(new StudentOfLnu(name,lastName,birth,course,form,facultyName));
     }
 
 
@@ -28,9 +29,9 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public void edit(long id, String name, String lastName, int age, int course, String form) {
+    public void edit(long id, String name, String lastName, Date birth, int course, String form) {
         StudentOfLnu student = studentDao.findOne(id);
-        student.setName(name); student.setLastName(lastName); student.setAge(age); student.setCourse(course);
+        student.setName(name); student.setLastName(lastName); student.setBirthDate(birth); student.setCourse(course);
         student.setForm(form);
         studentDao.edit(student);
     }

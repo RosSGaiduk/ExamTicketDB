@@ -6,6 +6,7 @@ import com.exam.ua.services.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,8 +20,8 @@ public class TeacherServiceImpl implements TeacherService {
 
 
     @Override
-    public void add(String name, String lastName, int age, String seat) {
-        teacherDao.add(new Teacher(name,lastName,age,seat));
+    public void add(String name, String lastName, Date birth, String seat) {
+        teacherDao.add(new Teacher(name,lastName,birth,seat));
     }
 
     @Override
@@ -29,9 +30,9 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void edit(long id, String name, String lastName, int age, String seat) {
+    public void edit(long id, String name, String lastName, Date birth, String seat) {
         Teacher teacher = teacherDao.findOne(id);
-        teacher.setName(name); teacher.setLastName(lastName); teacher.setAge(age); teacher.setSeat(seat);
+        teacher.setName(name); teacher.setLastName(lastName); teacher.setBirth(birth); teacher.setSeat(seat);
         teacherDao.edit(teacher);
     }
 
