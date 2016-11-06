@@ -1,6 +1,8 @@
 package com.exam.ua.dao.implementation;
 
 import com.exam.ua.dao.TeacherDao;
+import com.exam.ua.entity.Faculty;
+import com.exam.ua.entity.Subject;
 import com.exam.ua.entity.Teacher;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +23,16 @@ public class TeacherDaoImpl implements TeacherDao{
     @Transactional
     public void add(Teacher teacher) {
         entityManager.persist(teacher);
+    }
+
+    @Transactional
+    public void addFaculty(Teacher teacher, Faculty faculty) {
+        entityManager.find(Teacher.class,teacher.getId()).getFaculties().add(faculty);
+    }
+
+    @Transactional
+    public void addSubject(Teacher teacher, Subject subject) {
+        entityManager.find(Teacher.class,teacher.getId()).getSubjects().add(subject);
     }
 
     @Transactional

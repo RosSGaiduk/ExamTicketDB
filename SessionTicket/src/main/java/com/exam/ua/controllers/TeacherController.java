@@ -1,5 +1,6 @@
 package com.exam.ua.controllers;
 
+import com.exam.ua.entity.Faculty;
 import com.exam.ua.entity.Subject;
 import com.exam.ua.entity.Teacher;
 import com.exam.ua.services.FacultyService;
@@ -10,17 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Rostyslav on 10.10.2016.
@@ -73,16 +69,82 @@ public class TeacherController extends BaseMethods{
             modelSubject.addAttribute("subjects",subjectService.findAll());
             return "views-teacher-new";
         } else {
-            newTeacher.setFaculty(facultyService.findOneByName(nameFaculty));
+            newTeacher.getFaculties().add(facultyService.findOneByName(nameFaculty));
             newTeacher.getSubjects().add(subjectService.findOneByName(nameSubject));
             teacherService.add(newTeacher);
             return "redirect:/";
         }
     }
     @RequestMapping(value = "/allTeachers",method = RequestMethod.GET)
-    public String allTeachersPage(Model model){
+    public String allTeachersPage(Model model,Model facultiesModel){
         List<Teacher> teacherList = teacherService.findAll();
         model.addAttribute("teachers",teacherList);
+        facultiesModel.addAttribute("faculties",facultyService.findAll());
         return "views-teacher-all";
+    }
+
+    @RequestMapping(value = "/teacherSelect/{id}",method = RequestMethod.GET)
+    public String teacherSelected(@PathVariable String id,Model model,Model facultyModel,Model subjectModel){
+        model.addAttribute("teacher",teacherService.findOne(Long.parseLong(id)));
+        List<Faculty> faculties = facultyService.findAll();
+        Set<Faculty> facultiesTeacherHave = teacherService.findOne(Long.parseLong(id)).getFaculties();
+        Set<Faculty> facultiesNotHaveTeacher = new TreeSet<>();
+
+        for (int i = 0; i < faculties.size(); i++){
+            int count = 0;
+            for (Faculty faculty: facultiesTeacherHave){
+                if (faculties.get(i).getName().equals(faculty.getName())){
+                    break;
+                } else {
+                    count++;
+                }
+            }
+            if (count == facultiesTeacherHave.size()) facultiesNotHaveTeacher.add(faculties.get(i));
+        }
+
+
+        List<Subject> subjects = subjectService.findAll();
+        Set<Subject> subjectsTeacherHave = teacherService.findOne(Long.parseLong(id)).getSubjects();
+        Set<Subject> subjectsNotHaveTeacher = new TreeSet<>();
+
+        for (int i = 0; i < subjects.size(); i++){
+            int count = 0;
+            for (Subject subject: subjectsTeacherHave){
+                if (subjects.get(i).getName().equals(subject.getName())){
+                    break;
+                } else {
+                    count++;
+                }
+            }
+            if (count == subjectsTeacherHave.size()) subjectsNotHaveTeacher.add(subjects.get(i));
+        }
+
+        facultyModel.addAttribute("faculties",facultiesNotHaveTeacher);
+        subjectModel.addAttribute("subjects",subjectsNotHaveTeacher);
+        return "views-teacher-selected";
+    }
+
+    @RequestMapping(value = "/editTeacher",method = RequestMethod.POST)
+    public String editTeacher(@RequestParam String idTeacher,
+                              @RequestParam String addFacultyToTeacher,
+                              @RequestParam String addSubjectToTeacher){
+
+        Teacher teacher = teacherService.findOne(Long.parseLong(idTeacher));
+        //System.out.println(teacher.getName());
+
+        addFacultyToTeacher = stringUTF_8Encode(addFacultyToTeacher);
+        addSubjectToTeacher = stringUTF_8Encode(addSubjectToTeacher);
+
+        if (!addFacultyToTeacher.equals("no faculty")) {
+            Faculty faculty = facultyService.findOneByName(addFacultyToTeacher);
+            teacherService.addFaculty(teacher, faculty);
+        }
+
+        if (!addSubjectToTeacher.equals("no subject")){
+            Subject subject = subjectService.findOneByName(addSubjectToTeacher);
+            teacherService.addSubject(teacher,subject);
+        }
+
+        return "redirect:/";
     }
 }

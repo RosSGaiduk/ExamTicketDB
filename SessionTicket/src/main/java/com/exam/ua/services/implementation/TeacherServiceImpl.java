@@ -1,6 +1,8 @@
 package com.exam.ua.services.implementation;
 
 import com.exam.ua.dao.TeacherDao;
+import com.exam.ua.entity.Faculty;
+import com.exam.ua.entity.Subject;
 import com.exam.ua.entity.Teacher;
 import com.exam.ua.services.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,16 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public void add(Teacher teacher) {
         teacherDao.add(teacher);
+    }
+
+    @Override
+    public void addFaculty(Teacher teacher, Faculty faculty) {
+        teacherDao.addFaculty(teacher,faculty);
+    }
+
+    @Override
+    public void addSubject(Teacher teacher, Subject subject) {
+        teacherDao.addSubject(teacher,subject);
     }
 
     @Override

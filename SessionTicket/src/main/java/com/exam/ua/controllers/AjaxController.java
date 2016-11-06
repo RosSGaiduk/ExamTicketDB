@@ -184,8 +184,13 @@ public class AjaxController extends BaseMethods{
         System.out.println(teachers.size());
         Set<Teacher> teachersOfFaculty = new TreeSet<>();
         for (Teacher teacher: teachers){
-            if (teacher.getFaculty().getName().equals(nameFaculty))
-                teachersOfFaculty.add(teacher);
+            Set<Faculty> facultiesOfTeacher = teacher.getFaculties();
+            for (Faculty faculty:facultiesOfTeacher) {
+                if (faculty.getName().equals(nameFaculty)) {
+                    teachersOfFaculty.add(teacher);
+                    break;
+                }
+            }
         }
 
         JSONArray jsonArray = new JSONArray();
@@ -195,10 +200,52 @@ public class AjaxController extends BaseMethods{
             JSONObject jsonObject = new JSONObject();
             jsonObject.putOnce("name",teachers1.get(i).getName());
             jsonObject.putOnce("lastName",teachers1.get(i).getLastName());
-            /*jsonObject.putOnce("age",teachers1.get(i).getAge());*/
             jsonObject.putOnce("seat",teachers1.get(i).getSeat());
             jsonArray.put(jsonObject);
         }
+        return jsonArray.toString();
+    }
+
+
+    @RequestMapping(value = "/findTeachersByFaculty",method = RequestMethod.GET,produces = {"text/html; charset=UTF-8" })
+    @ResponseBody
+    public String findTeachersByFaculty(@RequestParam String nameFaculty){
+        List<Teacher> teachers = teacherService.findAll();
+        Set<Teacher> teachersOfFaculty = new TreeSet<>();
+        for (Teacher teacher: teachers){
+            Set<Faculty> facultiesOfTeacher = teacher.getFaculties();
+            for (Faculty faculty: facultiesOfTeacher){
+                if (faculty.getName().equals(nameFaculty)){
+                    teachersOfFaculty.add(teacher);
+                    break;
+                }
+            }
+        }
+
+
+        JSONArray jsonArray = new JSONArray();
+        for (Teacher teacher: teachersOfFaculty){
+            Set<Subject> subjects = teacher.getSubjects();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.putOnce("lastName",teacher.getLastName());
+            jsonObject.putOnce("name",teacher.getName());
+            String str = teacher.getBirth().toString();
+            String yearMonthDay = "";
+            //забрати години, хвилини, секунди,мілісекунди
+            for (int i = 0; i < str.length()-10; i++)
+                yearMonthDay+=str.charAt(i);
+
+            jsonObject.putOnce("id",teacher.getId());
+            jsonObject.putOnce("birth",yearMonthDay);
+            jsonObject.putOnce("seat",teacher.getSeat());
+            String subjectsStr = "";
+            for (Subject subject: subjects)
+                subjectsStr+=subject.getName()+" ";
+            jsonObject.putOnce("subjects",subjectsStr);
+            jsonArray.put(jsonObject);
+        }
+
+
         return jsonArray.toString();
     }
 }

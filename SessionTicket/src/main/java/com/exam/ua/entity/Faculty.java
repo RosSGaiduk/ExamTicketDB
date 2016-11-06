@@ -29,7 +29,8 @@ public class Faculty implements Comparable<Faculty>{
     @OneToMany(mappedBy = "faculty",fetch = FetchType.EAGER)
     private List<GroupP> groups;
 
-    @OneToMany(mappedBy = "faculty",fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "faculty_teacher",joinColumns = @JoinColumn(name = "faculty_id"),inverseJoinColumns = @JoinColumn(name = "teacher_id"))
     private Set<Teacher> teachers = new TreeSet<>();
 
     @OneToMany(mappedBy = "faculty",fetch = FetchType.EAGER)

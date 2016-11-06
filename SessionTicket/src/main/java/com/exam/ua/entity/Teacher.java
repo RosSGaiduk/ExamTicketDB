@@ -21,8 +21,9 @@ public class Teacher implements Comparable<Teacher>{
     @Column
     private String seat; //посада
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Faculty faculty;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "faculty_teacher",joinColumns = @JoinColumn(name = "teacher_id"), inverseJoinColumns = @JoinColumn(name = "faculty_id"))
+    private Set<Faculty> faculties = new TreeSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "teacher_subject",joinColumns = @JoinColumn(name = "id_teacher"),
@@ -97,11 +98,12 @@ public class Teacher implements Comparable<Teacher>{
         this.subjects = subjects;
     }
 
-    public Faculty getFaculty() {
-        return faculty;
+    public Set<Faculty> getFaculties() {
+        return faculties;
     }
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
+
+    public void setFaculties(Set<Faculty> faculties) {
+        this.faculties = faculties;
     }
 
     public Set<ExamForGroup> getExams() {
