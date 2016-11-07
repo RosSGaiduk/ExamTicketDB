@@ -36,6 +36,8 @@ public class AjaxController extends BaseMethods{
     private TeacherService teacherService;
     @Autowired
     private SubjectService subjectService;
+    @Autowired
+    private WriterService writerService;
 
     private static final int WEAK_STRENGTH = 1;
     private static final int FEAR_STRENGTH = 5;
@@ -247,5 +249,12 @@ public class AjaxController extends BaseMethods{
 
 
         return jsonArray.toString();
+    }
+
+    @RequestMapping(value = "/changeWriter",method = RequestMethod.GET,produces = {"text/html; charset=UTF-8" })
+    @ResponseBody
+    public String changeWriter(@RequestParam String id){
+        Writer writer = writerService.findOne(Long.parseLong(id));
+        return writer.getBiography();
     }
 }

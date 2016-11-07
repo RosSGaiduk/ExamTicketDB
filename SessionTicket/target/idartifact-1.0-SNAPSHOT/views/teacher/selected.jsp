@@ -19,8 +19,8 @@
     <script src="/resources/scripts/autoScrollDown.js"></script>
 </head>
 <body>
+<p style="margin-left: 20%;">Тут можна добавити факультет або предмет для обраного викладача.</p>
 <div style="width: 60%;height: auto;margin-left: 20%;margin-bottom: 50px;border: 2px solid blueviolet;border-radius: 0%;float: left;background-color: cornsilk; color:black;">
-
     <div style="width: 100%; height: auto; margin-left: 30%;">
     <form method="post" action="/editTeacher">
         <h3>
