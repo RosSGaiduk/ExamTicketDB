@@ -11,12 +11,14 @@
 <head>
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
     <link href="<c:url value="/resources/css/hovers.css"/>" type="text/css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/googleBanScroll.css"/>" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
     <script src="/resources/scripts/autoScrollDown.js"></script>
 </head>
 <body style="background-color: gainsboro">
-        <img src="/resources/img/writers/writer1.jpg" id = "writerImg" style="width: 20%; height: 400px; background-size: 100%;
+        <%--src в image відсутнє, том, що в нас src цього зображення мінятиметься динамічно через ajax--%>
+        <img id = "writerImg" style="width: 20%; height: 400px; background-size: 100%;
         background-repeat: no-repeat; float: left; margin-top: 35px; margin-bottom: 20px;">
 
         <div style="width: 60%; height: auto;float: left; background-color: white; margin-left: 2%;">
@@ -29,7 +31,6 @@
                <p id = "biography"></p>
                 </p>
             </font><br>
-            <%--<a onclick="doFunc()">Next</a>--%>
         </div>
 
 
@@ -79,13 +80,11 @@
                             var newscr = document.getElementById("writerImg");
                             newscr.src = v.urlImage;
                         });
-                        /*window.scrollTo(0,500);*/
                     }
                 });
 
             }
         </script>
-
 
        <%-- <img SRC="/resources/img/lnu.jpg" onclick=imgchange(this,"/resources/img/lnu.jpg","/resources/img/student.png")>
         <script>
@@ -99,7 +98,29 @@
                 x=!x
             }
         </script>--%>
+        <div style="width: 110px; height: 110px; float: left; margin-left: 80%; margin-top: 30px;'">
+        <img id = "upImage" src="/resources/img/up.png" style="float: left; cursor: hand; margin-bottom: 30px;" onclick="up()">
+        </div>
 
+        <script>
+            var myBool = false;
+            var width = 100.0;
+            function up(){
+                window.scrollTo(0,500);
+            }
+            function func1(){
+                if (width>110){
+                    myBool = true;
+                }
+                if (width<100){
+                    myBool = false;
+                }
+               if (myBool) width-=0.2;
+               else width+=0.2;
+                document.getElementById('upImage').style.width = width;
+            }
+            var id = setInterval("func1()", 10);
+        </script>
 
         <div style="
     width:100%;
@@ -113,6 +134,7 @@
              height:100%;
               width:100%;
               max-width:100%;">
+                <div class="overlay" onClick="style.pointerEvents='none'"></div>
                 <iframe style="
             height:100%;
             width:100%;
