@@ -19,6 +19,8 @@ public class Writer {
     private String fatherName;
     @Column
     private String biography;
+    @Column
+    private String urlImage;
 
     public Writer(){}
     public Writer(String lastName,String name,String fatherName,String biography){
@@ -63,5 +65,13 @@ public class Writer {
 
     public void setBiography(String biography) {
         this.biography = biography;
+    }
+
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
     }
 }

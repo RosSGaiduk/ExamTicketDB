@@ -18,7 +18,7 @@
 <body>
         <c:forEach items="${subjects}" var="s">
             <a href="/subject/${s.id}">
-            <div style="width: 20%; height: auto; float: left; border: 1px solid black; margin-left: 4%; color: black; margin-top: 20px; margin-bottom: 20px;">
+            <div style="width: 20%; height: auto; float: left;margin-left: 4%; color: black; margin-top: 20px; margin-bottom: 20px; background-color: white;">
             <h4>Предмет: ${s.name}</h4>
                 <c:forEach items="${s.faculties}" var="f">
                 <h4>Факультет: ${f.name}</h4>

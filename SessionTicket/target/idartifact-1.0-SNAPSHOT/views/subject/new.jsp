@@ -11,7 +11,7 @@
 <html>
 <head>
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
-    <link href="<c:url value="/resources/css/formsStyle.css"/>" type="text/css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/formsStyle1.css"/>" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
     <script src="/resources/scripts/autoScrollDown.js"></script>
@@ -23,16 +23,14 @@
     <p><h3 style="margin-left: 40%; color: darkorchid;">Add a new group</h3></p>
     <form:form action="/createSubject" method="post" modelAttribute="subject">
         <label><h3 style="margin-left: 40%;">Faculty: </h3></label>
-        <select id = "nameFaculty" name="facultySelect" style="width:250px;font-size: 18px;  border-radius: 8px;
-                    background: #F6F6f6; padding: 6px 0 4px 10px;margin-left: 40%;">
+        <select id = "nameFaculty" name="facultySelect" class="inputStyle">
             <c:forEach items="${faculties}" var="f">
                 <option id = "facultyId">${f.name}</option>
             </c:forEach>
         </select>
         <form:label path="name" cssStyle="margin-left: 40%;"><h3 style="margin-left: 40%;">Name of subject:</h3><br></form:label>
         <font style="color: red"><form:errors path="name" cssStyle="margin-left: 40%"/></font><br>
-        <form:input path="name" cssStyle="font-size: 18px;  border-radius: 8px;
-             background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;" /><br>
+        <form:input path="name" cssClass="inputStyle" /><br>
         <p style="margin-left: 40%"><form:button style="width:50px; height: 30px;border-radius:20%;">OK</form:button></p>
     </form:form>
 </div>

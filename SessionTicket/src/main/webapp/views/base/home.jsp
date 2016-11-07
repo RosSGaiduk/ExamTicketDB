@@ -16,31 +16,20 @@
     <script src="/resources/scripts/autoScrollDown.js"></script>
 </head>
 <body style="background-color: gainsboro">
-        <%--<div style="width: 20%;height: 500px; margin-left: 10%;
-        background-image: url(/resources/img/writers/writer1.jpg);
-        background-size: 100%;
-        background-repeat: no-repeat;
-        float: left;
-        margin-top: 15px;
-        ">
-        </div>--%>
-        <img src="/resources/img/writers/writer1.jpg" id = "writerImg" style="width: 20%; height: 400px; margin-left: 10%; background-size: 100%;
+        <img src="/resources/img/writers/writer1.jpg" id = "writerImg" style="width: 20%; height: 400px; background-size: 100%;
         background-repeat: no-repeat; float: left; margin-top: 35px; margin-bottom: 20px;">
 
-        <div style="width: 60%; height: auto;float: left; background-color: white;">
+        <div style="width: 60%; height: auto;float: left; background-color: white; margin-left: 2%;">
             <img src="/resources/img/back.png" class="imageWriter" style="float:left;margin-left: 40%; margin-top: 15px; cursor:hand;" width="50" height="50" onclick="doFuncBack()"/>
-            <img src="/resources/img/next.png" class="imageWriter" style="float:left;margin-left: 10px; margin-top: 15px; cursor:hand; margin-bottom: 30px;" width="50" height="50" onclick="doFunc()"/>
-            <p style="clear: left"></p>
+            <img src="/resources/img/next.png" class="imageWriter" style="float:left;margin-left: 10px; margin-top: 15px; cursor:hand;" width="50" height="50" onclick="doFunc()"/>
+            <%--<p style="clear: left"></p>--%>
             <font face="Arial"><p style="text-align: justify;">
                 <p id = "count" style="visibility: hidden">${writerCount}</p>
+                <h3 id = "page" style="margin-left: 90%"></h3>
                <p id = "biography"></p>
                 </p>
             </font><br>
-          <%--  <a href="/addUser">Add user</a><br>
-            <a href="/userLogin">User login</a><br>
-            <a href="/jsonPage">Json page</a><br>--%>
-
-            <a onclick="doFunc()">Next</a>
+            <%--<a onclick="doFunc()">Next</a>--%>
         </div>
 
 
@@ -53,14 +42,18 @@
                 val%=(count+1);
                 if (val == 0) val++;
                 $.ajax({
+                    dataType: "json",
                    url: "/changeWriter",
                     asynch:false,
                     data: ({id: val}),
                     success: function(data){
-                        $('#biography').html(data);
-                        var newscr = document.getElementById("writerImg");
-                        newscr.src = "/resources/img/writers/writer"+val+".jpg";
-                        window.scrollTo(0,500);
+                        $.each(data,function(k,v){
+                            $('#biography').html(v.biography);
+                            $('#page').html("Page "+val);
+                            var newscr = document.getElementById("writerImg");
+                            newscr.src = v.urlImage;
+                        });
+                        /*window.scrollTo(0,500);*/
                     }
                 });
 
@@ -75,14 +68,18 @@
                 if (val>1) val--;
                 else val = count;
                 $.ajax({
+                    dataType: "json",
                     url: "/changeWriter",
                     asynch:false,
                     data: ({id: val}),
                     success: function(data){
-                        $('#biography').html(data);
-                        var newscr = document.getElementById("writerImg");
-                        newscr.src = "/resources/img/writers/writer"+val+".jpg";
-                        window.scrollTo(0,500);
+                        $.each(data,function(k,v){
+                            $('#biography').html(v.biography);
+                            $('#page').html("Page "+val);
+                            var newscr = document.getElementById("writerImg");
+                            newscr.src = v.urlImage;
+                        });
+                        /*window.scrollTo(0,500);*/
                     }
                 });
 
@@ -134,9 +131,5 @@
                 defer="defer"
                 async="async">
         </script>
-
-
-
-
 </body>
 </html>

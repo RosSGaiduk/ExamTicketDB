@@ -255,6 +255,11 @@ public class AjaxController extends BaseMethods{
     @ResponseBody
     public String changeWriter(@RequestParam String id){
         Writer writer = writerService.findOne(Long.parseLong(id));
-        return writer.getBiography();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.putOnce("biography",writer.getBiography());
+        jsonObject.putOnce("urlImage",writer.getUrlImage());
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put(jsonObject);
+        return jsonArray.toString();
     }
 }

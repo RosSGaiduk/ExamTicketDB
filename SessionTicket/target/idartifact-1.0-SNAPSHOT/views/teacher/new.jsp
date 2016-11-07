@@ -11,7 +11,7 @@
 <html>
 <head>
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
-    <link href="<c:url value="/resources/css/formsStyle.css"/>" type="text/css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/formsStyle1.css"/>" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
     <script src="/resources/scripts/autoScrollDown.js"></script>
@@ -20,29 +20,25 @@
 <div class="headForForms">
 </div>
 <div class="forms">
-<p><h3 style="margin-left: 40%; color: darkorchid;">Add a new teacher</h3></p>
+<%--<p><h3 style="margin-left: 0%; color: black;">Add a new teacher</h3></p>--%>
 <form:form action="/createTeacher" method="post" modelAttribute="newTeacher">
 
     <form:label path="name"><h3 style="margin-left: 40%;">Teacher's name: </h3></form:label>
     <font style="color: red"><form:errors path="name" cssStyle="margin-left: 40%"/></font>
-    <form:input path="name" cssStyle="width:200px;font-size: 18px;  border-radius: 8px;
-             background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;" /><br>
+    <form:input path="name" cssClass="inputStyle"/><br>
 
 
     <form:label path="lastName"><h3 style="margin-left: 40%;">Teacher's last name: </h3></form:label>
     <font style="color: red"><form:errors path="lastName" cssStyle="margin-left: 40%"/></font>
-    <form:input path="lastName" cssStyle="width:200px;font-size: 18px;  border-radius: 8px;
-             background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;" /><br>
+    <form:input path="lastName" cssClass="inputStyle"/><br>
 
 
     <label><h3 style="margin-left: 40%;">Birth date: </h3></label>
-    <input type="date" name="birthDate" style="font-size: 18px;  border-radius: 8px;
-         background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;"><br>
+    <input type="date" name="birthDate" class="inputStyle"><br>
 
 
     <form:label path="seat"><h3 style="margin-left: 40%;">Teacher's seat:</h3></form:label>
-    <form:select path="seat" cssStyle="width:200px;font-size: 18px;  border-radius: 8px;
-                    background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
+    <form:select path="seat" cssClass="inputStyle">
         <form:option value="аспірант">аспірант</form:option>
         <form:option value="доцент">доцент</form:option>
         <form:option value="професор">професор</form:option>
@@ -51,16 +47,14 @@
 
     <font style="color: red"><form:errors path="seat" cssStyle="margin-left: 40%"/></font><br>
     <p style="clear:left;"><h3 style="margin-left: 40%;">Faculty:</h3></p>
-    <select name="facultySelect" style="width:200px;font-size: 18px;  border-radius: 8px;
-                    background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
+    <select name="facultySelect" class="inputStyle" ">
         <c:forEach items="${faculties}" var="f">
             <option>${f.name}</option>
         </c:forEach>
     </select>
 
     <p style="clear:left;"><h3 style="margin-left: 40%";>Subject:</h3></p>
-    <select name="subjectSelect" style="width:200px;font-size: 18px;  border-radius: 8px;
-                    background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
+    <select name="subjectSelect" class="inputStyle">
         <c:forEach items="${subjects}" var="s">
             <option>${s.name}</option>
         </c:forEach>

@@ -11,7 +11,7 @@
 <html>
 <head>
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
-    <link href="<c:url value="/resources/css/formsStyle.css"/>" type="text/css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/formsStyle1.css"/>" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
     <script src="/resources/scripts/autoScrollDown.js"></script>
@@ -24,12 +24,10 @@
         <form:form action="/createGroup" method="post" modelAttribute="grouppP">
             <form:label path="name"><h4 style="margin-left: 40%;">Name of group:</h4></form:label>
             <font style="color: red"><form:errors path="name" cssStyle="margin-left: 40%"/></font>
-            <form:input path="name" cssStyle="font-size: 18px;  border-radius: 8px;
-             background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;" /><br>
+            <form:input path="name" cssClass="inputStyle"/><br>
             <p style="clear: left"></p>
             <p><h4 style="margin-left: 40%;">Faculty</h4></p>
-            <select name="facultySelect" style="width:250px;font-size: 18px;  border-radius: 8px;
-                    background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
+            <select name="facultySelect" class="inputStyle">
                     <%--<option>Пункт 1</option>
                     <option>Пункт 2</option>--%>
                 <c:forEach items="${faculties}" var="f">
@@ -39,8 +37,7 @@
             <%-- And creating 4 subjects for this group(this group will have exam which includes each of this subjects)--%>
             <p style="clear: left"></p>
             <p><h4 style="margin-left: 40%;">Subject1</h4></p>
-            <select name="groupSubject1" style="width:250px;font-size: 18px;  border-radius: 8px;
-                    background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
+            <select name="groupSubject1" class="inputStyle">
                 <c:forEach items="${subjects}" var="s">
                     <option>${s.name}</option>
                 </c:forEach>
@@ -48,8 +45,7 @@
 
             <p style="clear: left"></p>
             <p><h4 style="margin-left: 40%;">Subject2</h4></p>
-            <select name="groupSubject2" style="width:250px;font-size: 18px;  border-radius: 8px;
-                    background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
+            <select name="groupSubject2" class="inputStyle">
                 <c:forEach items="${subjects}" var="s">
                     <option>${s.name}</option>
                 </c:forEach>
@@ -57,16 +53,14 @@
             <br>
             <p style="clear: left"></p>
             <p><h4 style="margin-left: 40%;">Subject3</h4></p>
-            <select name="groupSubject3" style="width:250px;font-size: 18px;  border-radius: 8px;
-                    background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
+            <select name="groupSubject3" class="inputStyle">
                 <c:forEach items="${subjects}" var="s">
                     <option>${s.name}</option>
                 </c:forEach>
             </select>
             <p style="clear: left;"></p>
             <p><h4 style="margin-left: 40%;">Subject4</h4></p>
-            <select name="groupSubject4" style="width:250px;font-size: 18px;  border-radius: 8px;
-                    background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
+            <select name="groupSubject4" class="inputStyle">
                 <c:forEach items="${subjects}" var="s">
                     <option>${s.name}</option>
                 </c:forEach>

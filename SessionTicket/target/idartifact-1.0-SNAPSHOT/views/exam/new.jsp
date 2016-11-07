@@ -13,7 +13,7 @@
 <html>
 <head>
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
-    <link href="<c:url value="/resources/css/formsStyle.css"/>" type="text/css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/formsStyle1.css"/>" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
     <script src="/resources/scripts/autoScrollDown.js"></script>
@@ -32,38 +32,31 @@
         <label><h3 style="margin-left: 40%;">Faculty: </h3></label>
         <%--<font style="color: red"><form:errors path="name" cssStyle="margin-left: 40%"/></font><br>--%>
         <%--<form:input path="date" cssStyle="margin-left: 40%;"/>--%>
-        <select id = "nameFaculty" name="facultySelect" onchange="doGroupAjax()" style="width:250px;font-size: 18px;  border-radius: 8px;
-                    background: #F6F6f6; padding: 6px 0 4px 10px;margin-left: 40%;">
+        <select class="inputStyle" id = "nameFaculty" name="facultySelect" onchange="doGroupAjax()"/>
             <c:forEach items="${faculties}" var="f">
                 <option id = "facultyId">${f.name}</option>
             </c:forEach>
         </select>
 
         <label><h3 style="margin-left: 40%;">Group: </h3></label>
-        <select id = "selectGroup" name="groupSelect" onchange="doSubjectAjax()" style="width:250px;font-size: 18px;  border-radius: 8px;
-                    background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
+        <select id = "selectGroup" name="groupSelect" onchange="doSubjectAjax()" class="inputStyle">
         </select>
 
         <label><h3 style="margin-left: 40%;">Subject: </h3></label>
-        <select id = "selectSubject" name="subjectSelect" onchange="doTeacherAjax()" style="width:250px;font-size: 18px;  border-radius: 8px;
-                    background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
+        <select id = "selectSubject" name="subjectSelect" onchange="doTeacherAjax()" class="inputStyle">
         </select>
 
         <label><h3 style="margin-left: 40%;">Teacher: </h3></label>
-        <select id = "selectTeacher" name="teachers" style="width:250px;font-size: 18px;  border-radius: 8px;
-                    background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
+        <select id = "selectTeacher" name="teachers" class="inputStyle">
         </select>
 
         <label><h3 style="margin-left: 40%;">Date: </h3></label>
-        <input name="dateCalendar" type="date" style="margin-left:40%;
-        height: 35px; font-size: 18px;border-radius: 3px;
-        padding: 0 3px;"/>
+        <input name="dateCalendar" type="date" class="inputStyle"/>
         <br>
 
 
         <label><h3 style="margin-left: 40%">Time:</h3></label>
-        <input type="time" name="timeForExam"  style="font-size: 18px;  border-radius: 8px;
-         background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;"/>
+        <input type="time" name="timeForExam" class="inputStyle"/>
 
         <p style="margin-left: 40%"><button type="submit" id = "buttonSend" style="width:50px; height: 30px;border-radius:20%;">OK</button></p>
     </form:form>

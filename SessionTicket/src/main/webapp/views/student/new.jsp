@@ -13,7 +13,7 @@
 <html>
 <head>
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
-    <link href="<c:url value="/resources/css/formsStyle.css"/>" type="text/css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/formsStyle1.css"/>" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
     <script src="/resources/scripts/autoScrollDown.js"></script>
@@ -25,6 +25,9 @@
                    user="root"  password="123456root"/>
 
 
+<p style="clear: left"></p>
+<br>
+<%--<h1 style="margin-left: 20%;">Create new student</h1>--%>
 <div class="headForForms">
 </div>
 <div class="forms">
@@ -33,39 +36,33 @@
     <form:label path="name"><h3 style="margin-left: 40%;">Name: </h3></form:label>
     <font style="color: red"><form:errors path="name" cssStyle="margin-left: 40%"/></font>
 
-    <form:input path="name" cssStyle="font-size: 18px;  border-radius: 8px;
-         background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%; " /><br>
+    <form:input path="name" cssClass="inputStyle"/><br>
 
     <form:label path="lastName"><h3 style="margin-left: 40%;">Last name: </h3></form:label>
      <font style="color: red"><form:errors path="lastName" cssStyle="margin-left: 40%"/></font>
-    <form:input path="lastName" cssStyle="font-size: 18px;  border-radius: 8px;
-         background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%; " /><br>
+    <form:input path="lastName" cssClass="inputStyle" /><br>
 
     <label><h3 style="margin-left: 40%;">Birth date: </h3></label>
-    <input type="date" name="birth" style="font-size: 18px;  border-radius: 8px;
-         background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;"><br>
+    <input type="date" name="birth" class="inputStyle"><br>
 
     <form:label path="course"><h3 style="margin-left: 40%;">Course: </h3></form:label>
      <font style="color: red"><form:errors path="course" cssStyle="margin-left: 40%"/></font>
-    <form:input path="course" cssStyle="font-size: 18px;  border-radius: 8px;
-         background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%; " /><br>
+    <form:input path="course" cssClass="inputStyle"/><br>
 
     <form:label path="form"><h3 style="margin-left: 40%;">Form: </h3></form:label>
      <font style="color: red"><form:errors path="form" cssStyle="margin-left: 40%"/></font>
-    <form:input path="form" cssStyle="font-size: 18px;  border-radius: 8px;
-         background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%; " /><br>
+    <form:input path="form" cssClass="inputStyle" /><br>
 
     <label><h3 style="margin-left: 40%;">Faculty: </h3></label>
 
-    <select id = "nameFaculty" name="facultySelect" onchange="doStudentAjax()" style="width:250px;font-size: 18px;  border-radius: 8px;
-                    background: #F6F6f6; padding: 6px 0 4px 10px;margin-left: 40%;">
+    <select id = "nameFaculty" name="facultySelect" onchange="doStudentAjax()" class="inputStyle">
         <c:forEach items="${faculties}" var="f">
             <option id = "facultyId">${f.name}</option>
         </c:forEach>
     </select>
 
     <label><h3 style="margin-left: 40%;">Group: </h3></label>
-    <select id = "selectGroup" name="groupSelect" style="width:250px;font-size: 18px;  border-radius: 8px;
+    <select id = "selectGroup" name="groupSelect" style="width:220px;font-size: 18px;  border-radius: 0px;
                     background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%;">
     </select>
     <p style="margin-left: 40%"><form:button style="width:50px; height: 30px;border-radius:20%;">NEXT</form:button></p>

@@ -11,7 +11,7 @@
 <head>
     <title>Title</title>
 </head>
-<body>
+<body style="background-color: gainsboro">
     <div><tiles:insertAttribute name="header"/></div>
     <div><tiles:insertAttribute name="menu"/></div>
     <div><tiles:insertAttribute name = "body"/></div>

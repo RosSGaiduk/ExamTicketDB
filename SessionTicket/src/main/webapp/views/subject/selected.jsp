@@ -19,7 +19,7 @@
     <script src="/resources/scripts/autoScrollDown.js"></script>
 </head>
 <body>
-<div style="width: 60%;height: auto;margin-left: 20%;margin-bottom: 50px;border: 2px solid blueviolet;border-radius: 0%;float: left;background-color: cornsilk; color:black;">
+<div style="width: 60%;height: auto;margin-left: 20%;margin-top: 70px;margin-bottom: 90px; border-radius: 0%;float: left;background-color: white; color:black;">
     <%--<p>${examSelected.id}</p>--%>
     <form method="post" action="/editSubject">
         <h3>

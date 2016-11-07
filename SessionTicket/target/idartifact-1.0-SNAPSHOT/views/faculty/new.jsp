@@ -11,7 +11,7 @@
 <html>
 <head>
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
-    <link href="<c:url value="/resources/css/formsStyle.css"/>" type="text/css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/formsStyle1.css"/>" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
 </head>
@@ -22,8 +22,7 @@
     <form:form action="/createFaculty" method="post" modelAttribute="newFaculty">
         <form:label path="name" cssStyle="margin-left: 40%;">Name of faculty: <br></form:label>
         <font style="color: red"><form:errors path="name" cssStyle="margin-left: 40%"/></font><br>
-        <form:input path="name" cssStyle="font-size: 18px;  border-radius: 8px;
-         background: #F6F6f6; padding: 6px 0 4px 10px; margin-left: 40%; " /><br>
+        <form:input path="name" cssClass="inputStyle"/><br>
         <p style="margin-left: 40%"><form:button>OK</form:button></p>
     </form:form>
 </div>

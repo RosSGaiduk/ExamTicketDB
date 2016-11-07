@@ -60,11 +60,11 @@
                 allData = data.split("|");
                 $('#found').html("Found: "+allData.length+" exams");
                 for (var i = 0; i < allData.length; i++) {
-                   var myDivStyle = document.createElement("div");
+                   /*var myDivStyle = document.createElement("div");
                    var stringId1 = "divId" + i;
                    myDivStyle.setAttribute("id",stringId1);
                    myDivStyle.style = "width:60%;height:150px;margin-left: 20%;background-color: blueviolet;float: left;";
-                   document.getElementById("divs").appendChild(myDivStyle);
+                   document.getElementById("divs").appendChild(myDivStyle);*/
 
                     var aElem = document.createElement("a");
                     aElem.setAttribute("id","a"+i);
@@ -74,7 +74,7 @@
                     var myDiv = document.createElement("div");
                     var stringId = "information" + i;
                     myDiv.setAttribute("id", stringId);
-                    myDiv.style = "width: 60%;height: auto;margin-left: 20%;margin-bottom: 50px;border: 2px solid blueviolet;border-radius: 0%;float: left;background-color: cornsilk; color:black;";
+                    myDiv.style = "width: 60%;height: auto;margin-left: 20%;margin-bottom: 50px;border-radius: 0%;float: left;background-color: white; color:black;";
                     document.getElementById("a"+i).appendChild(myDiv);
                 }
 
@@ -136,11 +136,11 @@
          $('#found').html("Found: "+allData.length+" exams");
          for (var i = 0; i < allData.length; i++) {
 
-             var myDivStyle = document.createElement("div");
+            /*var myDivStyle = document.createElement("div");
             var stringId1 = "divId" + i;
             myDivStyle.setAttribute("id",stringId1);
             myDivStyle.style = "width:60%;height:150px;margin-left: 20%;background-color: blueviolet;float: left;";
-            document.getElementById("divs").appendChild(myDivStyle);
+            document.getElementById("divs").appendChild(myDivStyle);*/
 
              var aElem = document.createElement("a");
              aElem.setAttribute("id","a"+i);
@@ -150,7 +150,7 @@
              var myDiv = document.createElement("div");
              var stringId = "information" + i;
              myDiv.setAttribute("id", stringId);
-             myDiv.style = "width: 60%;height: auto;margin-left: 20%;margin-bottom: 50px;border: 2px solid blueviolet;border-radius: 0%;float: left;background-color: cornsilk; color:black;";
+             myDiv.style = "width: 60%;height: auto;margin-left: 20%;margin-bottom: 50px;border-radius: 0%;float: left;background-color: white; color:black;";
              document.getElementById("a"+i).appendChild(myDiv);
          }
 
