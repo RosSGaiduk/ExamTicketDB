@@ -2,10 +2,18 @@ package com.exam.ua.services.implementation;
 
 import com.exam.ua.dao.UserDao;
 import com.exam.ua.entity.User;
+import com.exam.ua.repository.UserRepo;
 import com.exam.ua.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NoResultException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -13,9 +21,12 @@ import java.util.List;
  * Created by Rostyslav on 21.10.2016.
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private UserRepo userRepo;
 
     @Override
     public void add(String firstName, String lastName, Date birthDate, String email, String password) {
@@ -57,4 +68,23 @@ public class UserServiceImpl implements UserService {
     public List<User> findAll() {
         return userDao.findAll();
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        User user;
+        try {
+            user = userRepo.findByLogin(login);
+            System.out.println(user.getFirstName());
+        } catch (NoResultException e){
+            System.out.println("No result");
+            return  null;
+        }
+
+
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        org.springframework.security.core.userdetails.User user1 = new org.springframework.security.core.userdetails.User(String.valueOf(user.getId()),user.getPassword(),authorities);
+        return user1;
+    }
+
 }

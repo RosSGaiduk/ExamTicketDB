@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Rostyslav
@@ -33,32 +34,18 @@
 
 </head>
 <body>
+<sec:authorize access="isAuthenticated()">
+<p>Autowired</p>
+</sec:authorize>
 
 
-        <form:form method="post" modelAttribute="user" action="check-user" cssClass="box login">
-                <span style="float:right">
-                    <a href="?lang=en">en</a>
-                    <a href="?lang=ru">ru</a>
-                </span>
-                
-                
-                <form:label path="firstName">
-                   <%-- <spring:message code="firstName"/>--%>
-                </form:label>
-                <form:input path="firstName"/>
-
-
-                <form:label path="password">
-                 <%--   <spring:message code="password"/>--%>
-                </form:label>
-
-
-
-                <form:password path="password" onkeyup="doAjax()"/>
-                <span style="float: right" id = "strengthValue">
-                </span>
-
-        </form:form>
+<form:form method="post" action="/loginprocessing">
+    <%--Тут обов'язково має бути username, не email, не name, навіть якщо такого поля немає у юзера--%>
+    <input name="username" type="text" placeholder="Login">
+    <input id = "password" name="password" type="password" placeholder="Password" onkeydown="doAjax()">
+    <input type="submit" value="Sign in">
+    <p id = "strengthValue"></p>
+</form:form>
 
 </body>
 </html>

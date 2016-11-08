@@ -22,6 +22,6 @@
     </bean>
 
     <context:component-scan base-package="com.exam.ua.*"/>
-   <!-- <jpa:repositories base-package="ua.buses.west.repository"/>-->
+    <jpa:repositories base-package="com.exam.ua.repository"/>
     <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

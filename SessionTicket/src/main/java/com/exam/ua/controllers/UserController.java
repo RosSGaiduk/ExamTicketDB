@@ -24,6 +24,10 @@ public class UserController extends BaseMethods{
     @Autowired
     private UserValidator userValidator;
 
+    @RequestMapping(value = "/loginpage",method = RequestMethod.GET)
+    public String loginPage(){
+        return "views-user-login";
+    }
 
     @RequestMapping(value = "/addUser",method = RequestMethod.GET)
     public String addUserPage(Model model){
@@ -59,4 +63,6 @@ public class UserController extends BaseMethods{
         model.addAttribute("user",new User());
         return "views-user-login";
     }
+
+
 }
