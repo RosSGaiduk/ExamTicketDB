@@ -18,7 +18,7 @@ To change this template use File | Settings | File Templates.
     <link href="<c:url value="/resources/css/formsStyle.css"/>" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
-    <script src="/resources/scripts/autoScrollDown.js"></script>
+    <%--<script src="/resources/scripts/autoScrollDown.js"></script>--%>
 </head>
 
 <body>

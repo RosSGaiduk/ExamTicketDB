@@ -16,11 +16,11 @@
     <link href="<c:url value="/resources/css/formsStyle.css"/>" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
-    <script src="/resources/scripts/autoScrollDown.js"></script>
+    <%--<script src="/resources/scripts/autoScrollDown.js"></script>--%>
 </head>
 <body>
-<p style="margin-left: 20%;">Тут можна добавити факультет або предмет для обраного викладача.</p>
-<div style="width: 60%;height: auto;margin-left: 20%;margin-bottom: 50px;border: 2px solid blueviolet;border-radius: 0%;float: left;background-color: cornsilk; color:black;">
+<%--<p style="margin-left: 20%;">Тут можна добавити факультет або предмет для обраного викладача.</p>--%>
+<div style="width: 60%;height: auto;margin-left: 20%;margin-bottom: 50px;margin-top:30px;border-radius: 0%;float: left;background-color: white; color:black;">
     <div style="width: 100%; height: auto; margin-left: 30%;">
     <form method="post" action="/editTeacher">
         <h3>
