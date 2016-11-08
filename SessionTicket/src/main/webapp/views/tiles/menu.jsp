@@ -10,12 +10,14 @@
 <html>
 <head>
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/menu.css"/>" type="text/css" rel="stylesheet">
 </head>
 <body>
-<div class = "formenu">
-</div>
 
-<ul id="nav" style="margin-left: 12%">
+<%--<div class = "formenu"></div>--%>
+<div style=" width: 100%;height:90px;float: left;"></div>
+
+<ul id="nav" style="margin-left: 12%;">
     <li>
         <a href="#" title="Service and information about faculty">Faculty</a>
         <ul>

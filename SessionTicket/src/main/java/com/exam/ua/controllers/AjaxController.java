@@ -38,6 +38,8 @@ public class AjaxController extends BaseMethods{
     private SubjectService subjectService;
     @Autowired
     private WriterService writerService;
+    @Autowired
+    private UniversityService universityService;
 
     private static final int WEAK_STRENGTH = 1;
     private static final int FEAR_STRENGTH = 5;
@@ -261,5 +263,28 @@ public class AjaxController extends BaseMethods{
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(jsonObject);
         return jsonArray.toString();
+    }
+
+    @RequestMapping(value = "/changeUniversityImage",method = RequestMethod.GET,produces = {"text/html; charset=UTF-8"})
+    @ResponseBody
+    public String changeUniversityImage(@RequestParam String id){
+        University university = universityService.findOne(1l);
+        int idLong = Integer.parseInt(id);
+        String url = "";
+        switch (idLong){
+            case 1:{
+                url = university.getUrlImage();
+            } break;
+            case 2:{
+                url = university.getUrlImage1();
+            } break;
+            case 3:{
+                url = university.getUrlImage2();
+            } break;
+            case 4:{
+                url = university.getUrlImage3();
+            } break;
+        }
+        return url;
     }
 }

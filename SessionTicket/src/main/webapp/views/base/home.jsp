@@ -17,13 +17,21 @@
     <script src="/resources/scripts/autoScrollDown.js"></script>
 </head>
 <body style="background-color: gainsboro">
+<p id = "lnu" style="visibility: hidden">${lnu.urlImage}</p>
+<div style="height: 1px">
+<p id = "lnuInformation" style="visibility: hidden;">${lnu.information}</p>
+</div>
         <%--src в image відсутнє, том, що в нас src цього зображення мінятиметься динамічно через ajax--%>
         <img id = "writerImg" style="width: 20%; height: 400px; background-size: 100%;
         background-repeat: no-repeat; float: left; margin-top: 35px; margin-bottom: 20px;">
 
         <div style="width: 60%; height: auto;float: left; background-color: white; margin-left: 2%;">
-            <img src="/resources/img/back.png" class="imageWriter" style="float:left;margin-left: 40%; margin-top: 15px; cursor:hand;" width="50" height="50" onclick="doFuncBack()"/>
-            <img src="/resources/img/next.png" class="imageWriter" style="float:left;margin-left: 10px; margin-top: 15px; cursor:hand;" width="50" height="50" onclick="doFunc()"/>
+            <img src="/resources/img/back.png" id = "backArrow" class="imageWriter" style="float:left;margin-left: 40%; margin-top: 15px; cursor:hand;" width="50" height="50" onclick="doFuncBack()"/>
+            <img src="/resources/img/next.png" id = "straightArrow" class="imageWriter" style="float:left;margin-left: 10px; margin-top: 15px; cursor:hand;" width="50" height="50" onclick="doFunc()"/>
+
+
+            <img id = "lnuImage" style="float:left; cursor:hand; visibility: hidden;" width="100%" height="auto">
+
             <%--<p style="clear: left"></p>--%>
             <font face="Arial"><p style="text-align: justify;">
                 <p id = "count" style="visibility: hidden">${writerCount}</p>
@@ -33,10 +41,101 @@
             </font><br>
         </div>
 
+        <p style="float: left; margin-left: 1%;">ЛНУ Франка</p>
+        <div id = "university" style="width: 15%; height: 220px; float: left;
+        background-color: white; margin-left: 1%;
+        background-size: cover;
+        cursor: hand;
+        " onclick="doUniversityAjaxForInfo()">
+        </div>
+
+        <p style="float: left; margin-left: 1%;">Письменники</p>
+        <div style="width: 15%; height: 300px; float: left;
+        background-image: url(/resources/img/manyWriters.jpg);
+        background-color: white; margin-top: 10px; margin-left: 1%; background-size: cover;
+        cursor: hand;" onclick="doFunc()"></div>
+
+
+        <script>
+            var universityImage = 1;
+            var opacity = 1.0;
+            var change = true;
+            var backOpacityPlus = false;
+            $('#university').css("background-image", "url(/resources/img/lnu/lnu0.jpg)");
+            function  doUniversityAjax(){
+                $.ajax({
+                    url: "/changeUniversityImage",
+                    asynch:false,
+                    data: ({id: universityImage}),
+                    success: function(data) {
+                        //Алгоритм плавної зміни картинок університету Франка
+                        if (backOpacityPlus) {
+                            if (opacity<1) opacity+=0.01;
+                            else backOpacityPlus = false;
+                        }
+
+                        if (opacity <= 0) {
+                            universityImage++;
+                            universityImage %= 5;
+                            if (universityImage == 0) universityImage++;
+                            change = true;
+                            backOpacityPlus = true;
+                        }
+                        if (opacity>0 && !backOpacityPlus){
+                            change = false;
+                            opacity-=0.01;
+                        }
+
+                        if (change)$('#university').css("background-image", "url("+data+")");
+                        document.getElementById("university").style.opacity = opacity;
+                    }
+                });
+            }
+            var id = setInterval("doUniversityAjax()", 30);
+        </script>
+
+
+        <script>
+            function  doUniversityAjaxForInfo(){
+                var newscr1 = document.getElementById("writerImg");
+                newscr1.src = "/resources/img/lnu/lnu3.png";
+                newscr1.style.height = 300;
+
+                var backArrow = document.getElementById("backArrow");
+                backArrow.style = "visibility:hidden";
+
+                var straightArrow = document.getElementById("straightArrow");
+                straightArrow.style = "visibility:hidden";
+
+                $('#page').html("");
+
+                var newscr = document.getElementById("lnuImage");
+                newscr.src = "/resources/img/lnu1.jpg";
+                newscr.style = "float:left; cursor:hand; margin-top: -60px; width='100%' height='auto'";
+                $('#biography').html(document.getElementById("lnuInformation").innerHTML);
+            }
+        </script>
+
+
 
         <script>
             var val = 0;
             function doFunc(){
+                var newscr = document.getElementById("lnuImage");
+                newscr.src = "";
+                newscr.style = "visibility: hidden";
+                newscr.style.width = 0;
+                newscr.style.height = 0;
+
+
+                var backArrow = document.getElementById("backArrow");
+                backArrow.style = "float:left;margin-left: 40%; margin-top: 15px; cursor:hand;";
+
+
+                var straightArrow = document.getElementById("straightArrow");
+                straightArrow.style = "float:left;margin-left: 10px; margin-top: 15px; cursor:hand;";
+
+
                 val++;
                 var str = $('#count').html();
                 var count = parseInt(str);
@@ -52,6 +151,7 @@
                             $('#biography').html(v.biography);
                             $('#page').html("Page "+val);
                             var newscr = document.getElementById("writerImg");
+                            newscr.style.height = 400;
                             newscr.src = v.urlImage;
                         });
                         /*window.scrollTo(0,500);*/
@@ -61,6 +161,8 @@
             }
             doFunc();
         </script>
+
+
 
         <script>
             function doFuncBack(){
@@ -86,18 +188,6 @@
             }
         </script>
 
-       <%-- <img SRC="/resources/img/lnu.jpg" onclick=imgchange(this,"/resources/img/lnu.jpg","/resources/img/student.png")>
-        <script>
-            var x=false
-            function imgchange(obj,imgX,imgY) {
-                if  (x){
-                    obj.src=imgX
-                } else {
-                    obj.src=imgY
-                }
-                x=!x
-            }
-        </script>--%>
         <div style="width: 110px; height: 110px; float: left; margin-left: 80%; margin-top: 30px;'">
         <img id = "upImage" src="/resources/img/up.png" style="float: left; cursor: hand; margin-bottom: 30px;" onclick="up()">
         </div>
