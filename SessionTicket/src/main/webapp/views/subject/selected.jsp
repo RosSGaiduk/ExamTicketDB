@@ -21,7 +21,7 @@
 <body>
 <div style="width: 60%;height: auto;margin-left: 20%;margin-top: 70px;margin-bottom: 90px; border-radius: 0%;float: left;background-color: white; color:black;">
     <%--<p>${examSelected.id}</p>--%>
-    <form method="post" action="/editSubject">
+    <form:form method="post" action="/editSubject">
         <h3>
             <input id = "idSubjectId" name="idSubject" value="${subjectSelected.id}" readonly="readonly">
                 <h4>Предмет: ${subjectSelected.name}</h4>
@@ -35,7 +35,7 @@
             </c:forEach>
         </select>
         <button type="submit">EDIT</button>
-    </form>
+    </form:form>
 </div>
 </body>
 </html>

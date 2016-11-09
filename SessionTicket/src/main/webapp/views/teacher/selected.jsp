@@ -19,10 +19,11 @@
     <%--<script src="/resources/scripts/autoScrollDown.js"></script>--%>
 </head>
 <body>
-<%--<p style="margin-left: 20%;">Тут можна добавити факультет або предмет для обраного викладача.</p>--%>
+
+<p style="margin-left: 20%;">Тут можна добавити факультет або предмет для обраного викладача.</p>
 <div style="width: 60%;height: auto;margin-left: 20%;margin-bottom: 50px;margin-top:30px;border-radius: 0%;float: left;background-color: white; color:black;">
     <div style="width: 100%; height: auto; margin-left: 30%;">
-    <form method="post" action="/editTeacher">
+        <form:form method="post" action="/editTeacher">
         <h3>
             <input id = "idTeacherId" name="idTeacher" value="${teacher.id}" readonly="readonly">
             <p>Ім'я: ${teacher.name}</p>
@@ -53,8 +54,11 @@
             </c:forEach>
         </select>
         <button type="submit">EDIT</button>
-    </form>
+    </form:form>
     </div>
 </div>
+
+
+
 </body>
 </html>

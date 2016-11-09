@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Rostyslav
@@ -11,6 +13,7 @@
 <head>
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
     <link href="<c:url value="/resources/css/hovers.css"/>" type="text/css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/formsStyle1.css"/>" type="text/css" rel="stylesheet">
     <link href="<c:url value="/resources/css/googleBanScroll.css"/>" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
@@ -23,7 +26,58 @@
 </div>
         <%--src в image відсутнє, том, що в нас src цього зображення мінятиметься динамічно через ajax--%>
         <img id = "writerImg" style="width: 20%; height: 400px; background-size: 100%;
-        background-repeat: no-repeat; float: left; margin-top: 35px; margin-bottom: 20px;">
+        background-repeat: no-repeat; float: left; margin-top: 35px; margin-bottom: 20px; position: relative; vertical-align: middle">
+
+        <div id = "writerImg1" style="width: 20%;
+        height: 200px;
+        margin-top: 35px;
+        margin-bottom: 20px;
+        position: absolute;
+        margin-top: 500px;
+        background: white;
+        background-size: cover;
+        background-repeat: no-repeat;
+        ">
+        </div>
+
+        <div id = "another0" style="width: 10px;
+        height: 10px;
+        margin-bottom: 20px;
+        position: absolute;
+        margin-left: 6%;
+        margin-top: 720px;
+        background-image: url(/resources/img/radiobutton-128.png);
+        background-size: cover;
+        cursor: hand;
+        " onclick="changeImg(this.id)">
+        </div>
+
+        <div id = "another1" style="width: 10px;
+        height: 10px;
+        margin-bottom: 20px;
+        position: absolute;
+        margin-left: 8%;
+        margin-top: 720px;
+        background-image: url(/resources/img/radiobutton-128.png);
+        background-size: cover;
+        cursor: hand;"
+        onclick="changeImg(this.id)">
+        </div>
+
+
+        <div id = "another2" style="width: 10px;
+        height: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        margin-left: 10%;
+        margin-top: 720px;
+        background-image: url(/resources/img/radiobutton-128.png);
+        background-size: cover;
+        cursor: hand;"
+             onclick="changeImg(this.id)"
+        >
+        </div>
+
 
         <div style="width: 60%; height: auto;float: left; background-color: white; margin-left: 2%;">
             <img src="/resources/img/back.png" id = "backArrow" class="imageWriter" style="float:left;margin-left: 40%; margin-top: 15px; cursor:hand;" width="50" height="50" onclick="doFuncBack()"/>
@@ -36,7 +90,7 @@
             <font face="Arial"><p style="text-align: justify;">
                 <p id = "count" style="visibility: hidden">${writerCount}</p>
                 <h3 id = "page" style="margin-left: 90%"></h3>
-               <p id = "biography"></p>
+               <p id = "biography" style="color: black;"></p>
                 </p>
             </font><br>
         </div>
@@ -55,6 +109,91 @@
         background-color: white; margin-top: 10px; margin-left: 1%; background-size: cover;
         cursor: hand;" onclick="doFunc()"></div>
 
+       <%-- <div style="float:left; background: white; margin-left: 1%; margin-top: 50px; width: 15%; height: 50px;"></div>--%>
+        <div style="float:left; background: white; margin-left: 1%; width:15%; margin-top: 50px;">
+
+            <sec:authorize access="isAuthenticated()">
+                Hello, <sec:authentication property="name"/>
+                <form:form method="post" action="/logout">
+                    <button type="submit">Вийти</button>
+                </form:form>
+            </sec:authorize>
+
+
+            <sec:authorize access="isAnonymous()">
+        <form:form method="post" action="/loginprocessing">
+        <br>
+    <%--Тут обов'язково має бути username, не email, не name, навіть якщо такого поля немає у юзера--%>
+        <input class="inputStyle" name="username" type="text" placeholder="Login" style="margin-left: 1%;"><br><br>
+        <input class="inputStyle" id = "password" name="password" type="password" placeholder="Password" style="margin-left: 1%;" onkeydown="doAjax()">
+        <br><br>
+        <input type="submit" value="Увійти" style="float: left">
+        <a href="/addUser"><input type="button" value="Registration" style="float: left; margin-left: 5px;"></a>
+            <p id = "strengthValue"></p>
+        </form:form>
+    </sec:authorize>
+        </div>
+
+
+
+        <script>
+            var counter = 0;
+            var opacity = 1.0;
+            var back = true;
+            function changeImg(elem){
+                var intLast = parseInt(elem[elem.length-1]);
+                var myArr = new Array(2);
+                var count = -1;
+                for(var i = 0; i < 3; i++){
+                    if (i!=intLast) {
+                        count++;
+                        myArr[count] = "another" + i;
+
+                    }
+                }
+                $('#'+elem).css("background-image","url(/resources/img/radiobutton-128checked.png)");
+                for (var i = 0; i < 2; i++)
+                    $('#'+myArr[i]).css("background-image","url(/resources/img/radiobutton-128.png)");
+                $('#writerImg1').css("background-image","url(/resources/img/anotherLnu/anotherLnu"+(intLast+1)+".jpg)");
+            }
+
+
+            function changeImg1(){
+
+                if (back){
+                    opacity-=0.01;
+                } else opacity+=0.01;
+
+
+                if (opacity<=0){
+                    back = false;
+                }
+
+                if (opacity>=1) back = true;
+
+
+                $('#writerImg1').css("opacity",opacity);
+
+                if (opacity<=0) {
+                    var intLast = counter;
+                    var myArr = new Array(2);
+                    var count = -1;
+                    for(var i = 0; i < 3; i++){
+                     if (i!=intLast) {
+                     count++;
+                     myArr[count] = "another" + i;
+                     }
+                 }
+                    $("#another"+intLast).css("background-image","url(/resources/img/radiobutton-128checked.png)");
+                     for (var i = 0; i < 2; i++) $('#'+myArr[i]).css("background-image","url(/resources/img/radiobutton-128.png)");
+                    $('#writerImg1').css("background-image","url(/resources/img/anotherLnu/anotherLnu"+(intLast+1)+".jpg)");
+                    back = false;
+                    counter++;
+                    counter%=3;
+                }
+            }
+            var id1 = setInterval("changeImg1()",50);
+        </script>
 
         <script>
             var universityImage = 1;
@@ -191,12 +330,16 @@
         <img id = "upImage" src="/resources/img/up.png" style="float: left; cursor: hand; margin-bottom: 30px;" onclick="up()">
         </div>
 
+
         <script>
             var myBool = false;
             var width = 100.0;
+            var interval;
             function up(){
-                window.scrollTo(0,500);
+                $('html, body').animate({scrollTop: 0},500);
+                return false;
             }
+
             function func1(){
                 if (width>110){
                     myBool = true;
@@ -210,6 +353,7 @@
             }
             var id = setInterval("func1()", 10);
         </script>
+
 
         <div style="
     width:100%;

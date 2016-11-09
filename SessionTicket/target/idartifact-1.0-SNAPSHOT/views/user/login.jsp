@@ -14,8 +14,10 @@
 
 <html>
 <head>
-    <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
-    <link href="<c:url value="/resources/css/formsStyle.css"/>" type="text/css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/formsStyle1.css"/>" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
     <title>Title</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -38,14 +40,18 @@
 <p>Autowired</p>
 </sec:authorize>
 
-
+<div class="headForForms"></div>
 <form:form method="post" action="/loginprocessing">
+    <br>
     <%--Тут обов'язково має бути username, не email, не name, навіть якщо такого поля немає у юзера--%>
-    <input name="username" type="text" placeholder="Login">
-    <input id = "password" name="password" type="password" placeholder="Password" onkeydown="doAjax()">
-    <input type="submit" value="Sign in">
+    <input class="inputStyle" name="username" type="text" placeholder="Login"><br><br>
+    <input class="inputStyle" id = "password" name="password" type="password" placeholder="Password" onkeydown="doAjax()">
+    <br><br>
+    <input type="submit" value="Sign in" style="margin-left: 40%;">
     <p id = "strengthValue"></p>
 </form:form>
+
+
 
 </body>
 </html>

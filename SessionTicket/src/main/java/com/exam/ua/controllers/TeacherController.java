@@ -129,10 +129,11 @@ public class TeacherController extends BaseMethods{
                               @RequestParam String addFacultyToTeacher,
                               @RequestParam String addSubjectToTeacher){
 
-        Teacher teacher = teacherService.findOne(Long.parseLong(idTeacher));
+        System.out.println("asd");
+       /* Teacher teacher = teacherService.findOne(Long.parseLong(idTeacher));*/
         //System.out.println(teacher.getName());
 
-        addFacultyToTeacher = stringUTF_8Encode(addFacultyToTeacher);
+       /* addFacultyToTeacher = stringUTF_8Encode(addFacultyToTeacher);
         addSubjectToTeacher = stringUTF_8Encode(addSubjectToTeacher);
 
         if (!addFacultyToTeacher.equals("no faculty")) {
@@ -143,7 +144,7 @@ public class TeacherController extends BaseMethods{
         if (!addSubjectToTeacher.equals("no subject")){
             Subject subject = subjectService.findOneByName(addSubjectToTeacher);
             teacherService.addSubject(teacher,subject);
-        }
+        }*/
 
         return "redirect:/";
     }

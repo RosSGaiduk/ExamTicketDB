@@ -21,7 +21,7 @@
 <body>
 <div style="width: 60%;height: auto;margin-left: 20%;margin-bottom: 60px;border-radius: 0%;float: left;background-color: white; color:black;">
         <%--<p>${examSelected.id}</p>--%>
-            <form method="post" action="/deleteExam">
+            <form:form method="post" action="/deleteExam">
         <h3>
            <%-- <p name = "idExam">${examSelected.id}</p>--%>
             <input id = "idExamId" name="idExam" value="${examSelected.id}" readonly="readonly">
@@ -32,7 +32,7 @@
         <p>Time: ${examSelected.examTime}</p>
         </h3>
         <button type="submit">DELETE</button>
-    </form>
+    </form:form>
 </div>
 
 
