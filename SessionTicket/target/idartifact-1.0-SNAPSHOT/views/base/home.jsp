@@ -28,54 +28,36 @@
         <img id = "writerImg" style="width: 20%; height: 400px; background-size: 100%;
         background-repeat: no-repeat; float: left; margin-top: 35px; margin-bottom: 20px; position: relative; vertical-align: middle">
 
-        <div id = "writerImg1" style="width: 20%;
-        height: 200px;
-        margin-top: 35px;
-        margin-bottom: 20px;
-        position: absolute;
-        margin-top: 500px;
-        background: white;
-        background-size: cover;
-        background-repeat: no-repeat;
-        ">
+        <div id = "writerImg1" style="width: 20%;height: 200px;margin-top: 35px;margin-bottom: 20px;position: absolute;margin-top: 500px;background: white;background-size: cover;background-repeat: no-repeat; background-image: url(/resources/img/anotherLnu/anotherLnu1.jpg)"></div>
+        <div id = "another0" style="width: 10px;height: 10px;margin-bottom: 20px;position: absolute;margin-left: 6%;margin-top: 720px;background-image: url(/resources/img/radiobutton-128.png);background-size: cover;cursor: hand;" onclick="changeImg(this.id)"></div>
+        <div id = "another1" style="width: 10px;height: 10px;margin-bottom: 20px;position: absolute;margin-left: 8%;margin-top: 720px;background-image: url(/resources/img/radiobutton-128.png);background-size: cover;cursor: hand;" onclick="changeImg(this.id)"></div>
+        <div id = "another2" style="width: 10px;height: 10px;margin-bottom: 10px;position: absolute;margin-left: 10%;margin-top: 720px;background-image: url(/resources/img/radiobutton-128.png);background-size: cover;cursor: hand;" onclick="changeImg(this.id)"></div>
+
+
+
+        <%--ДІВКА, ДЕ ВІДОБРАЖАЮТЬСЯ НАШІ ПОВІДОМЛЕННЯ--%>
+        <%--ДІВКА, ДЕ ВІДОБРАЖАЮТЬСЯ НАШІ ПОВІДОМЛЕННЯ--%>
+        <%--ДІВКА, ДЕ ВІДОБРАЖАЮТЬСЯ НАШІ ПОВІДОМЛЕННЯ--%>
+        <%--ДІВКА, ДЕ ВІДОБРАЖАЮТЬСЯ НАШІ ПОВІДОМЛЕННЯ--%>
+        <%--ДІВКА, ДЕ ВІДОБРАЖАЮТЬСЯ НАШІ ПОВІДОМЛЕННЯ--%>
+        <%--ДІВКА, ДЕ ВІДОБРАЖАЮТЬСЯ НАШІ ПОВІДОМЛЕННЯ--%>
+        <%--ДІВКА, ДЕ ВІДОБРАЖАЮТЬСЯ НАШІ ПОВІДОМЛЕННЯ--%>
+        <%--ДІВКА, ДЕ ВІДОБРАЖАЮТЬСЯ НАШІ ПОВІДОМЛЕННЯ--%>
+        <%--ДІВКА, ДЕ ВІДОБРАЖАЮТЬСЯ НАШІ ПОВІДОМЛЕННЯ--%>
+        <%--ДІВКА, ДЕ ВІДОБРАЖАЮТЬСЯ НАШІ ПОВІДОМЛЕННЯ--%>
+        <%--ДІВКА, ДЕ ВІДОБРАЖАЮТЬСЯ НАШІ ПОВІДОМЛЕННЯ--%>
+        <div id = "massages" style="width: 20%;height: 300px;margin-bottom: 10px;position: absolute;margin-top: 800px;cursor: hand; background-color: white; overflow: scroll">
+            <%--<div style="width: 90%; height: 50px; float: left; background-color: antiquewhite; margin-top: 20px; margin-left: 10%;"></div>
+            <div style="width: 90%; height: 50px; float: left; background-color: antiquewhite; margin-top: 20px;"></div>--%>
         </div>
 
-        <div id = "another0" style="width: 10px;
-        height: 10px;
-        margin-bottom: 20px;
-        position: absolute;
-        margin-left: 6%;
-        margin-top: 720px;
-        background-image: url(/resources/img/radiobutton-128.png);
-        background-size: cover;
-        cursor: hand;
-        " onclick="changeImg(this.id)">
-        </div>
-
-        <div id = "another1" style="width: 10px;
-        height: 10px;
-        margin-bottom: 20px;
-        position: absolute;
-        margin-left: 8%;
-        margin-top: 720px;
-        background-image: url(/resources/img/radiobutton-128.png);
-        background-size: cover;
-        cursor: hand;"
-        onclick="changeImg(this.id)">
-        </div>
-
-
-        <div id = "another2" style="width: 10px;
-        height: 10px;
-        margin-bottom: 10px;
-        position: absolute;
-        margin-left: 10%;
-        margin-top: 720px;
-        background-image: url(/resources/img/radiobutton-128.png);
-        background-size: cover;
-        cursor: hand;"
-             onclick="changeImg(this.id)"
-        >
+        <div style="width: 20%; height: 150px;margin-top: 1100px; position: absolute; background-color: white;">
+            <textarea id = "messageId" name="userTextForMessage" style="width: 80%; height: 70%; margin-left: 10%; margin-top: 5%;"></textarea>
+            <button onclick="sendMessage()" style="margin-top: 10px;">Надіслати</button>
+            <select id = "usersToAdmin" onchange="changedUser()">
+                <option>2</option>
+                <option>3</option>
+            </select>
         </div>
 
 
@@ -113,7 +95,7 @@
         <div style="float:left; background: white; margin-left: 1%; width:15%; margin-top: 50px;">
 
             <sec:authorize access="isAuthenticated()">
-                Hello, <sec:authentication property="name"/>
+                Hello, <p id = "initializedUser"><sec:authentication property="name"/></p>
                 <form:form method="post" action="/logout">
                     <button type="submit">Вийти</button>
                 </form:form>
@@ -134,7 +116,133 @@
     </sec:authorize>
         </div>
 
+        <script>
+            function hiddenOrNo() {
+                var inner = document.getElementById('initializedUser').innerHTML;
+                if (inner != "1")
+                    document.getElementById("usersToAdmin").hidden = true;
+                else document.getElementById("usersToAdmin").hidden = false;
+            }
+            var id1 = setInterval("hiddenOrNo()",1000);
+        </script>
 
+
+        <script>
+            function changedUser(){
+                var el = document.getElementById('massages');
+                while ( el.firstChild ) el.removeChild( el.firstChild );
+
+                $.ajax({
+                   url: "/userChanged",
+                    async:false,
+                    data: ({idOfUser: $('#usersToAdmin').val()}),
+                    dataType:"json",
+                    success: function(data){
+
+
+                        $.each(data,function(k,v){
+                            var elem = document.createElement("div");
+                            elem.style = "width: 90%; height: auto; float: left; background-color: antiquewhite; margin-top: 10px;";
+                            document.getElementById("massages").appendChild(elem);
+
+
+                            var elemText = document.createElement("p");
+                            elemText.style = "text-align:center; font-size:12px;"
+                            elemText.innerHTML = v.text;
+                            elem.appendChild(elemText);
+
+                            var myDivMessages = document.getElementById('massages');
+                            myDivMessages.scrollTop = myDivMessages.scrollHeight;
+                        });
+
+                    }
+                });
+            }
+
+
+        </script>
+
+
+
+        <script>
+            function checkMessagesBetweenUsersAndAdmin(){
+                $.ajax({
+                   url:"/checkMessagesToAdmin",
+                    data: ({}),
+                    async:false,
+                    success: function(data){
+                        if (document.getElementById('initializedUser').innerHTML == "1") {
+                            randomMessageFromRandomUser();
+                        }
+                    }
+                });
+            }
+            var id = setInterval("checkMessagesBetweenUsersAndAdmin()",10000);
+        </script>
+
+
+
+    <script>
+    function randomMessageFromRandomUser(){
+        $.ajax({
+            url:"/randomMessageFromRandomUser",
+            data: ({}),
+            async:false,
+            success: function(data){
+                var values = data.split("~");
+
+                if (values[0] == $('#usersToAdmin').val()) {
+                    var elem = document.createElement("div");
+                    elem.style = "width: 90%; height: auto; float: left; background-color: antiquewhite; margin-top: 10px;";
+                    document.getElementById("massages").appendChild(elem);
+
+
+                    var elemText = document.createElement("p");
+                    elemText.style = "text-align:center; font-size:12px;"
+                    elemText.innerHTML = values[1];
+                    elem.appendChild(elemText);
+
+                    var myDivMessages = document.getElementById('massages');
+                    myDivMessages.scrollTop = myDivMessages.scrollHeight;
+                }
+            }
+        })
+    }
+    </script>
+
+
+        <script>
+            function sendMessage(){
+                $.ajax({
+                   url: "/messageFromUser",
+                    data:(
+                    {
+                        message:$("#messageId").val(),
+                        idUser:$("#usersToAdmin").val()
+
+                    }),
+                    async:false,
+                    success: function(data){
+                        var elem = document.createElement("div");
+                        elem.style = "width: 90%; height: auto; float: left; background-color: antiquewhite; margin-top: 10px; margin-left:10%";
+                        document.getElementById("massages").appendChild(elem);
+
+
+                        var elemText = document.createElement("p");
+                        elemText.style = "text-align:center; font-size:12px;"
+                        elemText.innerHTML = $("#messageId").val();
+                        elem.appendChild(elemText);
+
+                        var myDivMessages = document.getElementById('massages');
+                        myDivMessages.scrollTop = myDivMessages.scrollHeight;
+
+                        /*checkMessagesBetweenUsersAndAdmin();*/
+                    }
+                });
+
+            }
+
+        </script>
 
         <script>
             var counter = 0;
@@ -164,16 +272,11 @@
                     opacity-=0.01;
                 } else opacity+=0.01;
 
-
                 if (opacity<=0){
                     back = false;
                 }
-
                 if (opacity>=1) back = true;
-
-
                 $('#writerImg1').css("opacity",opacity);
-
                 if (opacity<=0) {
                     var intLast = counter;
                     var myArr = new Array(2);
@@ -192,8 +295,9 @@
                     counter%=3;
                 }
             }
-            var id1 = setInterval("changeImg1()",50);
+           /* var id1 = setInterval("changeImg1()",50);*/
         </script>
+
 
         <script>
             var universityImage = 1;
@@ -212,7 +316,6 @@
                             if (opacity<1) opacity+=0.01;
                             else backOpacityPlus = false;
                         }
-
                         if (opacity <= 0) {
                             universityImage++;
                             universityImage %= 5;

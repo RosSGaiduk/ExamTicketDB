@@ -2,6 +2,7 @@ package com.exam.ua.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Rostyslav on 21.10.2016.
@@ -24,6 +25,12 @@ public class User {
     private String password;
     @Transient
     private String confirmPassword;
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    private List<Message> messages;
+
+    @OneToMany(mappedBy = "userTo",fetch = FetchType.EAGER)
+    private List<Message> messagesUserTo;
 
     public User(){}
 
@@ -81,5 +88,21 @@ public class User {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    public List<Message> getMessagesUserTo() {
+        return messagesUserTo;
+    }
+
+    public void setMessagesUserTo(List<Message> messagesUserTo) {
+        this.messagesUserTo = messagesUserTo;
     }
 }

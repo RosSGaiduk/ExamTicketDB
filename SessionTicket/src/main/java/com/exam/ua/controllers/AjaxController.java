@@ -1,10 +1,15 @@
 package com.exam.ua.controllers;
 
 import com.exam.ua.entity.*;
+import com.exam.ua.entity.User;
 import com.exam.ua.services.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.datetime.DateFormatter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.text.DateFormat;
+import java.util.*;
 
 /**
  * Created by Rostyslav on 01.11.2016.
@@ -40,6 +43,8 @@ public class AjaxController extends BaseMethods{
     private WriterService writerService;
     @Autowired
     private UniversityService universityService;
+    @Autowired
+    private MessageService messageService;
 
     private static final int WEAK_STRENGTH = 1;
     private static final int FEAR_STRENGTH = 5;
@@ -287,4 +292,101 @@ public class AjaxController extends BaseMethods{
         }
         return url;
     }
+
+
+
+    @RequestMapping(value = "/messageFromUser",method = RequestMethod.GET, produces = {"text/html; charset=UTF-8"})
+    @ResponseBody
+    public String addMessageFromUser(@RequestParam String message,@RequestParam String idUser){
+        System.out.println("Message: "+message);
+        System.out.println(idUser);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        /*System.out.println("Principal: "+authentication.getPrincipal());
+        System.out.println("Name: "+authentication.getName());
+        System.out.println("Name int: "+Integer.parseInt(authentication.getName()));
+        System.out.println("Credentials: "+authentication.getCredentials());
+        System.out.println("Details: "+authentication.getDetails());*/
+        /*String textFromAdmin = "hello from admin";*/
+
+        //якщо повідомлення не від адміна а від звичайного користувача
+
+        if (Integer.parseInt(authentication.getName())!=1) {
+            Message message1 = new Message();
+            message1.setUserFrom(userService.findOne(Integer.parseInt(authentication.getName())));
+            message1.setUserTo(userService.findOne(1l));
+            message1.setText(message);
+            Date date = new Date(System.currentTimeMillis());
+            message1.setDateOfMessage(date);
+            messageService.add(message1);
+        }
+        else {
+            Message message1 = new Message();
+            message1.setUserFrom(userService.findOne(Integer.parseInt(authentication.getName())));
+            message1.setUserTo(userService.findOne(Long.parseLong(idUser)));
+            message1.setText(message);
+            Date date = new Date(System.currentTimeMillis());
+            message1.setDateOfMessage(date);
+            messageService.add(message1);
+        }
+        return message;
+    }
+
+    //всі повідомлення, які писались адміну від всіх користувачів
+    @RequestMapping(value = "/checkMessagesToAdmin",method = RequestMethod.GET, produces = {"text/html; charset=UTF-8"})
+    @ResponseBody
+    public String checkMessagesToAdmin(){
+        List<Message> messages = messageService.findAll();
+        List<Message> messagesToAdmin = new ArrayList<>();
+        String str = "";
+        for (Message message: messages){
+            if (message.getUserTo().getId() == 1l){
+                messagesToAdmin.add(message);
+                str+=message.getText()+" ";
+            }
+        }
+        return str;
+    }
+
+    @RequestMapping(value = "/randomMessageFromRandomUser",method = RequestMethod.GET, produces = {"text/html; charset=UTF-8"})
+    @ResponseBody
+    public String randomMessageFromRandomUser(){
+        Random rand = new Random();
+        Integer text = rand.nextInt(100);
+        Message message = new Message();
+        Date date = new Date(System.currentTimeMillis());
+        message.setDateOfMessage(date);
+
+
+
+        User user = userService.findOne(2l);
+        message.setUserFrom(user);
+        message.setUserTo(userService.findOne(1l));
+        message.setText(text.toString());
+        messageService.add(message);
+        return user.getId()+"~"+text.toString();
+    }
+
+    @RequestMapping(value = "/userChanged",method = RequestMethod.GET, produces = {"text/html;  charset=UTF-8"})
+    @ResponseBody
+    public String messagesBetweenUserCheckedFromSelectAndAdmin(@RequestParam String idOfUser){
+        System.out.println("here");
+        List<Message> messages = messageService.findAll();
+        JSONArray jsonArray = new JSONArray();
+
+
+        long idCheckedUser = Long.parseLong(idOfUser);
+
+        for (Message m: messages){
+            if (m.getUser().getId()==idCheckedUser){
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.putOnce("text",m.getText());
+                jsonObject.putOnce("data",m.getDateOfMessage());
+                jsonArray.put(jsonObject);
+            }
+        }
+
+
+        return jsonArray.toString();
+    }
+
 }
