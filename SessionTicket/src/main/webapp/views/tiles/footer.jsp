@@ -13,7 +13,7 @@
 <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
 </body>
 <head>
-   <div style="width: 100%; height: 300px; background-color: darkorchid;float: left;">
+   <div style="width: 100%; height: 100px; background-color: darkorchid;float: left;">
        <a href = "#" style = "text-decoration: none; margin-left: 36%;">
            <font color="white" size = "4">about us</font></a>
        <a href = "#" style = "text-decoration: none; ">

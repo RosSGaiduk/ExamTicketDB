@@ -46,19 +46,21 @@
         <%--ДІВКА, ДЕ ВІДОБРАЖАЮТЬСЯ НАШІ ПОВІДОМЛЕННЯ--%>
         <%--ДІВКА, ДЕ ВІДОБРАЖАЮТЬСЯ НАШІ ПОВІДОМЛЕННЯ--%>
         <%--ДІВКА, ДЕ ВІДОБРАЖАЮТЬСЯ НАШІ ПОВІДОМЛЕННЯ--%>
+<sec:authorize access="isAuthenticated()">
         <div id = "massages" style="width: 20%;height: 300px;margin-bottom: 10px;position: absolute;margin-top: 800px;cursor: hand; background-color: white; overflow: scroll">
             <%--<div style="width: 90%; height: 50px; float: left; background-color: antiquewhite; margin-top: 20px; margin-left: 10%;"></div>
             <div style="width: 90%; height: 50px; float: left; background-color: antiquewhite; margin-top: 20px;"></div>--%>
         </div>
 
         <div style="width: 20%; height: 150px;margin-top: 1100px; position: absolute; background-color: white;">
-            <textarea id = "messageId" name="userTextForMessage" style="width: 80%; height: 70%; margin-left: 10%; margin-top: 5%;"></textarea>
+            <textarea id = "messageId" name="userTextForMessage" cols="200" style="width: 80%; height: 70%; margin-left: 10%; margin-top: 5%;"></textarea>
             <button onclick="sendMessage()" style="margin-top: 10px;">Надіслати</button>
             <select id = "usersToAdmin" onchange="changedUser()">
                 <option>2</option>
                 <option>3</option>
             </select>
         </div>
+    </sec:authorize>
 
 
         <div style="width: 60%; height: auto;float: left; background-color: white; margin-left: 2%;">
@@ -95,7 +97,7 @@
         <div style="float:left; background: white; margin-left: 1%; width:15%; margin-top: 50px;">
 
             <sec:authorize access="isAuthenticated()">
-                Hello, <p id = "initializedUser"><sec:authentication property="name"/></p>
+                Hello, <p id = "initializedUser" hidden><sec:authentication property="name"/></p>
                 <form:form method="post" action="/logout">
                     <button type="submit">Вийти</button>
                 </form:form>
@@ -140,11 +142,19 @@
                     dataType:"json",
                     success: function(data){
 
-
                         $.each(data,function(k,v){
                             var elem = document.createElement("div");
-                            elem.style = "width: 90%; height: auto; float: left; background-color: antiquewhite; margin-top: 10px;";
+
+                            var elemData = document.createElement("p");
+                            elemData.style = "font-size:12px;margin-top:20px;float:left;"
+                            elemData.innerHTML = v.data;
+                            document.getElementById("massages").appendChild(elemData);
+
+                            if (v.fromUser)
+                            elem.style = "width: 90%; height: auto; float: left; background-color: antiquewhite;";
+                            else elem.style = "width: 90%; height: auto; float: left; background-color: antiquewhite;margin-left:10%;";
                             document.getElementById("massages").appendChild(elem);
+
 
 
                             var elemText = document.createElement("p");
@@ -167,16 +177,10 @@
 
         <script>
             function checkMessagesBetweenUsersAndAdmin(){
-                $.ajax({
-                   url:"/checkMessagesToAdmin",
-                    data: ({}),
-                    async:false,
-                    success: function(data){
-                        if (document.getElementById('initializedUser').innerHTML == "1") {
+                if (document.getElementById('initializedUser').innerHTML == "1")
+                {
                             randomMessageFromRandomUser();
-                        }
-                    }
-                });
+                }
             }
             var id = setInterval("checkMessagesBetweenUsersAndAdmin()",10000);
         </script>
@@ -236,11 +240,12 @@
 
                         var myDivMessages = document.getElementById('massages');
                         myDivMessages.scrollTop = myDivMessages.scrollHeight;
+                        document.getElementById("messageId").value = "";
+
 
                         /*checkMessagesBetweenUsersAndAdmin();*/
                     }
                 });
-
             }
 
         </script>

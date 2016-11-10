@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Rostyslav
@@ -21,6 +22,7 @@
 <body>
 <div style="width: 60%;height: auto;margin-left: 20%;margin-top: 70px;margin-bottom: 90px; border-radius: 0%;float: left;background-color: white; color:black;">
     <%--<p>${examSelected.id}</p>--%>
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
     <form:form method="post" action="/editSubject">
         <h3>
             <input id = "idSubjectId" name="idSubject" value="${subjectSelected.id}" readonly="readonly">
@@ -36,6 +38,7 @@
         </select>
         <button type="submit">EDIT</button>
     </form:form>
+    </sec:authorize>
 </div>
 </body>
 </html>

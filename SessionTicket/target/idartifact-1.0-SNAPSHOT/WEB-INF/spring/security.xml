@@ -15,7 +15,7 @@
     <security:authentication-manager>
         <security:authentication-provider>
             <security:user-service>
-                <security:user name="admin" password="admin" authorities="ROLE_ADMIN"/>
+                <security:user name="adminRoss" password="hjcnbrgo9" authorities="ROLE_ADMIN"/>
                 <security:user name="user" password="user" authorities="ROLE_USER"/>
                 <security:user name="taras" password="qwerty" authorities="ROLE_USER"/>
             </security:user-service>

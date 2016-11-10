@@ -332,20 +332,7 @@ public class AjaxController extends BaseMethods{
     }
 
     //всі повідомлення, які писались адміну від всіх користувачів
-    @RequestMapping(value = "/checkMessagesToAdmin",method = RequestMethod.GET, produces = {"text/html; charset=UTF-8"})
-    @ResponseBody
-    public String checkMessagesToAdmin(){
-        List<Message> messages = messageService.findAll();
-        List<Message> messagesToAdmin = new ArrayList<>();
-        String str = "";
-        for (Message message: messages){
-            if (message.getUserTo().getId() == 1l){
-                messagesToAdmin.add(message);
-                str+=message.getText()+" ";
-            }
-        }
-        return str;
-    }
+
 
     @RequestMapping(value = "/randomMessageFromRandomUser",method = RequestMethod.GET, produces = {"text/html; charset=UTF-8"})
     @ResponseBody
@@ -356,9 +343,9 @@ public class AjaxController extends BaseMethods{
         Date date = new Date(System.currentTimeMillis());
         message.setDateOfMessage(date);
 
+        int randUser = rand.nextInt(2)+2;
 
-
-        User user = userService.findOne(2l);
+        User user = userService.findOne(randUser);
         message.setUserFrom(user);
         message.setUserTo(userService.findOne(1l));
         message.setText(text.toString());
@@ -377,10 +364,12 @@ public class AjaxController extends BaseMethods{
         long idCheckedUser = Long.parseLong(idOfUser);
 
         for (Message m: messages){
-            if (m.getUser().getId()==idCheckedUser){
+            if (m.getUser().getId()==idCheckedUser || m.getUserTo().getId()==idCheckedUser){
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.putOnce("text",m.getText());
                 jsonObject.putOnce("data",m.getDateOfMessage());
+                if (m.getUser().getId()==idCheckedUser) jsonObject.putOnce("fromUser",true);
+                else jsonObject.putOnce("toUser",false);
                 jsonArray.put(jsonObject);
             }
         }
