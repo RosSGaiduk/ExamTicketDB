@@ -55,9 +55,13 @@
         <div style="width: 20%; height: 150px;margin-top: 1100px; position: absolute; background-color: white;">
             <textarea id = "messageId" name="userTextForMessage" cols="200" style="width: 80%; height: 70%; margin-left: 10%; margin-top: 5%;"></textarea>
             <button onclick="sendMessage()" style="margin-top: 10px;">Надіслати</button>
+            <!--Цей селект буде доступним лише для адміна, тому функція changedUser надсилатиме дані через ajax
+            лише тоді, коли це адмін онлайн, звичайним юзерам не видиме.
+            -->
             <select id = "usersToAdmin" onchange="changedUser()">
-                <option>2</option>
-                <option>3</option>
+                <c:forEach items="${users}" var="u">
+                    <option>${u.id}</option>
+                </c:forEach>
             </select>
         </div>
     </sec:authorize>
@@ -97,7 +101,7 @@
         <div style="float:left; background: white; margin-left: 1%; width:15%; margin-top: 50px;">
 
             <sec:authorize access="isAuthenticated()">
-                Hello, <p id = "initializedUser" hidden><sec:authentication property="name"/></p>
+                Hello, <p id = "initializedUser"><sec:authentication property="name"/></p>
                 <form:form method="post" action="/logout">
                     <button type="submit">Вийти</button>
                 </form:form>
@@ -141,7 +145,6 @@
                     data: ({idOfUser: $('#usersToAdmin').val()}),
                     dataType:"json",
                     success: function(data){
-
                         $.each(data,function(k,v){
                             var elem = document.createElement("div");
 
@@ -152,7 +155,8 @@
 
                             if (v.fromUser)
                             elem.style = "width: 90%; height: auto; float: left; background-color: antiquewhite;";
-                            else elem.style = "width: 90%; height: auto; float: left; background-color: antiquewhite;margin-left:10%;";
+                            else
+                                elem.style = "width: 90%; height: auto; float: left; background-color: antiquewhite;margin-left:10%;";
                             document.getElementById("massages").appendChild(elem);
 
 
@@ -169,13 +173,11 @@
                     }
                 });
             }
-
-
         </script>
 
 
 
-        <script>
+       <%-- <script>
             function checkMessagesBetweenUsersAndAdmin(){
                 if (document.getElementById('initializedUser').innerHTML == "1")
                 {
@@ -183,7 +185,9 @@
                 }
             }
             var id = setInterval("checkMessagesBetweenUsersAndAdmin()",10000);
-        </script>
+        </script>--%>
+
+
 
 
 
@@ -216,39 +220,66 @@
     </script>
 
 
-        <script>
-            function sendMessage(){
-                $.ajax({
-                   url: "/messageFromUser",
-                    data:(
-                    {
-                        message:$("#messageId").val(),
-                        idUser:$("#usersToAdmin").val()
-
-                    }),
-                    async:false,
-                    success: function(data){
-                        var elem = document.createElement("div");
-                        elem.style = "width: 90%; height: auto; float: left; background-color: antiquewhite; margin-top: 10px; margin-left:10%";
-                        document.getElementById("massages").appendChild(elem);
-
-
-                        var elemText = document.createElement("p");
-                        elemText.style = "text-align:center; font-size:12px;"
-                        elemText.innerHTML = $("#messageId").val();
-                        elem.appendChild(elemText);
-
-                        var myDivMessages = document.getElementById('massages');
-                        myDivMessages.scrollTop = myDivMessages.scrollHeight;
-                        document.getElementById("messageId").value = "";
-
-
-                        /*checkMessagesBetweenUsersAndAdmin();*/
-                    }
-                });
+    <script>
+         function update(){
+        var initialized = document.getElementById('initializedUser').innerHTML;
+        var intInit = parseInt(initialized);
+        //alert(intInit);
+        if (initialized!="1"){
+            $("#usersToAdmin :nth-child("+intInit+")").attr("selected", "selected");
+        }
+        $.ajax({
+            url: "/update",
+            data: ({
+                idUser:$("#usersToAdmin").val(),
+                size: $("#massages").children().length/2, //чомусь дає в 2 рази більше
+            }),
+            async:false,
+            success: function(data){
+                if (data == "true") {
+                    changedUser();
+                }
             }
+        });
+    }
+        var id = setInterval("update()",1000);
+    </script>
 
-        </script>
+
+<script>
+    function sendMessage(){
+        //Виконується для юзерів і адміна при натисканні на кнопку Надіслати
+        //var valueOfId;
+        //if (document.getElementById('initializedUser').innerHTML="1")
+        //      valueOfId = $("#usersToAdmin").val();
+        //else valueOfId = document.getElementById('initializedUser').innerHTML;
+        $.ajax({
+            url: "/messageFromUser",
+            data:(
+            {
+                message:$("#messageId").val(),
+                idUser:$("#usersToAdmin").val()
+            }),
+            async:false,
+            success: function(data){
+                var auth = <sec:authentication property="name"/>;
+                var elem = document.createElement("div");
+                elem.style = "width: 90%; height: auto; float: left; background-color: antiquewhite; margin-top: 10px; margin-left:10%";
+                document.getElementById("massages").appendChild(elem);
+
+                var elemText = document.createElement("p");
+                elemText.style = "text-align:center; font-size:12px;"
+                elemText.innerHTML = $("#messageId").val();
+                elem.appendChild(elemText);
+
+                var myDivMessages = document.getElementById('massages');
+                myDivMessages.scrollTop = myDivMessages.scrollHeight;
+                document.getElementById("messageId").value = "";
+                changedUser();
+            }
+        });
+    }
+</script>
 
         <script>
             var counter = 0;

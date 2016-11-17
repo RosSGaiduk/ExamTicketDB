@@ -301,6 +301,7 @@ public class AjaxController extends BaseMethods{
         System.out.println("Message: "+message);
         System.out.println(idUser);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         /*System.out.println("Principal: "+authentication.getPrincipal());
         System.out.println("Name: "+authentication.getName());
         System.out.println("Name int: "+Integer.parseInt(authentication.getName()));
@@ -362,7 +363,8 @@ public class AjaxController extends BaseMethods{
 
 
         long idCheckedUser = Long.parseLong(idOfUser);
-
+        //Якщо адмін вибрав діалог з іншим юзером, тоді відобразити у відповідному блоці div всю історію переписки між
+        //адміном та даним юзером, якого адмін обрав.
         for (Message m: messages){
             if (m.getUser().getId()==idCheckedUser || m.getUserTo().getId()==idCheckedUser){
                 JSONObject jsonObject = new JSONObject();
@@ -378,4 +380,39 @@ public class AjaxController extends BaseMethods{
         return jsonArray.toString();
     }
 
+    @RequestMapping(value = "/update",method = RequestMethod.GET, produces = {"text/html; charset=UTF-8"})
+    @ResponseBody
+    public String messagesUpdate(@RequestParam String idUser,@RequestParam String size){
+        //System.out.println("ID user: "+idUser);
+        //System.out.println("Size: "+size);
+
+        long idUserLong = Long.parseLong(idUser);
+        int sizeInt = Integer.parseInt(size);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        long authName = Long.parseLong(authentication.getName());
+
+        System.out.println(authName);
+
+        List<Message> messages = messageService.findAll();
+
+        int count = 0;
+        if (authName==1) {
+            for (Message m : messages)
+                if (m.getUser().getId() == idUserLong || m.getUserTo().getId() == idUserLong)
+                    count++;
+        }
+         else {
+            count = 0;
+            for (Message m1 : messages)
+                if (m1.getUser().getId() == authName || m1.getUserTo().getId() == authName)
+                    count++;
+        }
+
+        //System.out.println("Count: "+count);
+        //System.out.println("Size: "+count);
+
+        if (count>sizeInt) return "true";
+        else return "false";
+    }
 }

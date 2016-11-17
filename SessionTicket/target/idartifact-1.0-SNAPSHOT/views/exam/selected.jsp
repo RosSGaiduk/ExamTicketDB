@@ -10,6 +10,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <link href="<c:url value="/resources/css/style.css"/>" type="text/css" rel="stylesheet">
@@ -21,6 +22,7 @@
 <body>
 <div style="width: 60%;height: auto;margin-left: 20%;margin-bottom: 60px;border-radius: 0%;float: left;background-color: white; color:black;">
         <%--<p>${examSelected.id}</p>--%>
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
             <form:form method="post" action="/deleteExam">
         <h3>
            <%-- <p name = "idExam">${examSelected.id}</p>--%>
@@ -33,6 +35,7 @@
         </h3>
         <button type="submit">DELETE</button>
     </form:form>
+    </sec:authorize>
 </div>
 
 

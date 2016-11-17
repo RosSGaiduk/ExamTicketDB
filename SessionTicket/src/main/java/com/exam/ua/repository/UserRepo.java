@@ -12,5 +12,4 @@ public interface UserRepo extends JpaRepository<User,Integer> {
 
     @Query("SELECT u FROM User u WHERE u.email LIKE :login")
     User findByLogin(@Param("login") String login);
-
 }
