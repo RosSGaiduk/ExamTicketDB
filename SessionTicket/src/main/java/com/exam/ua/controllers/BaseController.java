@@ -27,4 +27,10 @@ public class BaseController extends BaseMethods{
         model2.addAttribute("users", userService.findAll());
         return "views-base-home";
     }
+
+    @RequestMapping(value = "/chatWithDesign",method = RequestMethod.GET)
+    public String chatWithDesign(Model model){
+        model.addAttribute("users", userService.findAll());
+        return "views-chat-chat";
+    }
 }

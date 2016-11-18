@@ -369,14 +369,12 @@ public class AjaxController extends BaseMethods{
             if (m.getUser().getId()==idCheckedUser || m.getUserTo().getId()==idCheckedUser){
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.putOnce("text",m.getText());
-                jsonObject.putOnce("data",m.getDateOfMessage());
+                jsonObject.putOnce("data",m.getDateOfMessage()+" FROM "+userService.findOne(m.getUserFrom().getId()).getFirstName());
                 if (m.getUser().getId()==idCheckedUser) jsonObject.putOnce("fromUser",true);
                 else jsonObject.putOnce("toUser",false);
                 jsonArray.put(jsonObject);
             }
         }
-
-
         return jsonArray.toString();
     }
 
