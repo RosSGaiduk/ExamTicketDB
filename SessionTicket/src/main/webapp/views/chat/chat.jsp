@@ -178,7 +178,6 @@
 
 
 
-
                     if (v.fromUser)
                         elem.style = "background-color: #e4eaee; width:70%; height:auto;float:left; margin-top:10px;";
                     else elem.style = "background-color: #e4eaee; width:70%; height:auto;float:left; margin-top:10px; margin-left:20%";

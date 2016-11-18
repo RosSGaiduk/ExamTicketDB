@@ -381,20 +381,20 @@ public class AjaxController extends BaseMethods{
     @RequestMapping(value = "/update",method = RequestMethod.GET, produces = {"text/html; charset=UTF-8"})
     @ResponseBody
     public String messagesUpdate(@RequestParam String idUser,@RequestParam String size){
-        //System.out.println("ID user: "+idUser);
-        //System.out.println("Size: "+size);
-
+        //idUserLong - це id того юзера, який вибраний з селекту, який в адміна на сторінці
+        // відображатиметься, а у звичайного юзера ні.
         long idUserLong = Long.parseLong(idUser);
-        int sizeInt = Integer.parseInt(size);
+        long sizeInt = Long.parseLong(size);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         long authName = Long.parseLong(authentication.getName());
 
         System.out.println(authName);
 
-        List<Message> messages = messageService.findAll();
+        long count  = messageService.findAllLastBy2ids(authName,idUserLong);
 
-        int count = 0;
+
+        /*
         if (authName==1) {
             for (Message m : messages)
                 if (m.getUser().getId() == idUserLong || m.getUserTo().getId() == idUserLong)
@@ -405,10 +405,8 @@ public class AjaxController extends BaseMethods{
             for (Message m1 : messages)
                 if (m1.getUser().getId() == authName || m1.getUserTo().getId() == authName)
                     count++;
-        }
+        }*/
 
-        //System.out.println("Count: "+count);
-        //System.out.println("Size: "+count);
 
         if (count>sizeInt) return "true";
         else return "false";

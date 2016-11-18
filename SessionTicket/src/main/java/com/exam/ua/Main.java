@@ -156,11 +156,26 @@ public class Main {
         entityManager.merge(subject);*//*
         System.out.println(subject.getFaculties().size());*/
 
-        Set<Faculty> faculties = new TreeSet<>();
+
+        //Працює
+        // List<Message> messages = entityManager.createQuery("from Message where (user_id = ?1 and userTo_id = ?2) or (userTo_id = ?1 and user_id = ?2) order by id").setParameter(1,1l).setParameter(2,2l).getResultList();
+
+
+        /*List<Message> messages = entityManager.createQuery("from Message where (user_id = ?1 and userTo_id = ?2) or (userTo_id = ?1 and user_id = ?2) order by id desc").setParameter(1,1l).setParameter(2,2l).setMaxResults(3).getResultList();
+        for (Message m: messages)
+            System.out.println(m.getText());*/
+
+
+        Object count = entityManager.createQuery("select count(id) from Message where (user_id = ?1 and userTo_id = ?2) or (userTo_id = ?1 and user_id = ?2) order by id desc").setParameter(1,1).setParameter(2,2).getSingleResult();
+        long l = (long) count;
+        System.out.println(l);
+
+
+        /*Set<Faculty> faculties = new TreeSet<>();
         faculties.add(entityManager.find(Faculty.class,1l));
         faculties.add(entityManager.find(Faculty.class,2l));
         faculties.add(entityManager.find(Faculty.class,2l));
-        System.out.println(faculties.size());
+        System.out.println(faculties.size());*/
 
         entityManager.getTransaction().commit();
         entityManager.close();

@@ -13,5 +13,6 @@ public interface MessageDao {
     void edit(Message message);
     void delete(Message message);
     Message findOne(long id);
+    long findAllLastBy2ids(long id1,long id2);
     List<Message> findAll();
 }
