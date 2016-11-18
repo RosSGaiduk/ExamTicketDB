@@ -190,7 +190,7 @@ public class AjaxController extends BaseMethods{
     public String findTeachers(@RequestParam String nameFaculty,@RequestParam String nameSubject){
         Subject subject = subjectService.findOneByName(nameSubject);
         Set<Teacher> teachers = subject.getTeachers();
-        System.out.println(teachers.size());
+        //System.out.println(teachers.size());
         Set<Teacher> teachersOfFaculty = new TreeSet<>();
         for (Teacher teacher: teachers){
             Set<Faculty> facultiesOfTeacher = teacher.getFaculties();
@@ -298,8 +298,8 @@ public class AjaxController extends BaseMethods{
     @RequestMapping(value = "/messageFromUser",method = RequestMethod.GET, produces = {"text/html; charset=UTF-8"})
     @ResponseBody
     public String addMessageFromUser(@RequestParam String message,@RequestParam String idUser){
-        System.out.println("Message: "+message);
-        System.out.println(idUser);
+        //System.out.println("Message: "+message);
+        //System.out.println(idUser);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         /*System.out.println("Principal: "+authentication.getPrincipal());
@@ -357,7 +357,7 @@ public class AjaxController extends BaseMethods{
     @RequestMapping(value = "/userChanged",method = RequestMethod.GET, produces = {"text/html;  charset=UTF-8"})
     @ResponseBody
     public String messagesBetweenUserCheckedFromSelectAndAdmin(@RequestParam String idOfUser){
-        System.out.println("here");
+        //System.out.println("here");
         List<Message> messages = messageService.findAll();
         JSONArray jsonArray = new JSONArray();
 
@@ -391,23 +391,27 @@ public class AjaxController extends BaseMethods{
 
         System.out.println(authName);
 
-        long count  = messageService.findAllLastBy2ids(authName,idUserLong);
+        //long count  = messageService.findAllLastBy2ids(authName,idUserLong);
 
+        long count = 0;
 
-        /*
         if (authName==1) {
-            for (Message m : messages)
+            /*for (Message m : messages)
                 if (m.getUser().getId() == idUserLong || m.getUserTo().getId() == idUserLong)
-                    count++;
+                    count++;*/
+            count = messageService.findAllById(idUserLong);
         }
          else {
-            count = 0;
-            for (Message m1 : messages)
+            //count = 0;
+            /*for (Message m1 : messages)
                 if (m1.getUser().getId() == authName || m1.getUserTo().getId() == authName)
-                    count++;
-        }*/
+                    count++;*/
+            count = messageService.findAllById(authName);
+        }
 
-
+        //йобана intelij idea, без цього чат не працює я не знаю якого хуя сраний System.out.println("Count: "+count);
+        //може повпливати на чат
+        System.out.println("Count: "+count);
         if (count>sizeInt) return "true";
         else return "false";
     }

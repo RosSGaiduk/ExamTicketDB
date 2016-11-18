@@ -48,6 +48,12 @@ public class MessageDaoImpl implements MessageDao {
     }
 
     @Transactional
+    public long findAllById(long id1) {
+        Object count = entityManager.createQuery("select count(id) from Message where user_id = ?1 or userTo_id = ?1").setParameter(1,id1).getSingleResult();
+        return (long) count;
+    }
+
+    @Transactional
     public List<Message> findAll() {
 
         return entityManager.createQuery("from Message").getResultList();
