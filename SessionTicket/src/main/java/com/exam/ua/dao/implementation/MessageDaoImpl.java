@@ -42,8 +42,7 @@ public class MessageDaoImpl implements MessageDao {
     @Transactional
     public long findAllLastBy2ids(long id1,long id2) {
         //return entityManager.createQuery("from Message where (user_id = ?1 and userTo_id = ?2) or (userTo_id = ?1 and user_id = ?2) order by id ASC limit ?3").setParameter(1,id1).setParameter(2,id2).setParameter(3,count).getResultList();
-
-        Object count = entityManager.createQuery("select count(id) from Message where (user_id = ?1 and userTo_id = ?2) or (userTo_id = ?1 and user_id = ?2) order by id desc").setParameter(1,1).setParameter(2,2).getSingleResult();
+        Object count = entityManager.createQuery("select count(id) from Message where (user_id = ?1 and userTo_id = ?2) or (userTo_id = ?1 and user_id = ?2) order by id desc").setParameter(1,id1).setParameter(2,id2).getSingleResult();
     return (long) count;
     }
 

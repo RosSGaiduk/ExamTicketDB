@@ -389,9 +389,12 @@ public class AjaxController extends BaseMethods{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         long authName = Long.parseLong(authentication.getName());
 
-        System.out.println(authName);
+        System.out.println("--------------------------------------");
+        System.out.println("Auth name: "+authName);
+        System.out.println("Id user from select: "+authName);
 
-        //long count  = messageService.findAllLastBy2ids(authName,idUserLong);
+        long countBetweenUserAndAdmin  = messageService.findAllLastBy2ids(authName,idUserLong);
+        System.out.println("Count between them: "+countBetweenUserAndAdmin);
 
         long count = 0;
 
@@ -412,6 +415,7 @@ public class AjaxController extends BaseMethods{
         //йобана intelij idea, без цього чат не працює я не знаю якого хуя сраний System.out.println("Count: "+count);
         //може повпливати на чат
         System.out.println("Count: "+count);
+        System.out.println("--------------------------------------");
         if (count>sizeInt) return "true";
         else return "false";
     }

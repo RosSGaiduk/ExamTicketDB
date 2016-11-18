@@ -166,7 +166,7 @@ public class Main {
             System.out.println(m.getText());*/
 
 
-        Object count = entityManager.createQuery("select count(id) from Message where (user_id = ?1 and userTo_id = ?2) or (userTo_id = ?1 and user_id = ?2) order by id desc").setParameter(1,1).setParameter(2,2).getSingleResult();
+        Object count = entityManager.createQuery("select count(id) from Message where (user_id = ?1 and userTo_id = ?2) or (userTo_id = ?1 and user_id = ?2) order by id desc").setParameter(1,3).setParameter(2,3).getSingleResult();
         long l = (long) count;
         System.out.println(l);
 
