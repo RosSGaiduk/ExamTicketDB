@@ -17,5 +17,6 @@ public interface MessageService {
     Message findOne(long id);
     long findAllLastBy2ids(long id1,long id2); //count - кількість - скільки останніх елементів треба знайти
     long findAllById(long id1);
+    List<Message> findAllByIdsAndCount(long id1,int count);
     List<Message> findAll();
 }

@@ -1,3 +1,5 @@
+<%@ page import="org.springframework.security.core.Authentication" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -18,7 +20,6 @@
     <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans'>
     <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/jScrollPane/2.0.14/jquery.jscrollpane.min.css'>
     <link rel="stylesheet" href="/resources/css/forChat.css" media="screen" type="text/css" />
-
 </head>
 
 <body>
@@ -169,6 +170,7 @@
             data: ({idOfUser: $('#usersToAdmin').val()}),
             dataType:"json",
             success: function(data){
+                //alert(document.getElementById('initializedUser').innerHTML);
                 $.each(data,function(k,v){
                     var elem = document.createElement("div");
                     var elemData = document.createElement("p");
@@ -209,21 +211,45 @@
     function update(){
         var initialized = document.getElementById('initializedUser').innerHTML;
         var intInit = parseInt(initialized);
-        //alert(intInit);
         if (initialized!="1"){
             $("#usersToAdmin :nth-child("+intInit+")").attr("selected", "selected");
         }
         $.ajax({
             url: "/update",
+            dataType: "json",
             data: ({
                 idUser:$("#usersToAdmin").val(),
                 size: $("#massages").children().length/2, //чомусь дає в 2 рази більше
             }),
             async:false,
             success: function(data){
-                if (data == "true") {
-                    changedUser();
-                }
+                    $.each(data,function(k,v){
+                        var elem = document.createElement("div");
+                        var elemData = document.createElement("p");
+                        elemData.style = "font-size:12px;margin-top:20px;margin-left:10%;float:left;margin-botom:20px;"
+                        elemData.innerHTML = v.data;
+                        document.getElementById("massages").appendChild(elemData);
+
+
+                        if (v.fromUser)
+                            elem.style = "background-color: #e4eaee; width:70%; height:auto;float:left; margin-top:10px;";
+                        else elem.style = "background-color: #e4eaee; width:70%; height:auto;float:left; margin-top:10px; margin-left:20%";
+
+
+                        document.getElementById("massages").appendChild(elem);
+                        var divNew = document.createElement("div");
+                        divNew.style = "padding: 14px;border-left: 1px solid #cfdae1;float: left;color: black; width: 214px;";
+
+                        var elemText = document.createElement("p");
+                        elemText.innerHTML = v.text;
+                        divNew.appendChild(elemText);
+
+                        elem.appendChild(divNew);
+                        var myDivMessages = document.getElementById('massages');
+                        myDivMessages.appendChild(elem);
+                        myDivMessages.scrollTop = myDivMessages.scrollHeight;
+
+            });
             }
         });
     }
@@ -235,11 +261,6 @@
 
 <script>
     function sendMessage1(){
-        //Виконується для юзерів і адміна при натисканні на кнопку Надіслати
-        //var valueOfId;
-        //if (document.getElementById('initializedUser').innerHTML="1")
-        //      valueOfId = $("#usersToAdmin").val();
-        //else valueOfId = document.getElementById('initializedUser').innerHTML;
         $.ajax({
             url: "/messageFromUser",
             data:(
@@ -249,61 +270,12 @@
             }),
             async:false,
             success: function(data){
-                var auth = <sec:authentication property="name"/>;
-                var elem = document.createElement("div");
-                elem.style = "width: 90%; height: auto; float: left; background-color: antiquewhite; margin-top: 10px; margin-left:10%";
-                document.getElementById("massages").appendChild(elem);
-                var elemText = document.createElement("p");
-                elemText.style = "text-align:center; font-size:12px;"
-                elemText.innerHTML = $("#messageId").val();
-                elem.appendChild(elemText);
-                var myDivMessages = document.getElementById('massages');
-                myDivMessages.scrollTop = myDivMessages.scrollHeight;
                 document.getElementById("messageId").value = "";
-                changedUser();
+                update();
             }
         });
     }
 </script>
-
-
-
-
-<%--<script>
-    function sendMessage1(){
-        $.ajax({
-            url: "/messageFromUser",
-            data:(
-            {
-                message:$("#messageId").val(),
-                idUser:$("#usersToAdmin").val()
-            }),
-            async:false,
-            success: function(data){
-                var auth = <sec:authentication property="name"/>;
-
-
-                var mainDiv = document.getElementById("massages");
-                var elem = document.createElement("div");
-                elem.style = "background-color: #e4eaee; width:70%; height:auto;float:left; margin-top:10px;";
-
-
-                var divNew = document.createElement("div");
-                divNew.style = "padding: 14px;border-left: 1px solid #cfdae1;float: left;color: white; width: 214px;";
-
-                var elemText = document.createElement("p");
-                elemText.innerHTML = $("#messageId").val();
-                divNew.appendChild(elemText);
-                elem.appendChild(divNew);
-                mainDiv.appendChild(elem);
-
-                changedUser();
-            }
-        });
-    }
-</script>--%>
-
-
 
 </body>
 

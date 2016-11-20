@@ -53,8 +53,12 @@ public class MessageDaoImpl implements MessageDao {
     }
 
     @Transactional
-    public List<Message> findAll() {
+    public List<Message> findAllByIdsAndCount(long id1,int count) {
+        return entityManager.createQuery("from Message where user_id = ?1  or userTo_id = ?1  order by id desc").setParameter(1,id1).setMaxResults(count).getResultList();
+    }
 
+    @Transactional
+    public List<Message> findAll() {
         return entityManager.createQuery("from Message").getResultList();
     }
 }

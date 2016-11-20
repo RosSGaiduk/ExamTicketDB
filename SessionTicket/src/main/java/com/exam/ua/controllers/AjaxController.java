@@ -361,7 +361,6 @@ public class AjaxController extends BaseMethods{
         List<Message> messages = messageService.findAll();
         JSONArray jsonArray = new JSONArray();
 
-
         long idCheckedUser = Long.parseLong(idOfUser);
         //Якщо адмін вибрав діалог з іншим юзером, тоді відобразити у відповідному блоці div всю історію переписки між
         //адміном та даним юзером, якого адмін обрав.
@@ -384,39 +383,52 @@ public class AjaxController extends BaseMethods{
         //idUserLong - це id того юзера, який вибраний з селекту, який в адміна на сторінці
         // відображатиметься, а у звичайного юзера ні.
         long idUserLong = Long.parseLong(idUser);
-        long sizeInt = Long.parseLong(size);
+        int sizeInt = Integer.parseInt(size);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         long authName = Long.parseLong(authentication.getName());
 
-        System.out.println("--------------------------------------");
-        System.out.println("Auth name: "+authName);
-        System.out.println("Id user from select: "+authName);
+        //System.out.println("--------------------------------------");
+        //System.out.println("Auth name: "+authName);
+        //System.out.println("Id user from select: "+idUserLong);
 
         long countBetweenUserAndAdmin  = messageService.findAllLastBy2ids(authName,idUserLong);
-        System.out.println("Count between them: "+countBetweenUserAndAdmin);
 
-        long count = 0;
+
+        int count = 0;
+
+        List<Message> messages = null;
 
         if (authName==1) {
-            /*for (Message m : messages)
-                if (m.getUser().getId() == idUserLong || m.getUserTo().getId() == idUserLong)
-                    count++;*/
-            count = messageService.findAllById(idUserLong);
+            count = (int)messageService.findAllById(idUserLong);
+            if (count>sizeInt)
+            messages = messageService.findAllByIdsAndCount(idUserLong,count-sizeInt);
         }
          else {
-            //count = 0;
-            /*for (Message m1 : messages)
-                if (m1.getUser().getId() == authName || m1.getUserTo().getId() == authName)
-                    count++;*/
-            count = messageService.findAllById(authName);
+            count = 0;
+            count = (int)messageService.findAllById(authName);
+            if (count>sizeInt)
+                messages = messageService.findAllByIdsAndCount(authName,count-sizeInt);
         }
-
+        System.out.println("-----------------------------------------");
+        System.out.println("Count: "+count);
         //йобана intelij idea, без цього чат не працює я не знаю якого хуя сраний System.out.println("Count: "+count);
         //може повпливати на чат
-        System.out.println("Count: "+count);
-        System.out.println("--------------------------------------");
-        if (count>sizeInt) return "true";
-        else return "false";
+
+
+        JSONArray jsonArray = new JSONArray();
+
+        for (int i = messages.size()-1; i>=0; i--)
+        {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.putOnce("text",messages.get(i).getText());
+            jsonObject.putOnce("data",messages.get(i).getDateOfMessage()+" FROM "+userService.findOne(messages.get(i).getUserFrom().getId()).getFirstName());
+            if (messages.get(i).getUser().getId()==idUserLong) jsonObject.putOnce("fromUser",true);
+            else jsonObject.putOnce("toUser",false);
+            jsonArray.put(jsonObject);
+        }
+        System.out.println("JsonArray length: "+jsonArray.length());
+        System.out.println("-----------------------------------------");
+        return jsonArray.toString();
     }
 }

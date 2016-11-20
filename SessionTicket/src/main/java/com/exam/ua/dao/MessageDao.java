@@ -15,5 +15,6 @@ public interface MessageDao {
     Message findOne(long id);
     long findAllLastBy2ids(long id1,long id2);
     long findAllById(long id1);
+    List<Message> findAllByIdsAndCount(long id1, int count);
     List<Message> findAll();
 }
